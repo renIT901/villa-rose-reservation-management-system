@@ -18,6 +18,7 @@ public class HomePage extends JFrame {
 				try {
 					HomePage frame = new HomePage();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

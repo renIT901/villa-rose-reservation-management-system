@@ -1,3 +1,4 @@
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.border.EmptyBorder;
@@ -8,6 +9,7 @@ import java.sql.*;
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -30,6 +32,7 @@ public class Login extends JFrame {
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,6 +50,7 @@ public class Login extends JFrame {
 	Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
 	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
 	public Login() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 595, 411);
 		contentPane = new JPanel();
@@ -149,7 +153,7 @@ public class Login extends JFrame {
 		contentPane.add(RegisterAcc);
 		
 		JLabel ForgotPassword = new JLabel("Forgot Password");
-		ForgotPassword.setBounds(177, 327, 103, 14);
+		ForgotPassword.setBounds(162, 327, 109, 14);
 		contentPane.add(ForgotPassword);
 		
 		JLabel name_icon = new JLabel("");
