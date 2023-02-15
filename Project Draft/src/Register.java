@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -32,9 +33,9 @@ public class Register extends JFrame {
 	private JPanel contentPane;
 
 	Connection conn = null;
-	Image img1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
-	Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
-	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
+	Image img1 = new ImageIcon(this.getClass().getResource("img/1.png")).getImage();
+	Image img2 = new ImageIcon(this.getClass().getResource("img/2.png")).getImage();
+	Image img3 = new ImageIcon(this.getClass().getResource("img/3.png")).getImage();
 	private JTextField txtfname;
 	private JTextField txtlname;
 	private JTextField txtuname;
@@ -49,68 +50,76 @@ public class Register extends JFrame {
 		//addPlaceholderStyle(txtAdminPass);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 450);
+		setBounds(100, 100, 640, 480);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Register Employee");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(227, 11, 242, 42);
+		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 30));
+		lblNewLabel.setBounds(200, 32, 242, 42);
 		contentPane.add(lblNewLabel);
 		
-		JLabel reg_icon = new JLabel("");
-		reg_icon.setBounds(171, 13, 46, 40);
-		reg_icon.setIcon(new ImageIcon(img1));
-		contentPane.add(reg_icon);
+        JLabel regIcon = new JLabel();
+        regIcon.setIcon(new ImageIcon("1.png"));
 		
 		JLabel lblNewLabel_1 = new JLabel("First Name:");
-		lblNewLabel_1.setBounds(117, 88, 66, 14);
+		lblNewLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1.setBounds(129, 89, 66, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		txtfname = new JTextField();
-		txtfname.setBounds(193, 85, 282, 20);
+		txtfname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtfname.setBounds(205, 86, 282, 20);
 		contentPane.add(txtfname);
 		txtfname.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Last Name:");
-		lblNewLabel_1_1.setBounds(117, 122, 66, 14);
+		lblNewLabel_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1.setBounds(129, 123, 66, 14);
 		contentPane.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Username:");
-		lblNewLabel_1_1_1.setBounds(117, 158, 66, 14);
+		lblNewLabel_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1_1.setBounds(129, 159, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Password:");
-		lblNewLabel_1_1_1_1.setBounds(117, 191, 66, 14);
+		lblNewLabel_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1_1_1.setBounds(129, 192, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1);
 		
 		txtlname = new JTextField();
+		txtlname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtlname.setColumns(10);
-		txtlname.setBounds(193, 119, 282, 20);
+		txtlname.setBounds(205, 120, 282, 20);
 		contentPane.add(txtlname);
 		
 		txtuname = new JTextField();
+		txtuname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtuname.setColumns(10);
-		txtuname.setBounds(193, 155, 282, 20);
+		txtuname.setBounds(205, 156, 282, 20);
 		contentPane.add(txtuname);
 		
 		txtpword = new JTextField();
+		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtpword.setColumns(10);
-		txtpword.setBounds(193, 191, 282, 20);
+		txtpword.setBounds(205, 192, 282, 20);
 		contentPane.add(txtpword);
 		
 		
 		String[] colum = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		comboBox = new JComboBox(colum);
-		comboBox.setBounds(117, 233, 358, 22);
+		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		comboBox.setBounds(129, 234, 358, 22);
 		contentPane.add(comboBox); 
 		
 		txtSqans = new JTextField();
 		txtSqans.setForeground(new Color(159, 159, 159));
-		txtSqans.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtSqans.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtSqans.setText("Provide Answer");
 		txtSqans.addFocusListener(new FocusListener() {
 			@Override
@@ -131,13 +140,13 @@ public class Register extends JFrame {
 			
 		});
 		txtSqans.setToolTipText("");
-		txtSqans.setBounds(117, 271, 358, 20);
+		txtSqans.setBounds(129, 272, 358, 20);
 		contentPane.add(txtSqans);
 		txtSqans.setColumns(10);
 		
 		txtAdminPass = new JTextField();
 		txtAdminPass.setForeground(new Color(159, 159, 159));
-		txtAdminPass.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtAdminPass.setText("Enter Admin Password");
 		txtAdminPass.addFocusListener(new FocusListener() {
 			@Override
@@ -157,11 +166,14 @@ public class Register extends JFrame {
 		}
 		});
 		txtAdminPass.setColumns(10);
-		txtAdminPass.setBounds(117, 307, 358, 20);
+		txtAdminPass.setBounds(129, 308, 358, 20);
 		contentPane.add(txtAdminPass);
 		
-		JButton btnRegitser = new JButton("Register");
-		btnRegitser.addActionListener(new ActionListener() {
+		JButton btnRegister = new JButton("Register");
+		btnRegister.setBorder(null);
+		btnRegister.setBackground(new Color(225, 167, 48));
+		btnRegister.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
 					conn = sqliteConnection.dbConnector();
@@ -222,10 +234,11 @@ public class Register extends JFrame {
 				}
 			}
 		});
-		btnRegitser.setBounds(227, 346, 131, 29);
-		contentPane.add(btnRegitser);
+		btnRegister.setBounds(228, 339, 152, 30);
+		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
+		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		lblNewLabel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -234,7 +247,7 @@ public class Register extends JFrame {
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(248, 386, 120, 14);
+		lblNewLabel_2.setBounds(260, 387, 120, 14);
 		contentPane.add(lblNewLabel_2);
 	}
 	

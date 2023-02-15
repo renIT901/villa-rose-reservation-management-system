@@ -12,6 +12,14 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
+import java.awt.Component;
+import java.awt.ComponentOrientation;
+import javax.swing.border.EtchedBorder;
+import java.awt.Rectangle;
 
 
 
@@ -46,25 +54,39 @@ public class Login extends JFrame {
 	Connection conn = null;
 	private JTextField captcha;
 	private JTextField captcha_ans;
-	Image img1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
-	Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
-	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
+	Image img1 = new ImageIcon(this.getClass().getResource("img/1.png")).getImage();
+	Image img2 = new ImageIcon(this.getClass().getResource("img/2.png")).getImage();
+	Image img3 = new ImageIcon(this.getClass().getResource("img/3.png")).getImage();
+	ImageIcon reserveIcon = new ImageIcon("booking.png");
+	Image reserveImage = reserveIcon.getImage();
+	Image scaledReserve = reserveImage.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 	public Login() {
+		setTitle("Villa Rose System");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 595, 411);
+		setBounds(100, 100, 640, 481);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		txtuname = new JTextField();
-		txtuname.setBounds(182, 88, 233, 20);
+		txtuname.setBorder(new LineBorder(Color.BLACK, 1, true));
+		txtuname.setFont(new Font("Calibri", Font.PLAIN, 11));
+		txtuname.setBounds(181, 111, 233, 20);
 		contentPane.add(txtuname);
 		txtuname.setColumns(10);
 		
-		JButton btnLogin = new JButton("LOGIN");
+		JButton btnLogin = new JButton("Login");
+		btnLogin.setBorderPainted(false);
+		btnLogin.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		btnLogin.setAlignmentY(Component.TOP_ALIGNMENT);
+		btnLogin.setForeground(new Color(0, 0, 0));
+		btnLogin.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnLogin.setBackground(new Color(225, 167, 48));
+		btnLogin.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -92,24 +114,25 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(152, 285, 263, 31);
+		btnLogin.setBounds(214, 309, 187, 30);
 		contentPane.add(btnLogin);
 		
-		JLabel password_icon = new JLabel("");
-		password_icon.setBounds(152, 125, 20, 20);
-		password_icon.setIcon(new ImageIcon(img2));
-		contentPane.add(password_icon);
-		
 		txtpword = new JPasswordField();
-		txtpword.setBounds(182, 125, 233, 20);
+		txtpword.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		txtpword.setBounds(181, 149, 233, 20);
 		contentPane.add(txtpword);
 		
+		reserveIcon = new ImageIcon(scaledReserve);
+		
 		JLabel lblNewLabel_2 = new JLabel("Reservation Management System");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblNewLabel_2.setBounds(121, 28, 428, 35);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 30));
+		lblNewLabel_2.setBounds(105, 44, 409, 38);
 		contentPane.add(lblNewLabel_2);
 		
 		JCheckBox shpword = new JCheckBox("Show Password");
+		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		shpword.setBackground(new Color(250, 245, 232));
 		shpword.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(shpword.isSelected()) {
@@ -119,24 +142,28 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		shpword.setBounds(223, 152, 147, 23);
+		shpword.setBounds(252, 176, 147, 23);
 		contentPane.add(shpword);
 		
 		captcha = new JTextField();
-		captcha.setBounds(152, 182, 240, 43);
+		captcha.setBorder(new LineBorder(Color.BLACK, 1, true));
+		captcha.setBounds(181, 206, 233, 43);
 		contentPane.add(captcha);
 		captcha.setColumns(10);
 		
 		JLabel lblNewLabel_3 = new JLabel("Type the code you see above.");
-		lblNewLabel_3.setBounds(152, 236, 199, 14);
+		lblNewLabel_3.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_3.setBounds(181, 260, 199, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		captcha_ans = new JTextField();
-		captcha_ans.setBounds(152, 254, 147, 20);
+		captcha_ans.setBorder(new LineBorder(Color.BLACK, 1, true));
+		captcha_ans.setBounds(181, 278, 147, 20);
 		contentPane.add(captcha_ans);
 		captcha_ans.setColumns(10);
 		
 		JLabel RegisterAcc = new JLabel("Register Account");
+		RegisterAcc.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		RegisterAcc.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -149,14 +176,15 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		RegisterAcc.setBounds(306, 327, 101, 14);
+		RegisterAcc.setBounds(335, 351, 101, 14);
 		contentPane.add(RegisterAcc);
 		
 		JLabel ForgotPassword = new JLabel("Forgot Password");
-		ForgotPassword.setBounds(162, 327, 109, 14);
+		ForgotPassword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		ForgotPassword.setBounds(191, 351, 109, 14);
 		contentPane.add(ForgotPassword);
 		
-		JLabel name_icon = new JLabel("");
+		JLabel name_icon = new JLabel();
 		name_icon.setBounds(63, 28, 40, 40);
 		name_icon.setIcon(new ImageIcon(img1));
 		contentPane.add(name_icon);
@@ -165,6 +193,7 @@ public class Login extends JFrame {
 		uname_icon.setBounds(152, 88, 20, 20);
 		uname_icon.setIcon(new ImageIcon(img3));
 		contentPane.add(uname_icon);
+		
+		
 	}
-
 }
