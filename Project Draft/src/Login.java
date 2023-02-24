@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.*;
+import java.util.Random;
+
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.Image;
@@ -28,11 +30,20 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtuname;
 	private JPasswordField txtpword;
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final int LENGTH = 6;
 
 	/**
 	 * Launch the application.
 	 */
-	
+    private static String generateRandomString(int length) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            sb.append(CHARACTERS.charAt(random.nextInt(CHARACTERS.length())));
+        }
+        return sb.toString();
+    }
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,15 +65,12 @@ public class Login extends JFrame {
 	Connection conn = null;
 	private JTextField captcha;
 	private JTextField captcha_ans;
-	Image img1 = new ImageIcon(this.getClass().getResource("img/1.png")).getImage();
-	Image img2 = new ImageIcon(this.getClass().getResource("img/2.png")).getImage();
-	Image img3 = new ImageIcon(this.getClass().getResource("img/3.png")).getImage();
-	ImageIcon reserveIcon = new ImageIcon("booking.png");
-	Image reserveImage = reserveIcon.getImage();
-	Image scaledReserve = reserveImage.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+	Image img1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
+	Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
+	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
+	
 	public Login() {
 		setTitle("Villa Rose System");
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 481);
 		contentPane = new JPanel();
@@ -72,9 +80,18 @@ public class Login extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		String captcha1 = generateRandomString(LENGTH);
+		
+		captcha = new JTextField(captcha1);
+		captcha.setBorder(new LineBorder(Color.BLACK, 1, true));
+		captcha.setBounds(181, 206, 233, 43);
+		captcha.setFont(new Font("Calibri Light", Font.PLAIN, 36));
+		contentPane.add(captcha);
+		captcha.setColumns(10);
+		
 		txtuname = new JTextField();
 		txtuname.setBorder(new LineBorder(Color.BLACK, 1, true));
-		txtuname.setFont(new Font("Calibri", Font.PLAIN, 11));
+		txtuname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtuname.setBounds(181, 111, 233, 20);
 		contentPane.add(txtuname);
 		txtuname.setColumns(10);
@@ -93,19 +110,29 @@ public class Login extends JFrame {
 					conn = sqliteConnection.dbConnector();
 					String uname = txtuname.getText();
 					String pword = txtpword.getText();
+					String ans = captcha_ans.getText();
 					
 					Statement stm = conn.createStatement();
 					String sql = "select * from Employee where uname='"+uname+"' and pword='"+pword+"'";
 					ResultSet rs = stm.executeQuery(sql);
 					if(rs.next()) {
+						int userid = rs.getInt("employee_id");
+						System.out.println(userid);
+						if(ans.equals(captcha1)) {
 						dispose();
-						HomePage hpage = new HomePage();
+						HomePage hpage = new HomePage(userid);
+						hpage.setLocationRelativeTo(null);
 						hpage.show();
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Captcha is incorrect.");
+						}
 					}else {
-						JOptionPane.showMessageDialog(null, "Username or password is wrong.");
+						JOptionPane.showMessageDialog(null, "Username or password is incorrect.");
 						txtuname.setText("");
 						txtpword.setText("");
 					}
+
 				
 					conn.close();
 					
@@ -114,15 +141,19 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(214, 309, 187, 30);
+		btnLogin.setBounds(206, 309, 187, 30);
 		contentPane.add(btnLogin);
+		
+		JLabel password_icon = new JLabel("");
+		password_icon.setBounds(152, 149, 20, 20);
+		password_icon.setIcon(new ImageIcon(img2));
+		contentPane.add(password_icon);
 		
 		txtpword = new JPasswordField();
 		txtpword.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtpword.setBounds(181, 149, 233, 20);
 		contentPane.add(txtpword);
-		
-		reserveIcon = new ImageIcon(scaledReserve);
 		
 		JLabel lblNewLabel_2 = new JLabel("Reservation Management System");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -145,12 +176,6 @@ public class Login extends JFrame {
 		shpword.setBounds(252, 176, 147, 23);
 		contentPane.add(shpword);
 		
-		captcha = new JTextField();
-		captcha.setBorder(new LineBorder(Color.BLACK, 1, true));
-		captcha.setBounds(181, 206, 233, 43);
-		contentPane.add(captcha);
-		captcha.setColumns(10);
-		
 		JLabel lblNewLabel_3 = new JLabel("Type the code you see above.");
 		lblNewLabel_3.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		lblNewLabel_3.setBounds(181, 260, 199, 14);
@@ -158,6 +183,7 @@ public class Login extends JFrame {
 		
 		captcha_ans = new JTextField();
 		captcha_ans.setBorder(new LineBorder(Color.BLACK, 1, true));
+		captcha_ans.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		captcha_ans.setBounds(181, 278, 147, 20);
 		contentPane.add(captcha_ans);
 		captcha_ans.setColumns(10);
@@ -170,6 +196,7 @@ public class Login extends JFrame {
 				try {
 					dispose();
 					Register rpage = new Register();
+					rpage.setLocationRelativeTo(null);
 					rpage.show();
 				}catch(Exception e1) {
 					
@@ -185,12 +212,12 @@ public class Login extends JFrame {
 		contentPane.add(ForgotPassword);
 		
 		JLabel name_icon = new JLabel();
-		name_icon.setBounds(63, 28, 40, 40);
+		name_icon.setBounds(49, 29, 40, 40);
 		name_icon.setIcon(new ImageIcon(img1));
 		contentPane.add(name_icon);
 		
 		JLabel uname_icon = new JLabel();
-		uname_icon.setBounds(152, 88, 20, 20);
+		uname_icon.setBounds(152, 111, 20, 20);
 		uname_icon.setIcon(new ImageIcon(img3));
 		contentPane.add(uname_icon);
 		

@@ -8,6 +8,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import org.sqlite.SQLiteException;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -26,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JCheckBox;
 
 
 public class Register extends JFrame {
@@ -33,9 +37,6 @@ public class Register extends JFrame {
 	private JPanel contentPane;
 
 	Connection conn = null;
-	Image img1 = new ImageIcon(this.getClass().getResource("img/1.png")).getImage();
-	Image img2 = new ImageIcon(this.getClass().getResource("img/2.png")).getImage();
-	Image img3 = new ImageIcon(this.getClass().getResource("img/3.png")).getImage();
 	private JTextField txtfname;
 	private JTextField txtlname;
 	private JTextField txtuname;
@@ -43,6 +44,7 @@ public class Register extends JFrame {
 	private JTextField txtSqans;
 	private JTextField txtAdminPass;
 	private JComboBox comboBox;
+	private JTextField txtEmail;
 	
 	
 	public Register() {
@@ -114,7 +116,7 @@ public class Register extends JFrame {
 		String[] colum = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(129, 234, 358, 22);
+		comboBox.setBounds(129, 263, 358, 22);
 		contentPane.add(comboBox); 
 		
 		txtSqans = new JTextField();
@@ -140,7 +142,7 @@ public class Register extends JFrame {
 			
 		});
 		txtSqans.setToolTipText("");
-		txtSqans.setBounds(129, 272, 358, 20);
+		txtSqans.setBounds(129, 301, 358, 20);
 		contentPane.add(txtSqans);
 		txtSqans.setColumns(10);
 		
@@ -166,7 +168,7 @@ public class Register extends JFrame {
 		}
 		});
 		txtAdminPass.setColumns(10);
-		txtAdminPass.setBounds(129, 308, 358, 20);
+		txtAdminPass.setBounds(129, 337, 358, 20);
 		contentPane.add(txtAdminPass);
 		
 		JButton btnRegister = new JButton("Register");
@@ -182,6 +184,7 @@ public class Register extends JFrame {
 					String uname = txtuname.getText();
 					String pword = txtpword.getText();
 					String sqans = txtSqans.getText();
+					String email = txtEmail.getText();
 					String adpass = txtAdminPass.getText();
 					String sq = comboBox.getSelectedItem().toString();
 					String adminpass = "";
@@ -210,7 +213,7 @@ public class Register extends JFrame {
 					
 					if (adminpass.equals(adpass)) {
 						conn = sqliteConnection.dbConnector();
-						String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans) VALUES(?,?,?,?,?,?)";
+						String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans,role,email) VALUES(?,?,?,?,?,?,?,?)";
 						PreparedStatement pst = conn.prepareStatement(sql);
 						pst.setString(1, fname);
 						pst.setString(2, lname);
@@ -218,6 +221,8 @@ public class Register extends JFrame {
 						pst.setString(4, pword);
 						pst.setString(5, sq);
 						pst.setString(6, sqans);
+						pst.setString(7, "Employee");
+						pst.setString(8, email);
 						pst.execute();
 						JOptionPane.showMessageDialog(null, "You have successfully registered.");
 						
@@ -228,13 +233,27 @@ public class Register extends JFrame {
 						JOptionPane.showMessageDialog(null, "Wrong admin password. Please try again.");
 					}
 					}
-				}catch(Exception e) {
-					JOptionPane.showMessageDialog(null, e);
+				}catch(SQLiteException sqle) {
+					JOptionPane.showMessageDialog(null, "Username has already been taken.");
+				}
+				catch(Exception e) {
+					JOptionPane.showMessageDialog(null, "An error has occured. Please try again");
 					System.out.println(e);
+				}
+				finally {
+					txtfname.setText("");
+					txtlname.setText("");
+					txtuname.setText("");
+					txtpword.setText("");
+					txtSqans.setText("");
+					txtAdminPass.setText("");
+					txtEmail.setText("");
+					comboBox.setSelectedIndex(0);
+					
 				}
 			}
 		});
-		btnRegister.setBounds(228, 339, 152, 30);
+		btnRegister.setBounds(228, 368, 152, 30);
 		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
@@ -244,11 +263,23 @@ public class Register extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				dispose();
 				Login lpage = new Login();
+				lpage.setLocationRelativeTo(null);
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(260, 387, 120, 14);
+		lblNewLabel_2.setBounds(260, 416, 120, 14);
 		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Email:");
+		lblNewLabel_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1_1_1_1.setBounds(129, 226, 66, 14);
+		contentPane.add(lblNewLabel_1_1_1_1_1);
+		
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtEmail.setColumns(10);
+		txtEmail.setBounds(205, 226, 282, 20);
+		contentPane.add(txtEmail);
 	}
 	
 	public static void main(String[] args) {

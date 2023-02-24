@@ -6,8 +6,18 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JTextArea;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import net.proteanit.sql.DbUtils;
+
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javax.swing.JComboBox;
 import java.awt.Button;
 import javax.swing.JTable;
@@ -18,12 +28,21 @@ import java.awt.CardLayout;
 import javax.swing.SpringLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.beans.Statement;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class ManageContent extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
-
+	private String transaction_id;
+	private String gen_table;
 	/**
 	 * Launch the application.
 	 */
@@ -31,8 +50,8 @@ public class ManageContent extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ManageContent frame = new ManageContent();
-					frame.setVisible(true);
+					//ManageContent frame = new ManageContent();
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -40,10 +59,14 @@ public class ManageContent extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
-	public ManageContent() {
+	Connection conn = null;
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	private JComboBox comboBox_1;
+	
+	public ManageContent(int emp_id) {
+		System.out.print(emp_id);
+		conn = sqliteConnection.dbConnector();
 		setBackground(new Color(250, 245, 232));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
@@ -59,15 +82,25 @@ public class ManageContent extends JFrame {
 		lblNewJgoodiesLabel.setBounds(10, 11, 204, 38);
 		contentPane.add(lblNewJgoodiesLabel);
 		
-		JComboBox comboBox = new JComboBox();
+		String[] column = {"Select Table to Generate","Testing","Employee"};
+		JComboBox comboBox = new JComboBox(column);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		comboBox.setBounds(20, 60, 311, 22);
 		contentPane.add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		comboBox_1.setBounds(20, 145, 311, 22);
 		contentPane.add(comboBox_1);
+		loadUserName();
+		comboBox_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String item = (String)comboBox_1.getSelectedItem();
+				String substrings[] = item.split(",");
+				String trans_id = substrings[0];
+				updateTable(trans_id);
+			}
+		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(20, 187, 594, 43);
@@ -77,13 +110,13 @@ public class ManageContent extends JFrame {
 		table.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null, null, null, null},
-			},
-			new String[] {
-				"Transaction ID", "First Name", "Last Name", "Email", "Contact #", "Booking Description", "Balance", "Amount Paid", "Payment Date"
-			}
-		));
+				new Object[][] {
+					{null, null, null, null, null, null, null, null, null},
+				},
+				new String[] {
+					"Transaction ID", "First Name", "Last Name", "Email", "Contact #", "Booking Description", "Balance", "Amount Paid", "Payment Date"
+				}
+			));
 		
 		JButton btnNewButton = new JButton("Generate Receipt");
 		btnNewButton.setBorder(null);
@@ -93,6 +126,14 @@ public class ManageContent extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Edit Employees Account");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				EditEmployees epage = new EditEmployees(emp_id);
+				epage.setLocationRelativeTo(null);
+				epage.show();
+			}
+		});
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBackground(new Color(225, 167, 48));
 		btnNewButton_1.setFont(new Font("Calibri Light", Font.PLAIN, 16));
@@ -128,15 +169,159 @@ public class ManageContent extends JFrame {
 		contentPane.add(btnNewButton_5);
 		
 		JLabel lblNewJgoodiesLabel_1 = DefaultComponentFactory.getInstance().createLabel("Homepage");
+		lblNewJgoodiesLabel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				HomePage hpage = new HomePage(emp_id);
+				hpage.setLocationRelativeTo(null);
+				hpage.show();
+				
+			}
+		});
 		lblNewJgoodiesLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		lblNewJgoodiesLabel_1.setBounds(537, 20, 77, 22);
 		contentPane.add(lblNewJgoodiesLabel_1);
 		
-		JButton btnNewButton_6 = new JButton("Generate Report");
-		btnNewButton_6.setBorder(null);
-		btnNewButton_6.setBackground(new Color(225, 167, 48));
-		btnNewButton_6.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_6.setBounds(20, 93, 141, 30);
-		contentPane.add(btnNewButton_6);
+		JButton btnReport = new JButton("Generate Report");
+		btnReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String gen_table = (String) comboBox.getSelectedItem();
+				conn = sqliteConnection.dbConnector();
+				if (gen_table.equals("Testing")){
+			        try {
+			        	conn = sqliteConnection.dbConnector();
+			        	String csvFilePath = "Transaction-export.csv";
+						String sql= "Select * from " + gen_table;
+						pst= conn.prepareStatement(sql);
+						rs = pst.executeQuery();
+			             
+			            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+			             
+			            // write header line containing column names       
+			            fileWriter.write("transaction_id,first_name,last_name,email,contact_no,check_in,check_out,room_description,balance,amount_paid");
+			            while (rs.next()) {
+			                String transaction_id = rs.getString("transaction_id");
+			                String first_name = rs.getString("first_name");
+			                String last_name = rs.getString("last_name");
+			                String email = rs.getString("email");
+			                String contact_no = rs.getString("contact_no");
+			                String check_in = rs.getString("check_in");
+			                String check_out = rs.getString("check_out");
+			                String room_description = rs.getString("room_description");
+			                String balance = rs.getString("balance");
+			                String amount_paid = rs.getString("amount_paid");
+			                 
+			                String line = String.format("\"%s\",%s,%s,%s,%s,%s,%s,%s,%s,%s",
+			                		transaction_id,first_name,last_name,email,contact_no,check_in,check_out,room_description,balance,amount_paid);
+			                 
+			                fileWriter.newLine();
+			                fileWriter.write(line);            
+			            }
+			            JOptionPane.showMessageDialog(null, "Report created");
+			            pst.close();
+			            rs.close();
+			            conn.close();
+			            fileWriter.close();
+			             
+			        } catch (SQLException e1) {
+			            System.out.println("Datababse error:");
+			            JOptionPane.showMessageDialog(null, "Database error:");
+			        } catch (IOException e2) {
+			            System.out.println("File IO error:");
+			            JOptionPane.showMessageDialog(null, "File IO error:");
+			        }
+				} else if (gen_table.equals("Employee")) {
+					try {
+						conn = sqliteConnection.dbConnector();
+			        	String csvFilePath = "Employee-export.csv";
+						String sql= "Select * from " + gen_table;
+						pst= conn.prepareStatement(sql);
+						rs = pst.executeQuery();
+			             
+			            BufferedWriter fileWriter = new BufferedWriter(new FileWriter(csvFilePath));
+			             
+			            // write header line containing column names       
+			            fileWriter.write("employee_id,uname,pword,sQuestion,sq_ans,role,fname,lname,email");
+			            while (rs.next()) {
+			                String employee_id = rs.getString("employee_id");
+			                String uname = rs.getString("uname");
+			                String pword = rs.getString("pword");
+			                String sQuestion = rs.getString("sQuestion");
+			                String sq_ans = rs.getString("sq_ans");
+			                String role = rs.getString("role");
+			                String fname = rs.getString("fname");
+			                String lname = rs.getString("lname");
+			                String email = rs.getString("email");
+			                String line = String.format("\"%s\",%s,%s,%s,%s,%s,%s,%s,%s",
+			                		employee_id,uname,pword,sQuestion,sq_ans,role,fname,lname,email);
+			                 
+			                fileWriter.newLine();
+			                fileWriter.write(line);            
+			            }
+			            JOptionPane.showMessageDialog(null, "Report created");
+			            pst.close();
+			            rs.close();
+			            conn.close();
+			            fileWriter.close();
+			             
+			        } catch (SQLException e1) {
+			            System.out.println(e1);
+			            JOptionPane.showMessageDialog(null, e1);
+			        } catch (IOException e2) {
+			            System.out.println("File IO error:");
+			            JOptionPane.showMessageDialog(null, "File IO error:");
+			        }
+				}
+			}
+		});
+		btnReport.setBorder(null);
+		btnReport.setBackground(new Color(225, 167, 48));
+		btnReport.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnReport.setBounds(20, 93, 141, 30);
+		contentPane.add(btnReport);
+	}
+	public void loadUserName(){
+		try {
+			String sql= "Select * from Testing";
+			pst= conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			
+			while(rs.next()==true){
+			conn=sqliteConnection.dbConnector();
+			transaction_id = rs.getString("transaction_id");
+			String fname = rs.getString("first_name");
+			String lname = rs.getString("last_name");
+			String name = transaction_id +", " + fname + " " + lname;
+			comboBox_1.addItem(name);
+			}
+			rs.close();
+			pst.close();
+			conn.close();
+			}catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+				System.out.print(e);
+			}catch(Exception e1) {
+				JOptionPane.showMessageDialog(null, e1);
+			}
+	}
+	private void updateTable(String trans_id) {
+		conn = sqliteConnection.dbConnector();
+		String sql = "SELECT * FROM Testing where transaction_id="+trans_id;
+		try {
+			pst = conn.prepareStatement(sql);
+			rs = pst.executeQuery();
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e);
+		} finally {
+			try {
+				rs.close();
+				pst.close();
+				conn.close();
+			} catch (Exception e) {
+				
+			}
+		}
 	}
 }
