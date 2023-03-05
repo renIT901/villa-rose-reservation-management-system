@@ -119,11 +119,11 @@ public class HomePage extends JFrame {
 		JButton btn_logout = new JButton("Logout");
 		btn_logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Successfully Logged Out");
 				dispose();
 				Login lpage = new Login();
 				lpage.setLocationRelativeTo(null);
 				lpage.show();
+				JOptionPane.showMessageDialog(null, "Successfully Logged Out");
 			}
 		});
 		btn_logout.setFont(new Font("Calibri Light", Font.PLAIN, 16));
