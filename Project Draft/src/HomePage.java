@@ -4,23 +4,21 @@ import java.awt.Image;
 import java.text.SimpleDateFormat;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
+
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
+
 import net.proteanit.sql.DbUtils;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class HomePage extends JFrame {
 
@@ -54,9 +52,15 @@ public class HomePage extends JFrame {
 	private JTextField txtField;
 	private JTable table_1;
 	String transaction_id;
+	private JTextField path;
+	private ImageIcon format = null;
+	private String filename=null;
+	private int s = 0;
+	byte[] person_image=null;
 
 	
 	public HomePage(int emp_id) {
+		setTitle("Villa Rose System");
 		conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1026, 576);
@@ -86,6 +90,10 @@ public class HomePage extends JFrame {
 		panel.add(icon);
 		icon.setIcon(new ImageIcon(img1));
 		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBounds(225, 214, 166, 98);
+		contentPane.add(desktopPane);
+		
 		JButton btn_transaction = new JButton("Transactions");
 		btn_transaction.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		btn_transaction.setBackground(new Color(225, 167, 48));
@@ -111,6 +119,7 @@ public class HomePage extends JFrame {
 		JButton btn_logout = new JButton("Logout");
 		btn_logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Successfully Logged Out");
 				dispose();
 				Login lpage = new Login();
 				lpage.setLocationRelativeTo(null);
@@ -219,6 +228,11 @@ public class HomePage extends JFrame {
 		txtAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(txtAmountPaid);
 		
+		JLabel image = new JLabel("");
+		image.setBounds(0, 0, 166, 98);
+		desktopPane.add(image);
+		
+		
 		JButton btnAdd = new JButton("Add Reservation");
 		btnAdd.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		btnAdd.setBorder(null);
@@ -241,7 +255,7 @@ public class HomePage extends JFrame {
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
 					
-					pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid) VALUES(?,?,?,?,?,?,?,?,?)");
+					pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof) VALUES(?,?,?,?,?,?,?,?,?,?)");
 					pst.setString(1,fname);
 					pst.setString(2,lname);
 					pst.setString(3,email);
@@ -251,6 +265,7 @@ public class HomePage extends JFrame {
 					pst.setString(7,roomNo);
 					pst.setInt(8,bal);
 					pst.setInt(9,amnt);
+					pst.setBytes(10, person_image);
 					
 					int k = pst.executeUpdate();
 					
@@ -265,6 +280,8 @@ public class HomePage extends JFrame {
 						txtAmountPaid.setText("");
 						checkin.setDate(null);
 						checkout.setDate(null);
+						image.setIcon(null);
+						path.setText("null");
 						rs.close();
 						pst.close();
 						conn.close();
@@ -273,8 +290,11 @@ public class HomePage extends JFrame {
 						JOptionPane.showMessageDialog(null, "Transaction Failed to Save");
 					}
 
-					
+					rs.close();
+					pst.close();
+					conn.close();
 				} catch (Exception e1) {
+					System.out.print(e1);
 					
 				} finally {
 				
@@ -321,6 +341,7 @@ public class HomePage extends JFrame {
 		btnSearch.setBackground(new Color(225, 167, 48));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				conn = sqliteConnection.dbConnector();
 				try {
 					System.out.println(emp_id);
 					String field = comboBox.getSelectedItem().toString();
@@ -343,16 +364,44 @@ public class HomePage extends JFrame {
 						txtRoomNo.setText(rs.getString(8));
 						txtBalance.setText(rs.getString(9));
 						txtAmountPaid.setText(rs.getString(10));
+						byte[]imagedata = rs.getBytes("payment_proof");
+						format = new ImageIcon(imagedata);
+						Image img = format.getImage();
+						Image imgScale = img.getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
+						ImageIcon scaledIcon = new ImageIcon(imgScale);
+						image.setIcon(scaledIcon);
+
+
 						
-						pst.close();
-						rs.close();
-						conn.close();
+						
 					}else {
 						JOptionPane.showMessageDialog(null, "No Record Found!");
 					}
-				}catch (Exception e1) {
+					pst.close();
+					rs.close();
+				}
+				
+				catch (NullPointerException e2) {
+					image.setIcon(null);
 					
 				}
+				catch (Exception e1) {
+					
+				}
+				finally {
+					try {
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
+		image.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
 		btnSearch.setBounds(687, 216, 215, 23);
@@ -360,7 +409,7 @@ public class HomePage extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(170, 286, 830, 240);
+		scrollPane.setBounds(170, 323, 830, 203);
 		contentPane.add(scrollPane);
 		
 		table_1 = new JTable();
@@ -396,7 +445,7 @@ public class HomePage extends JFrame {
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
 					
-					pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,balance=?,amount_paid=? WHERE transaction_id=?");
+					pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
 					pst.setString(1,fname);
 					pst.setString(2,lname);
 					pst.setString(3,email);
@@ -406,7 +455,8 @@ public class HomePage extends JFrame {
 					pst.setString(7,roomNo);
 					pst.setInt(8,bal);
 					pst.setInt(9,amnt);
-					pst.setString(10, transaction_id);
+					pst.setBytes(10, person_image);
+					pst.setString(11, transaction_id);
 					
 					int k = pst.executeUpdate();
 					if(k==1) {
@@ -420,19 +470,59 @@ public class HomePage extends JFrame {
 						txtAmountPaid.setText("");
 						checkin.setDate(null);
 						checkout.setDate(null);
-						rs.close();
-						pst.close();
-						conn.close();
+						image.setIcon(null);
+						path.setText("");
 						updateTable();
 					}
+					rs.close();
+					pst.close();
+					conn.close();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "An Error was encountered while Updating");
 					e1.printStackTrace();
 				}
+				
 			}
 		});
 		btnUpdate.setBounds(687, 250, 215, 25);
 		contentPane.add(btnUpdate);
+		
+		JButton attach_img = new JButton("Attach");
+		attach_img.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f = chooser.getSelectedFile();
+				filename = f.getAbsolutePath();
+				path.setText(filename);
+				
+				try {
+					File image = new File(filename);
+					FileInputStream fis = new FileInputStream(image);
+					ByteArrayOutputStream bos = new ByteArrayOutputStream();
+					byte[] buf = new byte[1024];
+					for(int readNum; (readNum=fis.read(buf)) !=-1;) {
+						bos.write(buf,0,readNum);
+					}
+					person_image = bos.toByteArray();
+
+				}
+				catch(Exception e1) {
+					System.out.println(e1);
+				}
+			}
+		});
+		attach_img.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		attach_img.setBorder(null);
+		attach_img.setBackground(new Color(225, 167, 48));
+		attach_img.setBounds(401, 215, 160, 23);
+		contentPane.add(attach_img);
+		
+		path = new JTextField();
+		path.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		path.setColumns(10);
+		path.setBounds(401, 250, 160, 20);
+		contentPane.add(path);
 		updateTable();
 		
 
@@ -459,5 +549,4 @@ public class HomePage extends JFrame {
 	private void getID() {
 		conn = sqliteConnection.dbConnector();
 	}
-	
 }

@@ -19,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+
 import java.awt.Button;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +36,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.Statement;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -43,6 +46,7 @@ public class ManageContent extends JFrame {
 	private JTable table;
 	private String transaction_id;
 	private String gen_table;
+	private String filename=null;
 	/**
 	 * Launch the application.
 	 */
@@ -65,6 +69,7 @@ public class ManageContent extends JFrame {
 	private JComboBox comboBox_1;
 	
 	public ManageContent(int emp_id) {
+		setTitle("Villa Rose System");
 		System.out.print(emp_id);
 		conn = sqliteConnection.dbConnector();
 		setBackground(new Color(250, 245, 232));
@@ -188,10 +193,15 @@ public class ManageContent extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String gen_table = (String) comboBox.getSelectedItem();
 				conn = sqliteConnection.dbConnector();
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(null);
+				File f = chooser.getSelectedFile();
+				filename = f.getAbsolutePath();
+				
 				if (gen_table.equals("Testing")){
 			        try {
 			        	conn = sqliteConnection.dbConnector();
-			        	String csvFilePath = "Transaction-export.csv";
+			        	String csvFilePath = filename + ".csv";
 						String sql= "Select * from " + gen_table;
 						pst= conn.prepareStatement(sql);
 						rs = pst.executeQuery();
@@ -234,7 +244,7 @@ public class ManageContent extends JFrame {
 				} else if (gen_table.equals("Employee")) {
 					try {
 						conn = sqliteConnection.dbConnector();
-			        	String csvFilePath = "Employee-export.csv";
+			        	String csvFilePath = filename + ".csv";
 						String sql= "Select * from " + gen_table;
 						pst= conn.prepareStatement(sql);
 						rs = pst.executeQuery();

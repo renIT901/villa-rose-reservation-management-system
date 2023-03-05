@@ -30,6 +30,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JPasswordField;
+import java.awt.event.FocusAdapter;
 
 
 public class Register extends JFrame {
@@ -40,19 +42,20 @@ public class Register extends JFrame {
 	private JTextField txtfname;
 	private JTextField txtlname;
 	private JTextField txtuname;
-	private JTextField txtpword;
 	private JTextField txtSqans;
-	private JTextField txtAdminPass;
 	private JComboBox comboBox;
 	private JTextField txtEmail;
+	private JPasswordField txtpword;
+	private JPasswordField txtAdminPass;
 	
 	
 	public Register() {
 		//addPlaceholderStyle(txtSqans);
 		//addPlaceholderStyle(txtAdminPass);
+		setTitle("Villa Rose System");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(100, 100, 640, 500);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,17 +109,11 @@ public class Register extends JFrame {
 		txtuname.setBounds(205, 156, 282, 20);
 		contentPane.add(txtuname);
 		
-		txtpword = new JTextField();
-		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtpword.setColumns(10);
-		txtpword.setBounds(205, 192, 282, 20);
-		contentPane.add(txtpword);
-		
 		
 		String[] colum = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(129, 263, 358, 22);
+		comboBox.setBounds(129, 283, 358, 22);
 		contentPane.add(comboBox); 
 		
 		txtSqans = new JTextField();
@@ -142,34 +139,9 @@ public class Register extends JFrame {
 			
 		});
 		txtSqans.setToolTipText("");
-		txtSqans.setBounds(129, 301, 358, 20);
+		txtSqans.setBounds(129, 321, 358, 20);
 		contentPane.add(txtSqans);
 		txtSqans.setColumns(10);
-		
-		txtAdminPass = new JTextField();
-		txtAdminPass.setForeground(new Color(159, 159, 159));
-		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtAdminPass.setText("Enter Admin Password");
-		txtAdminPass.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				if(txtAdminPass.getText().equals("Enter Admin Password")) {
-					txtAdminPass.setText("");
-					txtAdminPass.setForeground(new Color(0, 0, 0));
-				}
-			}
-			@Override
-			public void focusLost(FocusEvent e) {
-				if(txtAdminPass.getText().equals("")) {
-					txtAdminPass.setText("Enter Admin Password");
-					txtAdminPass.setForeground(new Color(159, 159, 159));
-			}
-			
-		}
-		});
-		txtAdminPass.setColumns(10);
-		txtAdminPass.setBounds(129, 337, 358, 20);
-		contentPane.add(txtAdminPass);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setBorder(null);
@@ -253,7 +225,7 @@ public class Register extends JFrame {
 				}
 			}
 		});
-		btnRegister.setBounds(228, 368, 152, 30);
+		btnRegister.setBounds(228, 388, 152, 30);
 		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
@@ -267,19 +239,65 @@ public class Register extends JFrame {
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(260, 416, 120, 14);
+		lblNewLabel_2.setBounds(260, 436, 120, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Email:");
 		lblNewLabel_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1_1.setBounds(129, 226, 66, 14);
+		lblNewLabel_1_1_1_1_1.setBounds(129, 246, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 		
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(205, 226, 282, 20);
+		txtEmail.setBounds(205, 246, 282, 20);
 		contentPane.add(txtEmail);
+		
+		txtpword = new JPasswordField();
+		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtpword.setBounds(205, 191, 282, 20);
+		contentPane.add(txtpword);
+		
+		txtAdminPass = new JPasswordField("Enter Admin Password");
+		txtAdminPass.setEchoChar((char)0);
+		txtAdminPass.setForeground(new Color(159, 159, 159));
+		txtAdminPass.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent event) {
+				if(txtAdminPass.getText().equals("Enter Admin Password")) {
+					txtAdminPass.setEchoChar('*');
+					txtAdminPass.setText("");
+					txtAdminPass.setForeground(new Color(0, 0, 0));
+				}
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				if(txtAdminPass.getText().equals("")) {
+					txtAdminPass.setEchoChar((char)0);
+					txtAdminPass.setText("Enter Admin Password");
+					txtAdminPass.setForeground(new Color(159, 159, 159));
+				}			
+			}
+		});
+		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtAdminPass.setBounds(129, 352, 358, 20);
+		contentPane.add(txtAdminPass);
+		
+		JCheckBox shpword = new JCheckBox("Show Password");
+		shpword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(shpword.isSelected()) {
+					txtpword.setEchoChar((char)0);
+				}else {
+					txtpword.setEchoChar('*');
+				}
+			}
+		});
+		shpword.setBackground(new Color(250, 245, 232));
+		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		shpword.setBounds(204, 218, 113, 23);
+		contentPane.add(shpword);
 	}
 	
 	public static void main(String[] args) {

@@ -83,6 +83,7 @@ public class Login extends JFrame {
 		String captcha1 = generateRandomString(LENGTH);
 		
 		captcha = new JTextField(captcha1);
+		captcha.setEditable(false);
 		captcha.setBorder(new LineBorder(Color.BLACK, 1, true));
 		captcha.setBounds(181, 206, 233, 43);
 		captcha.setFont(new Font("Calibri Light", Font.PLAIN, 36));

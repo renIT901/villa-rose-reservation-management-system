@@ -68,6 +68,7 @@ public class EditEmployees extends JFrame {
 	ResultSet rs = null;
 	
 	public EditEmployees(int emp_id) {
+		setTitle("Villa Rose System");
 		conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 480);
