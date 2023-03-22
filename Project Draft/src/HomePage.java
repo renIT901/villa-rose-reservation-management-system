@@ -46,17 +46,28 @@ public class HomePage extends JFrame {
 	private JTextField txtLname;
 	private JTextField txtEmail;
 	private JTextField txtContactNo;
-	private JTextField txtRoomNo;
 	private JTextField txtBalance;
 	private JTextField txtAmountPaid;
 	private JTextField txtField;
-	private JTable table_1;
 	String transaction_id;
 	private JTextField path;
 	private ImageIcon format = null;
 	private String filename=null;
 	private int s = 0;
 	byte[] person_image=null;
+	String accomodation_type = "";
+	String additionals = "";
+	String at;
+	String adts;
+	private JCheckBox chkfamily;
+	private JCheckBox chkkubo;
+	private JCheckBox chkteepee;
+	private JCheckBox chkcabana;
+	private JCheckBox chkpool;
+	private JCheckBox chkgasul;
+	private JCheckBox chkcookware;
+	private JCheckBox chkmatress;
+	
 
 	
 	public HomePage(int emp_id) {
@@ -70,6 +81,55 @@ public class HomePage extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		chkfamily = new JCheckBox("Family Room");
+		chkfamily.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkfamily.setBackground(new Color(250, 245, 232));
+		chkfamily.setBounds(661, 35, 97, 23);
+		contentPane.add(chkfamily);
+		
+		chkkubo = new JCheckBox("Kubo Room");
+		chkkubo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkkubo.setBackground(new Color(250, 245, 232));
+		chkkubo.setBounds(661, 63, 97, 23);
+		contentPane.add(chkkubo);
+		
+		chkteepee = new JCheckBox("Teepee Hut");
+		chkteepee.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkteepee.setBackground(new Color(250, 245, 232));
+		chkteepee.setBounds(661, 94, 97, 23);
+		contentPane.add(chkteepee);
+		
+		chkcabana = new JCheckBox("Open Cabana");
+		chkcabana.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkcabana.setBackground(new Color(250, 245, 232));
+		chkcabana.setBounds(661, 126, 97, 23);
+		contentPane.add(chkcabana);
+		
+		chkpool = new JCheckBox("Swimming Pool");
+		chkpool.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkpool.setBackground(new Color(250, 245, 232));
+		chkpool.setBounds(661, 154, 170, 23);
+		contentPane.add(chkpool);
+		
+		chkgasul = new JCheckBox("Gasul");
+		chkgasul.setBounds(661, 198, 97, 23);
+		chkgasul.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkgasul.setBackground(new Color(250, 245, 232));
+		contentPane.add(chkgasul);
+		
+		chkcookware = new JCheckBox("Cookware Set");
+		chkcookware.setBounds(661, 228, 97, 23);
+		chkcookware.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkcookware.setBackground(new Color(250, 245, 232));
+		contentPane.add(chkcookware);
+		
+		chkmatress = new JCheckBox("Extra Matress");
+		chkmatress.setBounds(661, 258, 97, 23);
+		chkmatress.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkmatress.setBackground(new Color(250, 245, 232));
+		contentPane.add(chkmatress);
+		
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
@@ -91,7 +151,7 @@ public class HomePage extends JFrame {
 		icon.setIcon(new ImageIcon(img1));
 		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(225, 214, 166, 98);
+		desktopPane.setBounds(225, 214, 333, 208);
 		contentPane.add(desktopPane);
 		
 		JButton btn_transaction = new JButton("Transactions");
@@ -113,17 +173,22 @@ public class HomePage extends JFrame {
 		btn_managecontent.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		btn_managecontent.setBorder(null);
 		btn_managecontent.setBackground(new Color(225, 167, 48));
-		btn_managecontent.setBounds(18, 186, 125, 30);
+		btn_managecontent.setBounds(18, 232, 125, 30);
 		panel.add(btn_managecontent);
 		
 		JButton btn_logout = new JButton("Logout");
 		btn_logout.addActionListener(new ActionListener() {
+			private JFrame frame;
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				Login lpage = new Login();
-				lpage.setLocationRelativeTo(null);
-				lpage.show();
-				JOptionPane.showMessageDialog(null, "Successfully Logged Out");
+				frame = new JFrame();
+
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?")==JOptionPane.YES_NO_OPTION) {
+					dispose();
+					Login lpage = new Login();
+					lpage.setLocationRelativeTo(null);
+					lpage.show();
+				}
+				
 			}
 		});
 		btn_logout.setFont(new Font("Calibri Light", Font.PLAIN, 16));
@@ -131,6 +196,21 @@ public class HomePage extends JFrame {
 		btn_logout.setBackground(new Color(225, 167, 48));
 		btn_logout.setBounds(18, 428, 125, 30);
 		panel.add(btn_logout);
+		
+		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				transaction_table trtpage = new transaction_table(emp_id);
+				trtpage.setLocationRelativeTo(null);
+				trtpage.show();
+			}
+		});
+		btn_transactiontables.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btn_transactiontables.setBorder(null);
+		btn_transactiontables.setBackground(new Color(225, 167, 48));
+		btn_transactiontables.setBounds(18, 186, 125, 30);
+		panel.add(btn_transactiontables);
 		
 		JLabel lblNewLabel = new JLabel("First Name:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -192,44 +272,38 @@ public class HomePage extends JFrame {
 		lblNewLabel_5.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblNewLabel_5);
 		
-		JLabel lblRoomNo = new JLabel("Room No.:");
+		JLabel lblRoomNo = new JLabel("Room:");
 		lblRoomNo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblRoomNo.setBounds(585, 38, 66, 14);
+		lblRoomNo.setBounds(589, 39, 66, 14);
 		lblRoomNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblRoomNo);
 		
-		txtRoomNo = new JTextField();
-		txtRoomNo.setColumns(10);
-		txtRoomNo.setBounds(663, 35, 271, 20);
-		txtRoomNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		contentPane.add(txtRoomNo);
-		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblBalance.setBounds(585, 66, 66, 14);
+		lblBalance.setBounds(585, 291, 66, 14);
 		lblBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
 		txtBalance.setColumns(10);
-		txtBalance.setBounds(663, 63, 271, 20);
+		txtBalance.setBounds(663, 288, 271, 20);
 		txtBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(txtBalance);
 		
 		JLabel lblAmountPaid = new JLabel("Amount Paid:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAmountPaid.setBounds(585, 97, 66, 14);
+		lblAmountPaid.setBounds(585, 322, 66, 14);
 		lblAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
 		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(663, 94, 271, 20);
+		txtAmountPaid.setBounds(663, 319, 271, 20);
 		txtAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(txtAmountPaid);
 		
 		JLabel image = new JLabel("");
-		image.setBounds(0, 0, 166, 98);
+		image.setBounds(0, 0, 336, 206);
 		desktopPane.add(image);
 		
 		
@@ -249,23 +323,58 @@ public class HomePage extends JFrame {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date1 = sdf.format(checkin.getDate());
 					String date2 = sdf.format(checkout.getDate());
-					String roomNo = txtRoomNo.getText();
+					//String roomNo = txtRoomNo.getText();
 					String balance = txtBalance.getText();
 					int bal = Integer.parseInt(balance);
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
+
+					if(chkfamily.isSelected()) {
+						accomodation_type = accomodation_type + " Family Room,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkkubo.isSelected()) {
+						accomodation_type = accomodation_type + " Kubo Room,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkteepee.isSelected()) {
+						accomodation_type = accomodation_type + " Teepee Hut,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkcabana.isSelected()) {
+						accomodation_type = accomodation_type + " Open Cabana,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkpool.isSelected()) {
+						accomodation_type = accomodation_type + " Swimming Pool,";
+					}else
+						accomodation_type = accomodation_type + "";
 					
-					pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof) VALUES(?,?,?,?,?,?,?,?,?,?)");
+					if(chkgasul.isSelected()) {
+						additionals = additionals + " Gasul,";
+					}else
+						additionals = additionals + "";
+					if(chkcookware.isSelected()) {
+						additionals = additionals + " Cookware Set,";
+					}else
+						additionals = additionals + "";
+					if(chkmatress.isSelected()) {
+						additionals = additionals + " Extra Matress,";
+					}else
+						additionals = additionals + "";
+					
+					pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof, room_additionals) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 					pst.setString(1,fname);
 					pst.setString(2,lname);
 					pst.setString(3,email);
 					pst.setInt(4,contact);
 					pst.setString(5,date1);
 					pst.setString(6,date2);
-					pst.setString(7,roomNo);
+					pst.setString(7,accomodation_type);
 					pst.setInt(8,bal);
 					pst.setInt(9,amnt);
 					pst.setBytes(10, person_image);
+					pst.setString(11, additionals);
 					
 					int k = pst.executeUpdate();
 					
@@ -275,13 +384,16 @@ public class HomePage extends JFrame {
 						txtLname.setText("");
 						txtEmail.setText("");
 						txtContactNo.setText("");
-						txtRoomNo.setText("");
+						//txtRoomNo.setText("");
 						txtBalance.setText("");
 						txtAmountPaid.setText("");
 						checkin.setDate(null);
 						checkout.setDate(null);
 						image.setIcon(null);
-						path.setText("null");
+						path.setText("Path");
+						clearOption();
+						accomodation_type = "";
+						additionals = "";
 						rs.close();
 						pst.close();
 						conn.close();
@@ -302,16 +414,16 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(687, 122, 215, 23);
+		btnAdd.setBounds(687, 347, 215, 23);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out","room_description","balance","amount_paid"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(663, 153, 271, 22);
+		comboBox.setBounds(663, 378, 271, 22);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(663, 184, 271, 20);
+		txtField.setBounds(663, 409, 271, 20);
 		txtField.setText("Search for?");
 		txtField.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtField.setForeground(new Color(159, 159, 159));
@@ -343,7 +455,9 @@ public class HomePage extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				conn = sqliteConnection.dbConnector();
 				try {
-					System.out.println(emp_id);
+					//System.out.println(emp_id);
+					//System.out.println(at);
+					//System.out.println(adts);
 					String field = comboBox.getSelectedItem().toString();
 					String txtfield = txtField.getText();
 					pst = conn.prepareStatement("SELECT * FROM Testing WHERE "+field+"='"+txtfield+"'");
@@ -361,9 +475,45 @@ public class HomePage extends JFrame {
 						java.util.Date checkout2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkout1);
 						checkin.setDate(checkin2);
 						checkout.setDate(checkout2);
-						txtRoomNo.setText(rs.getString(8));
-						txtBalance.setText(rs.getString(9));
-						txtAmountPaid.setText(rs.getString(10));
+						
+						at = rs.getString(8);
+						if(at.contains("Family")) {
+							chkfamily.setSelected(true);
+						}else
+							chkfamily.setSelected(false);
+						if(at.contains("Kubo")) {
+							chkkubo.setSelected(true);
+						}else
+							chkkubo.setSelected(false);
+						if(at.contains("Teepee")) {
+							chkteepee.setSelected(true);
+						}else
+							chkteepee.setSelected(false);
+						if(at.contains("Open")) {
+							chkcabana.setSelected(true);
+						}else
+							chkcabana.setSelected(false);
+						if(at.contains("Swimming")) {
+							chkpool.setSelected(true);
+						}else
+							chkpool.setSelected(false);
+						
+						adts = rs.getString(9);
+						if(adts.contains("Gasul")) {
+							chkgasul.setSelected(true);
+						}else
+							chkgasul.setSelected(false);
+						if(adts.contains("Cookware Set")) {
+							chkcookware.setSelected(true);
+						}else
+							chkcookware.setSelected(false);
+						if(adts.contains("Extra Matress")) {
+							chkmatress.setSelected(true);
+						}else
+							chkmatress.setSelected(false);
+						
+						txtBalance.setText(rs.getString(10));
+						txtAmountPaid.setText(rs.getString(11));
 						byte[]imagedata = rs.getBytes("payment_proof");
 						format = new ImageIcon(imagedata);
 						Image img = format.getImage();
@@ -372,11 +522,11 @@ public class HomePage extends JFrame {
 						image.setIcon(scaledIcon);
 
 
-						
-						
 					}else {
 						JOptionPane.showMessageDialog(null, "No Record Found!");
 					}
+					
+				
 					pst.close();
 					rs.close();
 				}
@@ -386,7 +536,7 @@ public class HomePage extends JFrame {
 					
 				}
 				catch (Exception e1) {
-					
+					System.out.print(e1);
 				}
 				finally {
 					try {
@@ -404,23 +554,13 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(687, 216, 215, 23);
+		btnSearch.setBounds(687, 441, 215, 23);
 		contentPane.add(btnSearch);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(170, 323, 830, 203);
-		contentPane.add(scrollPane);
-		
-		table_1 = new JTable();
-		table_1.setDefaultEditor(Object.class, null);
-		table_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		scrollPane.setViewportView(table_1);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_6.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_6.setBounds(585, 157, 66, 14);
+		lblNewLabel_6.setBounds(585, 382, 66, 14);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -439,24 +579,60 @@ public class HomePage extends JFrame {
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date1 = sdf.format(checkin.getDate());
 					String date2 = sdf.format(checkout.getDate());
-					String roomNo = txtRoomNo.getText();
+					//String roomNo = txtRoomNo.getText();
 					String balance = txtBalance.getText();
 					int bal = Integer.parseInt(balance);
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
 					
-					pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
+					if(chkfamily.isSelected()) {
+						accomodation_type = accomodation_type + " Family Room,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkkubo.isSelected()) {
+						accomodation_type = accomodation_type + " Kubo Room,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkteepee.isSelected()) {
+						accomodation_type = accomodation_type + " Teepee Hut,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkcabana.isSelected()) {
+						accomodation_type = accomodation_type + " Open Cabana,";
+					}else
+						accomodation_type = accomodation_type + "";
+					if(chkpool.isSelected()) {
+						accomodation_type = accomodation_type + " Swimming Pool,";
+					}else
+						accomodation_type = accomodation_type + "";
+					
+					if(chkgasul.isSelected()) {
+						additionals = additionals + " Gasul,";
+					}else
+						additionals = additionals + "";
+					if(chkcookware.isSelected()) {
+						additionals = additionals + " Cookware Set,";
+					}else
+						additionals = additionals + "";
+					if(chkmatress.isSelected()) {
+						additionals = additionals + " Extra Matress,";
+					}else
+						additionals = additionals + "";
+					
+					pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
 					pst.setString(1,fname);
 					pst.setString(2,lname);
 					pst.setString(3,email);
 					pst.setInt(4,contact);
 					pst.setString(5,date1);
 					pst.setString(6,date2);
-					pst.setString(7,roomNo);
-					pst.setInt(8,bal);
-					pst.setInt(9,amnt);
-					pst.setBytes(10, person_image);
-					pst.setString(11, transaction_id);
+					pst.setString(7,accomodation_type);
+					pst.setString(8, additionals);
+					pst.setInt(9,bal);
+					pst.setInt(10,amnt);
+					pst.setBytes(11, person_image);
+					pst.setString(12, transaction_id);
+					
 					
 					int k = pst.executeUpdate();
 					if(k==1) {
@@ -465,14 +641,16 @@ public class HomePage extends JFrame {
 						txtLname.setText("");
 						txtEmail.setText("");
 						txtContactNo.setText("");
-						txtRoomNo.setText("");
 						txtBalance.setText("");
 						txtAmountPaid.setText("");
 						checkin.setDate(null);
 						checkout.setDate(null);
 						image.setIcon(null);
-						path.setText("");
+						path.setText("Path");
+						clearOption();
 						updateTable();
+						additionals = "";
+						accomodation_type="";
 					}
 					rs.close();
 					pst.close();
@@ -484,10 +662,10 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(687, 250, 215, 25);
+		btnUpdate.setBounds(687, 475, 215, 25);
 		contentPane.add(btnUpdate);
 		
-		JButton attach_img = new JButton("Attach");
+		JButton attach_img = new JButton("Attach Image");
 		attach_img.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -515,14 +693,24 @@ public class HomePage extends JFrame {
 		attach_img.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		attach_img.setBorder(null);
 		attach_img.setBackground(new Color(225, 167, 48));
-		attach_img.setBounds(401, 215, 160, 23);
+		attach_img.setBounds(290, 477, 215, 23);
 		contentPane.add(attach_img);
 		
 		path = new JTextField();
 		path.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		path.setColumns(10);
-		path.setBounds(401, 250, 160, 20);
+		path.setBounds(259, 446, 271, 20);
+		path.setEditable(false);
+		path.setText("Path");
 		contentPane.add(path);
+		
+		JLabel lblAdditionals = new JLabel("Additionals:");
+		lblAdditionals.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblAdditionals.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblAdditionals.setBounds(589, 202, 66, 14);
+		contentPane.add(lblAdditionals);
+		
+		
 		updateTable();
 		
 
@@ -533,7 +721,6 @@ public class HomePage extends JFrame {
 		try {
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
-			table_1.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		} finally {
@@ -548,5 +735,17 @@ public class HomePage extends JFrame {
 	
 	private void getID() {
 		conn = sqliteConnection.dbConnector();
+	}
+	
+	private void clearOption() {
+		chkfamily.setSelected(false);
+		chkkubo.setSelected(false);
+		chkteepee.setSelected(false);
+		chkcabana.setSelected(false);
+		chkpool.setSelected(false);
+		chkgasul.setSelected(false);
+		chkcookware.setSelected(false);
+		chkmatress.setSelected(false);
+		
 	}
 }

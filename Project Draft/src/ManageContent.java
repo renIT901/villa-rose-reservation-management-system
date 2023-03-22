@@ -34,6 +34,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.print.PrinterException;
 import java.beans.Statement;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -43,7 +44,6 @@ import java.io.IOException;
 public class ManageContent extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
 	private String transaction_id;
 	private String gen_table;
 	private String filename=null;
@@ -66,7 +66,6 @@ public class ManageContent extends JFrame {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
-	private JComboBox comboBox_1;
 	
 	public ManageContent(int emp_id) {
 		setTitle("Villa Rose System");
@@ -90,45 +89,9 @@ public class ManageContent extends JFrame {
 		String[] column = {"Select Table to Generate","Testing","Employee"};
 		JComboBox comboBox = new JComboBox(column);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox.setBounds(20, 60, 311, 22);
+		comboBox.setBounds(20, 93, 311, 22);
 		contentPane.add(comboBox);
-		
-		comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox_1.setBounds(20, 145, 311, 22);
-		contentPane.add(comboBox_1);
 		loadUserName();
-		comboBox_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String item = (String)comboBox_1.getSelectedItem();
-				String substrings[] = item.split(",");
-				String trans_id = substrings[0];
-				updateTable(trans_id);
-			}
-		});
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 187, 594, 43);
-		contentPane.add(scrollPane);
-		
-		table = new JTable();
-		table.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		scrollPane.setViewportView(table);
-		table.setModel(new DefaultTableModel(
-				new Object[][] {
-					{null, null, null, null, null, null, null, null, null},
-				},
-				new String[] {
-					"Transaction ID", "First Name", "Last Name", "Email", "Contact #", "Booking Description", "Balance", "Amount Paid", "Payment Date"
-				}
-			));
-		
-		JButton btnNewButton = new JButton("Generate Receipt");
-		btnNewButton.setBorder(null);
-		btnNewButton.setBackground(new Color(225, 167, 48));
-		btnNewButton.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton.setBounds(20, 241, 147, 30);
-		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Edit Employees Account");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -142,7 +105,7 @@ public class ManageContent extends JFrame {
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBackground(new Color(225, 167, 48));
 		btnNewButton_1.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(20, 289, 187, 30);
+		btnNewButton_1.setBounds(20, 239, 187, 30);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Backup Database");
@@ -288,7 +251,7 @@ public class ManageContent extends JFrame {
 		btnReport.setBorder(null);
 		btnReport.setBackground(new Color(225, 167, 48));
 		btnReport.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnReport.setBounds(20, 93, 141, 30);
+		btnReport.setBounds(20, 126, 141, 30);
 		contentPane.add(btnReport);
 	}
 	public void loadUserName(){
@@ -303,7 +266,7 @@ public class ManageContent extends JFrame {
 			String fname = rs.getString("first_name");
 			String lname = rs.getString("last_name");
 			String name = transaction_id +", " + fname + " " + lname;
-			comboBox_1.addItem(name);
+			//comboBox_1.addItem(name);
 			}
 			rs.close();
 			pst.close();
@@ -321,7 +284,7 @@ public class ManageContent extends JFrame {
 		try {
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
-			table.setModel(DbUtils.resultSetToTableModel(rs));
+			//table.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e);
 		} finally {

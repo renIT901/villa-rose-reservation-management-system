@@ -3,7 +3,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -32,6 +34,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.JCheckBox;
 import javax.swing.JPasswordField;
 import java.awt.event.FocusAdapter;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JRadioButton;
 
 
 public class Register extends JFrame {
@@ -47,6 +51,8 @@ public class Register extends JFrame {
 	private JTextField txtEmail;
 	private JPasswordField txtpword;
 	private JPasswordField txtAdminPass;
+	private ButtonGroup bg = new ButtonGroup();
+	private String gender;
 	
 	
 	public Register() {
@@ -55,7 +61,7 @@ public class Register extends JFrame {
 		setTitle("Villa Rose System");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 500);
+		setBounds(100, 100, 640, 630);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -109,11 +115,30 @@ public class Register extends JFrame {
 		txtuname.setBounds(205, 156, 282, 20);
 		contentPane.add(txtuname);
 		
+		JDateChooser bday = new JDateChooser();
+		bday.setBounds(205, 282, 282, 20);
+		contentPane.add(bday);
+		
+		JRadioButton rMale = new JRadioButton("Male");
+		rMale.setBounds(208, 318, 109, 23);
+		rMale.setBackground(new Color(250, 245, 232));
+		rMale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		contentPane.add(rMale);
+		
+		JRadioButton rFemale = new JRadioButton("Female");
+		rFemale.setBounds(208, 354, 109, 23);
+		rFemale.setBackground(new Color(250, 245, 232));
+		rFemale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		contentPane.add(rFemale);
+		
+		bg.add(rMale);
+		bg.add(rFemale);
+		
 		
 		String[] colum = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(129, 283, 358, 22);
+		comboBox.setBounds(129, 390, 358, 22);
 		contentPane.add(comboBox); 
 		
 		txtSqans = new JTextField();
@@ -139,7 +164,7 @@ public class Register extends JFrame {
 			
 		});
 		txtSqans.setToolTipText("");
-		txtSqans.setBounds(129, 321, 358, 20);
+		txtSqans.setBounds(129, 426, 358, 20);
 		contentPane.add(txtSqans);
 		txtSqans.setColumns(10);
 		
@@ -160,6 +185,17 @@ public class Register extends JFrame {
 					String adpass = txtAdminPass.getText();
 					String sq = comboBox.getSelectedItem().toString();
 					String adminpass = "";
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String date1 = sdf.format(bday.getDate());
+					if(rMale.isSelected()) {
+						gender = "Male";
+					}
+					else if (rFemale.isSelected()) {
+						gender = "Female";
+					}
+					else
+						JOptionPane.showMessageDialog(null, "Please select a gender.");
 					
 					if(fname.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
@@ -185,7 +221,7 @@ public class Register extends JFrame {
 					
 					if (adminpass.equals(adpass)) {
 						conn = sqliteConnection.dbConnector();
-						String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans,role,email) VALUES(?,?,?,?,?,?,?,?)";
+						String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans,role,email, birthday, gender) VALUES(?,?,?,?,?,?,?,?,?,?)";
 						PreparedStatement pst = conn.prepareStatement(sql);
 						pst.setString(1, fname);
 						pst.setString(2, lname);
@@ -195,6 +231,8 @@ public class Register extends JFrame {
 						pst.setString(6, sqans);
 						pst.setString(7, "Employee");
 						pst.setString(8, email);
+						pst.setString(9, date1);
+						pst.setString(10, gender);
 						pst.execute();
 						JOptionPane.showMessageDialog(null, "You have successfully registered.");
 						
@@ -218,6 +256,8 @@ public class Register extends JFrame {
 					txtuname.setText("");
 					txtpword.setText("");
 					txtSqans.setText("");
+					bday.setDate(null);
+					bg.clearSelection();
 					txtAdminPass.setText("");
 					txtEmail.setText("");
 					comboBox.setSelectedIndex(0);
@@ -225,7 +265,7 @@ public class Register extends JFrame {
 				}
 			}
 		});
-		btnRegister.setBounds(228, 388, 152, 30);
+		btnRegister.setBounds(228, 498, 152, 30);
 		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
@@ -239,12 +279,12 @@ public class Register extends JFrame {
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(260, 436, 120, 14);
+		lblNewLabel_2.setBounds(260, 534, 120, 14);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Email:");
 		lblNewLabel_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1_1.setBounds(129, 246, 66, 14);
+		lblNewLabel_1_1_1_1_1.setBounds(129, 249, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 		
 		txtEmail = new JTextField();
@@ -281,7 +321,7 @@ public class Register extends JFrame {
 			}
 		});
 		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtAdminPass.setBounds(129, 352, 358, 20);
+		txtAdminPass.setBounds(129, 462, 358, 20);
 		contentPane.add(txtAdminPass);
 		
 		JCheckBox shpword = new JCheckBox("Show Password");
@@ -298,6 +338,20 @@ public class Register extends JFrame {
 		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		shpword.setBounds(204, 218, 113, 23);
 		contentPane.add(shpword);
+		
+
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Birth Day:");
+		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1_1_1_1_1.setBounds(129, 288, 66, 14);
+		contentPane.add(lblNewLabel_1_1_1_1_1_1);
+		
+
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("Gender:");
+		lblNewLabel_1_1_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(129, 324, 66, 14);
+		contentPane.add(lblNewLabel_1_1_1_1_1_1_1);
 	}
 	
 	public static void main(String[] args) {

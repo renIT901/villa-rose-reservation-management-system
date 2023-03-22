@@ -28,8 +28,11 @@ import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class EditEmployees extends JFrame {
 
@@ -66,12 +69,14 @@ public class EditEmployees extends JFrame {
 	Connection conn = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+	private JTextField salary;
+	private JTextField txtSched;
 	
 	public EditEmployees(int emp_id) {
 		setTitle("Villa Rose System");
-		conn = sqliteConnection.dbConnector();
+		//conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(100, 100, 640, 540);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -112,13 +117,21 @@ public class EditEmployees extends JFrame {
 		String[] sq = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		JComboBox comboBox_1 = new JComboBox(sq);
 		comboBox_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox_1.setBounds(20, 350, 315, 22);
+		comboBox_1.setBounds(20, 412, 315, 22);
 		contentPane.add(comboBox_1);
 		
 		String[] colum = {"Select Field","employee_id","fname","lname","uname","pword","sQuestion","sq_ans","role"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setBounds(72, 170, 263, 22);
 		contentPane.add(comboBox);
+		
+		JDateChooser dateStarted = new JDateChooser();
+		dateStarted.setBounds(356, 348, 160, 20);
+		contentPane.add(dateStarted);
+		
+		JDateChooser dateBday = new JDateChooser();
+		dateBday.setBounds(356, 380, 160, 20);
+		contentPane.add(dateBday);
 		
 		textField = new JTextField();
 		textField.setText("Search for?");
@@ -150,6 +163,7 @@ public class EditEmployees extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					conn = sqliteConnection.dbConnector();
 					System.out.println(emp_id);
 					String field = comboBox.getSelectedItem().toString();
 					String txtfield = textField.getText();
@@ -184,6 +198,15 @@ public class EditEmployees extends JFrame {
 						fname.setText(rs.getString(7));
 						lname.setText(rs.getString(8));
 						email.setText(rs.getString(9));
+						String checkin1 = rs.getString("date_started");
+						java.util.Date checkin2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkin1);
+						String checkout1 = rs.getString("birthday");
+						java.util.Date checkout2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkout1);
+						dateStarted.setDate(checkin2);
+						dateBday.setDate(checkout2);
+						salary.setText(rs.getString("salary"));
+						txtSched.setText(rs.getString("schedule_of_duties"));
+						
 						
 						pst.close();
 						rs.close();
@@ -191,7 +214,15 @@ public class EditEmployees extends JFrame {
 						JOptionPane.showMessageDialog(null, "No Record Found!");
 					}
 				}catch (Exception e1) {
-					
+					e1.printStackTrace();
+				}
+				finally {
+					try {
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -230,6 +261,7 @@ public class EditEmployees extends JFrame {
 		pword.setBounds(356, 288, 160, 20);
 		contentPane.add(pword);
 		pword.setColumns(10);
+	
 		
 		JLabel lblNewJgoodiesLabel123 = DefaultComponentFactory.getInstance().createLabel("Go back");
 		lblNewJgoodiesLabel123.addMouseListener(new MouseAdapter() {
@@ -280,7 +312,7 @@ public class EditEmployees extends JFrame {
 		sq_ans = new JTextField();
 		sq_ans.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		sq_ans.setColumns(10);
-		sq_ans.setBounds(20, 383, 315, 20);
+		sq_ans.setBounds(20, 445, 315, 20);
 		contentPane.add(sq_ans);
 		
 		JButton btnNewButton_1 = new JButton("Update Account");
@@ -290,18 +322,24 @@ public class EditEmployees extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String sqq = comboBox_1.getSelectedItem().toString();
 					conn = sqliteConnection.dbConnector();
+					String sqq = comboBox_1.getSelectedItem().toString();
 					String fname1 = fname.getText();
 					String lname1 = lname.getText();
 					String sq_ans1 = sq_ans.getText();
 					String uname1 = uname.getText();
 					String pword1 = pword.getText();
 					String email1 = email.getText();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String dateS = sdf.format(dateStarted.getDate());
+					String dateB = sdf.format(dateBday.getDate());
+					String salary1 = salary.getText();
+					String sched = txtSched.getText();
+					
 					if(rdbtnAdmin.isSelected()==true) {
 						String role = "Admin";
 						
-						pst = conn.prepareStatement("UPDATE Employee SET uname=?,pword=?,sq_ans=?,fname=?,uname=?,role=?,SQuestion=?,email=? WHERE employee_id=?");
+						pst = conn.prepareStatement("UPDATE Employee SET uname=?,pword=?,sq_ans=?,fname=?,uname=?,role=?,SQuestion=?,email=?,salary=?,birthday=?,date_started=?,schedule_of_duties=? WHERE employee_id=?");
 						pst.setString(1,uname1);
 						pst.setString(2,pword1);
 						pst.setString(3,sq_ans1);
@@ -310,12 +348,16 @@ public class EditEmployees extends JFrame {
 						pst.setString(6, role);
 						pst.setString(7, sqq);
 						pst.setString(8, email1);
-						pst.setString(9,employee_id);
+						pst.setString(9,salary1);
+						pst.setString(10,dateB);
+						pst.setString(11,dateS);
+						pst.setString(12,sched);
+						pst.setString(13,employee_id);
 					}
 					else if(rdbtnEmployee.isSelected()==true){
 						String role = "Employee";
 						
-						pst = conn.prepareStatement("UPDATE Employee SET uname=?,pword=?,sq_ans=?,fname=?,uname=?,role=?,SQuestion=?,email=? WHERE employee_id=?");
+						pst = conn.prepareStatement("UPDATE Employee SET uname=?,pword=?,sq_ans=?,fname=?,uname=?,role=?,SQuestion=?,email=?,salary=?,birthday=?,date_started=?,schedule_of_duties=? WHERE employee_id=?");
 						pst.setString(1,uname1);
 						pst.setString(2,pword1);
 						pst.setString(3,sq_ans1);
@@ -324,7 +366,11 @@ public class EditEmployees extends JFrame {
 						pst.setString(6, role);
 						pst.setString(7, sqq);
 						pst.setString(8, email1);
-						pst.setString(9,employee_id);
+						pst.setString(9,salary1);
+						pst.setString(10,dateB);
+						pst.setString(11,dateS);
+						pst.setString(12,sched);
+						pst.setString(13,employee_id);
 					}
 					
 					
@@ -337,19 +383,25 @@ public class EditEmployees extends JFrame {
 						uname.setText("");
 						pword.setText("");
 						email.setText("");
+						salary.setText("");
+						txtSched.setText("");
+						dateBday.setDate(null);
+						dateStarted.setDate(null);
+						
+						
+						buttonGroup.clearSelection();
 						comboBox_1.setSelectedIndex(0);
-						rs.close();
-						pst.close();
-						conn.close();
 						updateTable();
 					}
+					conn.close();
+					pst.close();
 				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null, "An Error was encountered while Updating");
 					e1.printStackTrace();
 				}
 			}
 		});
-		btnNewButton_1.setBounds(366, 350, 135, 23);
+		btnNewButton_1.setBounds(366, 412, 135, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Delete Account");
@@ -364,6 +416,13 @@ public class EditEmployees extends JFrame {
 					sq_ans.setText("");
 					uname.setText("");
 					pword.setText("");
+					email.setText("");
+					salary.setText("");
+					txtSched.setText("");
+					dateBday.setDate(null);
+					dateStarted.setDate(null);
+					buttonGroup.clearSelection();
+					comboBox_1.setSelectedIndex(0);
 					rs.close();
 					pst.close();
 					conn.close();
@@ -371,6 +430,7 @@ public class EditEmployees extends JFrame {
 					JOptionPane.showMessageDialog(null, "Employee record deleted successfully");
 					updateTable();
 				}catch(Exception e1) {
+					System.out.println(e1);
 					JOptionPane.showMessageDialog(null, "An error has been encountered.");
 					
 				}
@@ -379,8 +439,47 @@ public class EditEmployees extends JFrame {
 		btnNewButton_1_1.setBorder(null);
 		btnNewButton_1_1.setBackground(new Color(225, 167, 48));
 		btnNewButton_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 14));
-		btnNewButton_1_1.setBounds(366, 380, 135, 23);
+		btnNewButton_1_1.setBounds(366, 442, 135, 23);
 		contentPane.add(btnNewButton_1_1);
+		
+		salary = new JTextField();
+		salary.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		salary.setColumns(10);
+		salary.setBounds(72, 350, 160, 20);
+		contentPane.add(salary);
+		
+		JLabel lblNewLabel = new JLabel("Salary:");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		lblNewLabel.setBounds(24, 355, 46, 14);
+		contentPane.add(lblNewLabel);
+		
+		txtSched = new JTextField();
+		txtSched.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		txtSched.setColumns(10);
+		txtSched.setBounds(72, 381, 160, 20);
+		contentPane.add(txtSched);
+		
+		JLabel lblSchedule = new JLabel("Schedule:");
+		lblSchedule.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblSchedule.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		lblSchedule.setBounds(24, 386, 46, 14);
+		contentPane.add(lblSchedule);
+	
+		
+		JLabel lblNewLabel_1 = new JLabel("Date Started:");
+		lblNewLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_1.setBounds(275, 351, 77, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Birthday:");
+		lblNewLabel_1_1.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		lblNewLabel_1_1.setBounds(275, 386, 77, 14);
+		contentPane.add(lblNewLabel_1_1);
 	}
 	private void updateTable() {
 		conn = sqliteConnection.dbConnector();
@@ -393,6 +492,7 @@ public class EditEmployees extends JFrame {
 			JOptionPane.showMessageDialog(null, e);
 		} finally {
 			try {
+				conn.close();
 				rs.close();
 				pst.close();
 			} catch (Exception e) {

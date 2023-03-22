@@ -30,7 +30,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtuname;
 	private JPasswordField txtpword;
-    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final String CHARACTERS = "ABCDEFGHJKMNOPQRSTUVWXYZabcdefghjkmnopqrstuvwxyz0123456789";
     private static final int LENGTH = 6;
 
 	/**
@@ -70,7 +70,6 @@ public class Login extends JFrame {
 	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
 	
 	public Login() {
-		setTitle("Villa Rose System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 640, 481);
 		contentPane = new JPanel();
@@ -208,6 +207,15 @@ public class Login extends JFrame {
 		contentPane.add(RegisterAcc);
 		
 		JLabel ForgotPassword = new JLabel("Forgot Password");
+		ForgotPassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				ForgotPassword fppage = new ForgotPassword();
+				fppage.frame.setLocationRelativeTo(null);
+				fppage.frame.show();
+			}
+		});
 		ForgotPassword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		ForgotPassword.setBounds(191, 351, 109, 14);
 		contentPane.add(ForgotPassword);
