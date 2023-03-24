@@ -2,6 +2,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.sql.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,6 +15,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -221,6 +224,14 @@ public class HomePage extends JFrame {
 		txtFname = new JTextField();
 		txtFname.setBounds(287, 35, 271, 20);
 		txtFname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtFname.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                }
+			}
+		});
 		contentPane.add(txtFname);
 		txtFname.setColumns(10);
 		
@@ -234,6 +245,14 @@ public class HomePage extends JFrame {
 		txtLname.setColumns(10);
 		txtLname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtLname.setBounds(287, 63, 271, 20);
+		txtLname.addKeyListener(new java.awt.event.KeyAdapter() {
+			public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume();
+                }
+			}
+		});
 		contentPane.add(txtLname);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email:");
@@ -258,6 +277,16 @@ public class HomePage extends JFrame {
 		txtContactNo.setColumns(10);
 		txtContactNo.setBounds(287, 126, 271, 20);
 		txtContactNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) ||
+                      (c == KeyEvent.VK_BACK_SPACE) ||
+                      (c == KeyEvent.VK_DELETE))) {
+                    evt.consume(); // ignore input if it is not a digit or backspace or delete key
+                }
+            }
+        });
 		contentPane.add(txtContactNo);
 		
 		JLabel lblNewLabel_4 = new JLabel("Check-In:");
@@ -280,26 +309,46 @@ public class HomePage extends JFrame {
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblBalance.setBounds(585, 291, 66, 14);
+		lblBalance.setBounds(588, 291, 66, 14);
 		lblBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
 		txtBalance.setColumns(10);
-		txtBalance.setBounds(663, 288, 271, 20);
+		txtBalance.setBounds(666, 288, 271, 20);
 		txtBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtBalance.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) ||
+                      (c == KeyEvent.VK_BACK_SPACE) ||
+                      (c == KeyEvent.VK_DELETE))) {
+                    evt.consume(); // ignore input if it is not a digit or backspace or delete key
+                }
+            }
+        });
 		contentPane.add(txtBalance);
 		
 		JLabel lblAmountPaid = new JLabel("Amount Paid:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAmountPaid.setBounds(585, 322, 66, 14);
+		lblAmountPaid.setBounds(588, 322, 66, 14);
 		lblAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
 		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(663, 319, 271, 20);
+		txtAmountPaid.setBounds(666, 319, 271, 20);
 		txtAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtAmountPaid.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (!(Character.isDigit(c) ||
+                      (c == KeyEvent.VK_BACK_SPACE) ||
+                      (c == KeyEvent.VK_DELETE))) {
+                    evt.consume(); // ignore input if it is not a digit or backspace or delete key
+                }
+            }
+        });
 		contentPane.add(txtAmountPaid);
 		
 		JLabel image = new JLabel("");
@@ -363,19 +412,42 @@ public class HomePage extends JFrame {
 					}else
 						additionals = additionals + "";
 					
-					pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof, room_additionals) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-					pst.setString(1,fname);
-					pst.setString(2,lname);
-					pst.setString(3,email);
-					pst.setInt(4,contact);
-					pst.setString(5,date1);
-					pst.setString(6,date2);
-					pst.setString(7,accomodation_type);
-					pst.setInt(8,bal);
-					pst.setInt(9,amnt);
-					pst.setBytes(10, person_image);
-					pst.setString(11, additionals);
+					if(fname.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(lname.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(email.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(contactNo.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(date1.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(date2.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(balance.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(amount.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(!chkfamily.isSelected() && !chkkubo.isSelected() && !chkteepee.isSelected() && !chkcabana.isSelected() && !chkpool.isSelected()) {
+						JOptionPane.showMessageDialog(null, "Room type can't be unselected. Please select atleast one room.");
+					}else
 					
+					if(isValidEmail(email)) {
+						pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof, room_additionals) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+						pst.setString(1,fname);
+						pst.setString(2,lname);
+						pst.setString(3,email);
+						pst.setInt(4,contact);
+						pst.setString(5,date1);
+						pst.setString(6,date2);
+						pst.setString(7,accomodation_type);
+						pst.setInt(8,bal);
+						pst.setInt(9,amnt);
+						pst.setBytes(10, person_image);
+						pst.setString(11, additionals);
+					} else {
+						JOptionPane.showMessageDialog(null, "Please enter a valid email address");
+					}
 					int k = pst.executeUpdate();
 					
 					if (k==1) {
@@ -405,25 +477,29 @@ public class HomePage extends JFrame {
 					rs.close();
 					pst.close();
 					conn.close();
-				} catch (Exception e1) {
-					System.out.print(e1);
+				} catch (NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
 					
-				} finally {
+					
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Transaction Failed to Save");
+				}
+				finally {
 				
 				}
 				
 			}
 		});
-		btnAdd.setBounds(687, 347, 215, 23);
+		btnAdd.setBounds(666, 347, 271, 23);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out","room_description","balance","amount_paid"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(663, 378, 271, 22);
+		comboBox.setBounds(666, 378, 271, 22);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(663, 409, 271, 20);
+		txtField.setBounds(666, 409, 271, 20);
 		txtField.setText("Search for?");
 		txtField.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtField.setForeground(new Color(159, 159, 159));
@@ -554,13 +630,13 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(687, 441, 215, 23);
+		btnSearch.setBounds(666, 441, 271, 23);
 		contentPane.add(btnSearch);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_6.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_6.setBounds(585, 382, 66, 14);
+		lblNewLabel_6.setBounds(588, 382, 66, 14);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -619,20 +695,59 @@ public class HomePage extends JFrame {
 					}else
 						additionals = additionals + "";
 					
-					pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
-					pst.setString(1,fname);
-					pst.setString(2,lname);
-					pst.setString(3,email);
-					pst.setInt(4,contact);
-					pst.setString(5,date1);
-					pst.setString(6,date2);
-					pst.setString(7,accomodation_type);
-					pst.setString(8, additionals);
-					pst.setInt(9,bal);
-					pst.setInt(10,amnt);
-					pst.setBytes(11, person_image);
-					pst.setString(12, transaction_id);
+					if(fname.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(lname.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(email.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(contactNo.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(date1.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(date2.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(balance.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(amount.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(!chkfamily.isSelected() && !chkkubo.isSelected() && !chkteepee.isSelected() && !chkcabana.isSelected() && !chkpool.isSelected()) {
+						JOptionPane.showMessageDialog(null, "Room type can't be unselected. Please select atleast one room.");
+					}else
 					
+					if(isValidEmail(email)) {
+						if (person_image != null  && person_image.length > 0) {
+						pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
+						pst.setString(1,fname);
+						pst.setString(2,lname);
+						pst.setString(3,email);
+						pst.setInt(4,contact);
+						pst.setString(5,date1);
+						pst.setString(6,date2);
+						pst.setString(7,accomodation_type);
+						pst.setString(8, additionals);
+						pst.setInt(9,bal);
+						pst.setInt(10,amnt);
+						pst.setBytes(11, person_image);
+						pst.setString(12, transaction_id);
+						}
+						else {
+							pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?WHERE transaction_id=?");
+							pst.setString(1,fname);
+							pst.setString(2,lname);
+							pst.setString(3,email);
+							pst.setInt(4,contact);
+							pst.setString(5,date1);
+							pst.setString(6,date2);
+							pst.setString(7,accomodation_type);
+							pst.setString(8, additionals);
+							pst.setInt(9,bal);
+							pst.setInt(10,amnt);
+							pst.setString(11, transaction_id);
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Please enter a valid email address");
+					}
 					
 					int k = pst.executeUpdate();
 					if(k==1) {
@@ -662,7 +777,7 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(687, 475, 215, 25);
+		btnUpdate.setBounds(666, 475, 271, 25);
 		contentPane.add(btnUpdate);
 		
 		JButton attach_img = new JButton("Attach Image");
@@ -693,7 +808,7 @@ public class HomePage extends JFrame {
 		attach_img.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		attach_img.setBorder(null);
 		attach_img.setBackground(new Color(225, 167, 48));
-		attach_img.setBounds(290, 477, 215, 23);
+		attach_img.setBounds(259, 477, 271, 23);
 		contentPane.add(attach_img);
 		
 		path = new JTextField();
@@ -736,6 +851,15 @@ public class HomePage extends JFrame {
 	private void getID() {
 		conn = sqliteConnection.dbConnector();
 	}
+	
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 	
 	private void clearOption() {
 		chkfamily.setSelected(false);

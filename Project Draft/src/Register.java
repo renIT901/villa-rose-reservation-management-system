@@ -36,6 +36,8 @@ import javax.swing.JPasswordField;
 import java.awt.event.FocusAdapter;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Register extends JFrame {
@@ -53,9 +55,20 @@ public class Register extends JFrame {
 	private JPasswordField txtAdminPass;
 	private ButtonGroup bg = new ButtonGroup();
 	private String gender;
+    private Pattern pattern;
+    private Matcher matcher;
+
+    private static final String PASSWORD_PATTERN =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
+
+    public boolean validate(final String password) {
+        matcher = pattern.matcher(password);
+        return matcher.matches();
+    }
 	
 	
 	public Register() {
+		//pattern = Pattern.compile(PASSWORD_PATTERN);
 		//addPlaceholderStyle(txtSqans);
 		//addPlaceholderStyle(txtAdminPass);
 		setTitle("Villa Rose System");
@@ -85,6 +98,14 @@ public class Register extends JFrame {
 		txtfname = new JTextField();
 		txtfname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtfname.setBounds(205, 86, 282, 20);
+		txtfname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume(); // ignore input if it is a digit
+                }
+            }
+        });
 		contentPane.add(txtfname);
 		txtfname.setColumns(10);
 		
@@ -107,6 +128,14 @@ public class Register extends JFrame {
 		txtlname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtlname.setColumns(10);
 		txtlname.setBounds(205, 120, 282, 20);
+		txtlname.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                char c = evt.getKeyChar();
+                if (Character.isDigit(c)) {
+                    evt.consume(); // ignore input if it is a digit
+                }
+            }
+        });
 		contentPane.add(txtlname);
 		
 		txtuname = new JTextField();
@@ -120,13 +149,13 @@ public class Register extends JFrame {
 		contentPane.add(bday);
 		
 		JRadioButton rMale = new JRadioButton("Male");
-		rMale.setBounds(208, 318, 109, 23);
+		rMale.setBounds(200, 318, 109, 23);
 		rMale.setBackground(new Color(250, 245, 232));
 		rMale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(rMale);
 		
 		JRadioButton rFemale = new JRadioButton("Female");
-		rFemale.setBounds(208, 354, 109, 23);
+		rFemale.setBounds(200, 344, 109, 23);
 		rFemale.setBackground(new Color(250, 245, 232));
 		rFemale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(rFemale);
@@ -140,6 +169,22 @@ public class Register extends JFrame {
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		comboBox.setBounds(129, 390, 358, 22);
 		contentPane.add(comboBox); 
+		
+		JCheckBox shpword = new JCheckBox("Show Password");
+		shpword.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(shpword.isSelected()) {
+					txtpword.setEchoChar((char)0);
+				}else {
+					txtpword.setEchoChar('*');
+				}
+			}
+		});
+		shpword.setBackground(new Color(250, 245, 232));
+		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		shpword.setBounds(204, 218, 113, 23);
+		contentPane.add(shpword);
+		
 		
 		txtSqans = new JTextField();
 		txtSqans.setForeground(new Color(159, 159, 159));
@@ -180,8 +225,9 @@ public class Register extends JFrame {
 					String lname = txtlname.getText();
 					String uname = txtuname.getText();
 					String pword = txtpword.getText();
+					PasswordValidator validator = new PasswordValidator();
 					String sqans = txtSqans.getText();
-					String email = txtEmail.getText();
+					String email = txtEmail.getText().toLowerCase();;
 					String adpass = txtAdminPass.getText();
 					String sq = comboBox.getSelectedItem().toString();
 					String adminpass = "";
@@ -194,8 +240,7 @@ public class Register extends JFrame {
 					else if (rFemale.isSelected()) {
 						gender = "Female";
 					}
-					else
-						JOptionPane.showMessageDialog(null, "Please select a gender.");
+					
 					
 					if(fname.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
@@ -205,9 +250,19 @@ public class Register extends JFrame {
 						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
 					}else if(pword.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(email.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(date1.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
 					}else if(sq.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
-					}else {
+					}else if(sqans.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}else if(bg.getSelection()==null) {
+						JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+					}
+					
+					else {
 					
 					Statement stm = conn.createStatement();
 					String sql1 = "SELECT pword FROM Employee where employee_id = 1";
@@ -218,32 +273,43 @@ public class Register extends JFrame {
 					rs.close();
 					stm.close();
 					conn.close();
-					
-					if (adminpass.equals(adpass)) {
-						conn = sqliteConnection.dbConnector();
-						String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans,role,email, birthday, gender) VALUES(?,?,?,?,?,?,?,?,?,?)";
-						PreparedStatement pst = conn.prepareStatement(sql);
-						pst.setString(1, fname);
-						pst.setString(2, lname);
-						pst.setString(3, uname);
-						pst.setString(4, pword);
-						pst.setString(5, sq);
-						pst.setString(6, sqans);
-						pst.setString(7, "Employee");
-						pst.setString(8, email);
-						pst.setString(9, date1);
-						pst.setString(10, gender);
-						pst.execute();
-						JOptionPane.showMessageDialog(null, "You have successfully registered.");
-						
-						pst.close();
-						conn.close();
-					}
-					else {
-						JOptionPane.showMessageDialog(null, "Wrong admin password. Please try again.");
-					}
-					}
-				}catch(SQLiteException sqle) {
+				    if (isValidEmail(email)) {
+						if(validator.validate(pword)) {
+							if (adminpass.equals(adpass)) {
+								conn = sqliteConnection.dbConnector();
+								String sql = "INSERT INTO Employee(fname,lname,uname,pword,sQuestion,sq_ans,role,email, birthday, gender) VALUES(?,?,?,?,?,?,?,?,?,?)";
+								PreparedStatement pst = conn.prepareStatement(sql);
+								pst.setString(1, fname);
+								pst.setString(2, lname);
+								pst.setString(3, uname);
+								pst.setString(4, pword);
+								pst.setString(5, sq);
+								pst.setString(6, sqans);
+								pst.setString(7, "Employee");
+								pst.setString(8, email);
+								pst.setString(9, date1);
+								pst.setString(10, gender);
+								pst.execute();
+								JOptionPane.showMessageDialog(null, "You have successfully registered.");
+								
+								pst.close();
+								conn.close();
+							}
+							else {
+								JOptionPane.showMessageDialog(null, "Wrong admin password. Please try again.");
+							}
+						}
+							else {
+								JOptionPane.showMessageDialog(null, "Password must be 8 characters long, and must contain a digit, a lowercase letter, an uppercase letter, and a special character.");
+							}
+				   }else {
+					   JOptionPane.showMessageDialog(null, email + " is not a valid email address. Pleas try again.");
+				   }
+				}
+				}catch(NullPointerException npe) {
+					JOptionPane.showMessageDialog(null, "A field is empty. Please fill up all of the fields.");
+				}
+				catch(SQLiteException sqle) {
 					JOptionPane.showMessageDialog(null, "Username has already been taken.");
 				}
 				catch(Exception e) {
@@ -256,6 +322,7 @@ public class Register extends JFrame {
 					txtuname.setText("");
 					txtpword.setText("");
 					txtSqans.setText("");
+					shpword.setSelected(false);
 					bday.setDate(null);
 					bg.clearSelection();
 					txtAdminPass.setText("");
@@ -323,22 +390,6 @@ public class Register extends JFrame {
 		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtAdminPass.setBounds(129, 462, 358, 20);
 		contentPane.add(txtAdminPass);
-		
-		JCheckBox shpword = new JCheckBox("Show Password");
-		shpword.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(shpword.isSelected()) {
-					txtpword.setEchoChar((char)0);
-				}else {
-					txtpword.setEchoChar('*');
-				}
-			}
-		});
-		shpword.setBackground(new Color(250, 245, 232));
-		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		shpword.setBounds(204, 218, 113, 23);
-		contentPane.add(shpword);
-		
 
 		
 		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Birth Day:");
@@ -353,6 +404,15 @@ public class Register extends JFrame {
 		lblNewLabel_1_1_1_1_1_1_1.setBounds(129, 324, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1_1_1);
 	}
+	
+    private boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

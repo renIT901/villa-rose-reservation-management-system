@@ -14,6 +14,7 @@ import net.proteanit.sql.DbUtils;
 
 import java.awt.Font;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,8 +39,11 @@ import java.awt.print.PrinterException;
 import java.beans.Statement;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 public class ManageContent extends JFrame {
 
@@ -47,6 +51,17 @@ public class ManageContent extends JFrame {
 	private String transaction_id;
 	private String gen_table;
 	private String filename=null;
+	String emp_role;
+    // SQLite database file location
+    static final String DB_FILE_LOCATION = "project_db.db";
+    
+    // SQLite JDBC driver name and database URL
+    static final String JDBC_DRIVER = "org.sqlite.JDBC";  
+    static final String DB_URL = "jdbc:sqlite:" + DB_FILE_LOCATION;
+
+    // Button to initiate backup process
+    static JButton backupButton;
+    static String filename1= "";
 	/**
 	 * Launch the application.
 	 */
@@ -96,10 +111,38 @@ public class ManageContent extends JFrame {
 		JButton btnNewButton_1 = new JButton("Edit Employees Account");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
-				EditEmployees epage = new EditEmployees(emp_id);
-				epage.setLocationRelativeTo(null);
-				epage.show();
+				try {
+				conn = sqliteConnection.dbConnector();
+				pst = conn.prepareStatement("SELECT role FROM Employee WHERE employee_id =" + "'"+emp_id+"'");
+				rs = pst.executeQuery();
+				if(rs.next()==true) {
+					emp_role=rs.getString("role");
+				}
+				
+				}
+				catch (Exception e1) {
+					System.out.println(e1);
+				}finally {
+					try {
+						rs.close();
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
+				if(emp_role.equals("Admin")) {
+					dispose();
+					EditEmployees epage = new EditEmployees(emp_id);
+					epage.setLocationRelativeTo(null);
+					epage.show();
+				}
+				else {
+					System.out.println(emp_role);
+					JOptionPane.showMessageDialog(null, "Current Account does not have administritive rights to edit Employee Accounts.");
+				}
 			}
 		});
 		btnNewButton_1.setBorder(null);
@@ -109,31 +152,52 @@ public class ManageContent extends JFrame {
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Backup Database");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				backupDatabase();
+			}
+		});
 		btnNewButton_2.setBorder(null);
 		btnNewButton_2.setBackground(new Color(225, 167, 48));
 		btnNewButton_2.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_2.setBounds(10, 374, 144, 30);
+		btnNewButton_2.setBounds(20, 374, 144, 30);
 		contentPane.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("View Backup");
-		btnNewButton_3.setBorder(null);
-		btnNewButton_3.setBackground(new Color(225, 167, 48));
-		btnNewButton_3.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_3.setBounds(164, 374, 144, 30);
-		contentPane.add(btnNewButton_3);
-		
-		JButton btnNewButton_4 = new JButton("Delete Backup");
-		btnNewButton_4.setBorder(null);
-		btnNewButton_4.setBackground(new Color(225, 167, 48));
-		btnNewButton_4.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_4.setBounds(316, 374, 144, 30);
-		contentPane.add(btnNewButton_4);
-		
 		JButton btnNewButton_5 = new JButton("Restore Backup");
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			    JFileChooser chooser = new JFileChooser();
+			    int returnVal = chooser.showOpenDialog(null);
+			    if (returnVal == JFileChooser.APPROVE_OPTION) {
+			        File file = chooser.getSelectedFile();
+			        String filePath = file.getAbsolutePath();
+			        try {
+			            // Connect to the database to be restored
+			            Class.forName("org.sqlite.JDBC");
+			            String url = "jdbc:sqlite:project_db.db";
+			            Connection conn = DriverManager.getConnection(url);
+
+			            // Execute SQL to restore the database from the backup file
+			            String sql = "RESTORE FROM '" + filePath + "'";
+			            conn.createStatement().execute(sql);
+
+			            // Close the connection
+			            conn.close();
+
+			            JOptionPane.showMessageDialog(null, "Database restored successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+			        } catch (ClassNotFoundException ex) {
+			            JOptionPane.showMessageDialog(null, "SQLite JDBC driver not found", "Error", JOptionPane.ERROR_MESSAGE);
+			        } catch (SQLException ex) {
+			            JOptionPane.showMessageDialog(null, "Error restoring database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			        }
+			    }
+			}
+			
+		});
 		btnNewButton_5.setBorder(null);
 		btnNewButton_5.setBackground(new Color(225, 167, 48));
 		btnNewButton_5.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_5.setBounds(470, 374, 144, 30);
+		btnNewButton_5.setBounds(193, 374, 144, 30);
 		contentPane.add(btnNewButton_5);
 		
 		JLabel lblNewJgoodiesLabel_1 = DefaultComponentFactory.getInstance().createLabel("Homepage");
@@ -278,6 +342,35 @@ public class ManageContent extends JFrame {
 				JOptionPane.showMessageDialog(null, e1);
 			}
 	}
+    private static void backupDatabase() {
+        try {
+            // Create a connection to the SQLite database
+            Connection conn = DriverManager.getConnection(DB_URL);
+            JFileChooser chooser = new JFileChooser();
+			chooser.showOpenDialog(null);
+			File f = chooser.getSelectedFile();
+			filename1 = f.getAbsolutePath();
+            // Create backup file with current date and time as file name
+            String backupFileName = "database_backup_" + System.currentTimeMillis() + ".db";
+            File backupFile = new File(filename1+".db");
+
+            // Copy database file to backup file
+            FileChannel src = new FileInputStream(new File(DB_FILE_LOCATION)).getChannel();
+            FileChannel dest = new FileOutputStream(backupFile).getChannel();
+            dest.transferFrom(src, 0, src.size());
+            src.close();
+            dest.close();
+
+            // Show success message
+            JOptionPane.showMessageDialog(null, "Database backup created at:\n" + backupFile.getAbsolutePath());
+
+            // Close the database connection
+            conn.close();
+        } catch (SQLException | IOException ex) {
+            // Show error message
+            JOptionPane.showMessageDialog(null, "Error creating database backup:\n" + ex.getMessage());
+        }
+    }
 	private void updateTable(String trans_id) {
 		conn = sqliteConnection.dbConnector();
 		String sql = "SELECT * FROM Testing where transaction_id="+trans_id;

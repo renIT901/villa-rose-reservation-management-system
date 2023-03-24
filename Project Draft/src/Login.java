@@ -84,7 +84,7 @@ public class Login extends JFrame {
 		captcha = new JTextField(captcha1);
 		captcha.setEditable(false);
 		captcha.setBorder(new LineBorder(Color.BLACK, 1, true));
-		captcha.setBounds(181, 206, 233, 43);
+		captcha.setBounds(194, 206, 233, 43);
 		captcha.setFont(new Font("Calibri Light", Font.PLAIN, 36));
 		contentPane.add(captcha);
 		captcha.setColumns(10);
@@ -92,7 +92,7 @@ public class Login extends JFrame {
 		txtuname = new JTextField();
 		txtuname.setBorder(new LineBorder(Color.BLACK, 1, true));
 		txtuname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtuname.setBounds(181, 111, 233, 20);
+		txtuname.setBounds(194, 111, 233, 20);
 		contentPane.add(txtuname);
 		txtuname.setColumns(10);
 		
@@ -141,24 +141,24 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(206, 309, 187, 30);
+		btnLogin.setBounds(194, 309, 233, 30);
 		contentPane.add(btnLogin);
 		
 		JLabel password_icon = new JLabel("");
-		password_icon.setBounds(152, 149, 20, 20);
+		password_icon.setBounds(165, 149, 20, 20);
 		password_icon.setIcon(new ImageIcon(img2));
 		contentPane.add(password_icon);
 		
 		txtpword = new JPasswordField();
 		txtpword.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtpword.setBounds(181, 149, 233, 20);
+		txtpword.setBounds(194, 149, 233, 20);
 		contentPane.add(txtpword);
 		
 		JLabel lblNewLabel_2 = new JLabel("Reservation Management System");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 30));
-		lblNewLabel_2.setBounds(105, 44, 409, 38);
+		lblNewLabel_2.setBounds(118, 44, 409, 38);
 		contentPane.add(lblNewLabel_2);
 		
 		JCheckBox shpword = new JCheckBox("Show Password");
@@ -173,18 +173,18 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		shpword.setBounds(252, 176, 147, 23);
+		shpword.setBounds(265, 176, 147, 23);
 		contentPane.add(shpword);
 		
 		JLabel lblNewLabel_3 = new JLabel("Type the code you see above.");
 		lblNewLabel_3.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_3.setBounds(181, 260, 199, 14);
+		lblNewLabel_3.setBounds(194, 260, 199, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		captcha_ans = new JTextField();
 		captcha_ans.setBorder(new LineBorder(Color.BLACK, 1, true));
 		captcha_ans.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		captcha_ans.setBounds(181, 278, 147, 20);
+		captcha_ans.setBounds(194, 278, 147, 20);
 		contentPane.add(captcha_ans);
 		captcha_ans.setColumns(10);
 		
@@ -203,7 +203,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		RegisterAcc.setBounds(335, 351, 101, 14);
+		RegisterAcc.setBounds(348, 351, 101, 14);
 		contentPane.add(RegisterAcc);
 		
 		JLabel ForgotPassword = new JLabel("Forgot Password");
@@ -217,16 +217,16 @@ public class Login extends JFrame {
 			}
 		});
 		ForgotPassword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		ForgotPassword.setBounds(191, 351, 109, 14);
+		ForgotPassword.setBounds(204, 351, 109, 14);
 		contentPane.add(ForgotPassword);
 		
 		JLabel name_icon = new JLabel();
-		name_icon.setBounds(49, 29, 40, 40);
+		name_icon.setBounds(62, 29, 40, 40);
 		name_icon.setIcon(new ImageIcon(img1));
 		contentPane.add(name_icon);
 		
 		JLabel uname_icon = new JLabel();
-		uname_icon.setBounds(152, 111, 20, 20);
+		uname_icon.setBounds(165, 111, 20, 20);
 		uname_icon.setIcon(new ImageIcon(img3));
 		contentPane.add(uname_icon);
 		

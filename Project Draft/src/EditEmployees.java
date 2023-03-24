@@ -409,6 +409,7 @@ public class EditEmployees extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				String sql = "DELETE FROM Employee where employee_id = " + employee_id;
 				try {
+					conn = sqliteConnection.dbConnector();
 					pst = conn.prepareStatement(sql);
 					pst.execute();
 					fname.setText("");
@@ -423,15 +424,23 @@ public class EditEmployees extends JFrame {
 					dateStarted.setDate(null);
 					buttonGroup.clearSelection();
 					comboBox_1.setSelectedIndex(0);
-					rs.close();
-					pst.close();
-					conn.close();
+					
 					updateTable();
 					JOptionPane.showMessageDialog(null, "Employee record deleted successfully");
 					updateTable();
 				}catch(Exception e1) {
 					System.out.println(e1);
 					JOptionPane.showMessageDialog(null, "An error has been encountered.");
+					
+				}finally {
+					try {
+						rs.close();
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					
 				}
 			}
@@ -483,7 +492,7 @@ public class EditEmployees extends JFrame {
 	}
 	private void updateTable() {
 		conn = sqliteConnection.dbConnector();
-		String sql = "SELECT employee_id,fname,lname,uname,pword,email,role,sQuestion,sq_ans FROM Employee";
+		String sql = "SELECT employee_id,fname,lname,uname,pword,email,role,gender,birthday,date_started,salary,schedule_of_duties,sQuestion,sq_ans FROM Employee";
 		try {
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();

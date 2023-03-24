@@ -160,7 +160,7 @@ public class ForgotPassword {
 			public void actionPerformed(ActionEvent e) {
 				try {
 				conn = sqliteConnection.dbConnector();
-				String email = txtEmail.getText();
+				String email = txtEmail.getText().toLowerCase();
 				String username = txtUsername.getText();
 				pst = conn.prepareStatement("SELECT * FROM Employee WHERE email =" + "'"+email+"' and uname =" + "'"+username+"'");
 				rs = pst.executeQuery();
@@ -271,6 +271,7 @@ public class ForgotPassword {
 					if(securityQ == null && employee_id == null) {
 						JOptionPane.showMessageDialog(null, "Please Search for Email and Username.");
 					}
+					
 					pst = conn.prepareStatement("UPDATE Employee SET pword=? WHERE employee_id=? and sq_ans=?");
 					pst.setString(1, pass);
 					pst.setString(2, employee_id);
@@ -292,6 +293,8 @@ public class ForgotPassword {
 						pst.close();
 						conn.close();
 					}
+					else
+						JOptionPane.showMessageDialog(null, "Incorrect answer. Please try again.");
 				}
 				catch(Exception e1) {
 					JOptionPane.showMessageDialog(null, "An error was encountered while changing password.");
