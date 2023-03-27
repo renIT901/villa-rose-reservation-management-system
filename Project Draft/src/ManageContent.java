@@ -99,14 +99,14 @@ public class ManageContent extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("Manage Content");
-		lblNewJgoodiesLabel.setFont(new Font("SansSerif", Font.PLAIN, 30));
-		lblNewJgoodiesLabel.setBounds(231, 31, 220, 38);
+		lblNewJgoodiesLabel.setFont(new Font("SansSerif", Font.PLAIN, 40));
+		lblNewJgoodiesLabel.setBounds(231, 31, 297, 38);
 		contentPane.add(lblNewJgoodiesLabel);
 		
 		String[] column = {"Select Table to Generate","Testing","Employee"};
 		JComboBox comboBox = new JComboBox(column);
-		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		comboBox.setBounds(231, 114, 311, 22);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox.setBounds(231, 114, 311, 24);
 		contentPane.add(comboBox);
 		loadUserName();
 		
@@ -149,8 +149,8 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBackground(new Color(225, 167, 48));
-		btnNewButton_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(231, 293, 187, 40);
+		btnNewButton_1.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btnNewButton_1.setBounds(231, 295, 255, 40);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Backup Database");
@@ -161,7 +161,7 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_2.setBorder(null);
 		btnNewButton_2.setBackground(new Color(225, 167, 48));
-		btnNewButton_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnNewButton_2.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnNewButton_2.setBounds(231, 594, 187, 40);
 		contentPane.add(btnNewButton_2);
 		
@@ -198,24 +198,9 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_5.setBorder(null);
 		btnNewButton_5.setBackground(new Color(225, 167, 48));
-		btnNewButton_5.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnNewButton_5.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnNewButton_5.setBounds(437, 594, 187, 40);
 		contentPane.add(btnNewButton_5);
-		
-		JLabel lblNewJgoodiesLabel_1 = DefaultComponentFactory.getInstance().createLabel("Homepage");
-		lblNewJgoodiesLabel_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				dispose();
-				HomePage hpage = new HomePage(emp_id);
-				hpage.setLocationRelativeTo(null);
-				hpage.show();
-				
-			}
-		});
-		lblNewJgoodiesLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 14));
-		lblNewJgoodiesLabel_1.setBounds(859, 11, 77, 22);
-		contentPane.add(lblNewJgoodiesLabel_1);
 		
 		JPanel panel = new JPanel();
 		panel.setLayout(null);
@@ -224,8 +209,8 @@ public class ManageContent extends JFrame {
 		contentPane.add(panel);
 		
 		JLabel icon = new JLabel("");
-		icon.setIcon(new ImageIcon(ManageContent.class.getResource("/img/1.png")));
-		icon.setBounds(78, 78, 39, 46);
+		icon.setIcon(new ImageIcon(ManageContent.class.getResource("/img/villarose.png")));
+		icon.setBounds(37, 29, 125, 125);
 		panel.add(icon);
 		
 		JButton btn_transaction = new JButton("Transactions");
@@ -233,7 +218,7 @@ public class ManageContent extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transaction.setBorder(null);
 		btn_transaction.setBackground(new Color(225, 167, 48));
 		btn_transaction.setBounds(18, 191, 163, 40);
@@ -241,28 +226,28 @@ public class ManageContent extends JFrame {
 		
 		JButton btn_managecontent = new JButton("Manage Content");
 		btn_managecontent.setSelected(true);
-		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_managecontent.setBorder(null);
 		btn_managecontent.setBackground(new Color(225, 167, 48));
 		btn_managecontent.setBounds(18, 293, 163, 40);
 		panel.add(btn_managecontent);
 		
 		JButton btn_logout = new JButton("Logout");
-		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_logout.setBorder(null);
 		btn_logout.setBackground(new Color(225, 167, 48));
 		btn_logout.setBounds(18, 594, 163, 40);
 		panel.add(btn_logout);
 		
 		JButton btn_transactiontables = new JButton("Transaction Table");
-		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transactiontables.setBorder(null);
 		btn_transactiontables.setBackground(new Color(225, 167, 48));
 		btn_transactiontables.setBounds(18, 242, 163, 40);
 		panel.add(btn_transactiontables);
 		
 		JButton btnReport = new JButton("Generate Report");
-		btnReport.setBounds(231, 150, 187, 40);
+		btnReport.setBounds(231, 146, 187, 40);
 		contentPane.add(btnReport);
 		btnReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -362,7 +347,7 @@ public class ManageContent extends JFrame {
 		});
 		btnReport.setBorder(null);
 		btnReport.setBackground(new Color(225, 167, 48));
-		btnReport.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnReport.setFont(new Font("SansSerif", Font.PLAIN, 20));
 	}
 	public void loadUserName(){
 		try {
