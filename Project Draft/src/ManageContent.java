@@ -44,6 +44,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import javax.swing.ImageIcon;
 
 public class ManageContent extends JFrame {
 
@@ -83,12 +84,13 @@ public class ManageContent extends JFrame {
 	ResultSet rs = null;
 	
 	public ManageContent(int emp_id) {
+		setResizable(false);
 		setTitle("Villa Rose System");
 		System.out.print(emp_id);
 		conn = sqliteConnection.dbConnector();
 		setBackground(new Color(250, 245, 232));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 480);
+		setBounds(100, 100, 960, 720);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,14 +99,14 @@ public class ManageContent extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("Manage Content");
-		lblNewJgoodiesLabel.setFont(new Font("Calibri Light", Font.PLAIN, 30));
-		lblNewJgoodiesLabel.setBounds(10, 11, 204, 38);
+		lblNewJgoodiesLabel.setFont(new Font("SansSerif", Font.PLAIN, 30));
+		lblNewJgoodiesLabel.setBounds(231, 31, 220, 38);
 		contentPane.add(lblNewJgoodiesLabel);
 		
 		String[] column = {"Select Table to Generate","Testing","Employee"};
 		JComboBox comboBox = new JComboBox(column);
-		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox.setBounds(20, 93, 311, 22);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		comboBox.setBounds(231, 114, 311, 22);
 		contentPane.add(comboBox);
 		loadUserName();
 		
@@ -147,8 +149,8 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBackground(new Color(225, 167, 48));
-		btnNewButton_1.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_1.setBounds(20, 239, 187, 30);
+		btnNewButton_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnNewButton_1.setBounds(231, 293, 187, 40);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_2 = new JButton("Backup Database");
@@ -159,8 +161,8 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_2.setBorder(null);
 		btnNewButton_2.setBackground(new Color(225, 167, 48));
-		btnNewButton_2.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_2.setBounds(20, 374, 144, 30);
+		btnNewButton_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnNewButton_2.setBounds(231, 594, 187, 40);
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_5 = new JButton("Restore Backup");
@@ -196,8 +198,8 @@ public class ManageContent extends JFrame {
 		});
 		btnNewButton_5.setBorder(null);
 		btnNewButton_5.setBackground(new Color(225, 167, 48));
-		btnNewButton_5.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton_5.setBounds(193, 374, 144, 30);
+		btnNewButton_5.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btnNewButton_5.setBounds(437, 594, 187, 40);
 		contentPane.add(btnNewButton_5);
 		
 		JLabel lblNewJgoodiesLabel_1 = DefaultComponentFactory.getInstance().createLabel("Homepage");
@@ -211,11 +213,57 @@ public class ManageContent extends JFrame {
 				
 			}
 		});
-		lblNewJgoodiesLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		lblNewJgoodiesLabel_1.setBounds(537, 20, 77, 22);
+		lblNewJgoodiesLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 14));
+		lblNewJgoodiesLabel_1.setBounds(859, 11, 77, 22);
 		contentPane.add(lblNewJgoodiesLabel_1);
 		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 200, 683);
+		contentPane.add(panel);
+		
+		JLabel icon = new JLabel("");
+		icon.setIcon(new ImageIcon(ManageContent.class.getResource("/img/1.png")));
+		icon.setBounds(78, 78, 39, 46);
+		panel.add(icon);
+		
+		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_transaction.setBorder(null);
+		btn_transaction.setBackground(new Color(225, 167, 48));
+		btn_transaction.setBounds(18, 191, 163, 40);
+		panel.add(btn_transaction);
+		
+		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.setSelected(true);
+		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_managecontent.setBorder(null);
+		btn_managecontent.setBackground(new Color(225, 167, 48));
+		btn_managecontent.setBounds(18, 293, 163, 40);
+		panel.add(btn_managecontent);
+		
+		JButton btn_logout = new JButton("Logout");
+		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_logout.setBorder(null);
+		btn_logout.setBackground(new Color(225, 167, 48));
+		btn_logout.setBounds(18, 594, 163, 40);
+		panel.add(btn_logout);
+		
+		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		btn_transactiontables.setBorder(null);
+		btn_transactiontables.setBackground(new Color(225, 167, 48));
+		btn_transactiontables.setBounds(18, 242, 163, 40);
+		panel.add(btn_transactiontables);
+		
 		JButton btnReport = new JButton("Generate Report");
+		btnReport.setBounds(231, 150, 187, 40);
+		contentPane.add(btnReport);
 		btnReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String gen_table = (String) comboBox.getSelectedItem();
@@ -314,9 +362,7 @@ public class ManageContent extends JFrame {
 		});
 		btnReport.setBorder(null);
 		btnReport.setBackground(new Color(225, 167, 48));
-		btnReport.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnReport.setBounds(20, 126, 141, 30);
-		contentPane.add(btnReport);
+		btnReport.setFont(new Font("SansSerif", Font.PLAIN, 16));
 	}
 	public void loadUserName(){
 		try {
