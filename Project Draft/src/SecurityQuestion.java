@@ -52,21 +52,21 @@ public class SecurityQuestion {
 		
 		JLabel lblSecurityQuestion = new JLabel("Security Question");
 		lblSecurityQuestion.setFont(new Font("SansSerif", Font.PLAIN, 40));
-		lblSecurityQuestion.setBounds(229, 132, 307, 39);
+		lblSecurityQuestion.setBounds(234, 132, 318, 39);
 		frame.getContentPane().add(lblSecurityQuestion);
 		
 		textField = new JTextField();
 		textField.setText("Email");
 		textField.setForeground(Color.GRAY);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		textField.setColumns(10);
-		textField.setBounds(176, 257, 437, 32);
+		textField.setBounds(174, 257, 437, 24);
 		frame.getContentPane().add(textField);
 		
 		JComboBox comboBox = new JComboBox(new Object[]{});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Select Security Question", "In what city were you born?", "What is the name of your favorite pet?", "What was your favorite food as a child?", "What high school did you attend?"}));
-		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 20));
-		comboBox.setBounds(176, 214, 437, 32);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox.setBounds(174, 214, 437, 24);
 		frame.getContentPane().add(comboBox);
 		
 		JButton btnProceed = new JButton("Proceed");
@@ -77,7 +77,7 @@ public class SecurityQuestion {
 		btnProceed.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnProceed.setBackground(new Color(225, 167, 48));
 		btnProceed.setAlignmentY(0.0f);
-		btnProceed.setBounds(290, 367, 187, 35);
+		btnProceed.setBounds(299, 367, 187, 48);
 		frame.getContentPane().add(btnProceed);
 	}
 }

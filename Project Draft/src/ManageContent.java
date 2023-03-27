@@ -100,7 +100,7 @@ public class ManageContent extends JFrame {
 		
 		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("Manage Content");
 		lblNewJgoodiesLabel.setFont(new Font("SansSerif", Font.PLAIN, 40));
-		lblNewJgoodiesLabel.setBounds(231, 31, 297, 38);
+		lblNewJgoodiesLabel.setBounds(231, 31, 297, 48);
 		contentPane.add(lblNewJgoodiesLabel);
 		
 		String[] column = {"Select Table to Generate","Testing","Employee"};

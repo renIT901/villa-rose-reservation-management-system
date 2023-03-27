@@ -65,13 +65,14 @@ public class ForgotPassword {
 
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
 		frame.getContentPane().setBackground(new Color(250, 245, 232));
 		frame.getContentPane().setForeground(new Color(250, 245, 232));
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Reset Password");
-		lblNewLabel.setBounds(262, 60, 298, 52);
-		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 40));
+		lblNewLabel.setBounds(244, 60, 298, 52);
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 40));
 		frame.getContentPane().add(lblNewLabel);
 		
 		JCheckBox shpword = new JCheckBox("Show Password");
@@ -85,12 +86,12 @@ public class ForgotPassword {
 			}
 		});
 		shpword.setBackground(new Color(250, 245, 232));
-		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		shpword.setBounds(324, 424, 113, 23);
+		shpword.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		shpword.setBounds(323, 424, 139, 24);
 		frame.getContentPane().add(shpword);
 		
 		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		txtEmail.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtEmail.setForeground(new Color(159, 159, 159));
 		txtEmail.setText("Email");
 		txtEmail.addFocusListener(new FocusAdapter() {
@@ -110,13 +111,13 @@ public class ForgotPassword {
 				}			
 			}
 		});
-		txtEmail.setBounds(235, 152, 300, 25);
+		txtEmail.setBounds(243, 152, 300, 24);
 		frame.getContentPane().add(txtEmail);
 
 		txtEmail.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
-		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 14));
+		lblNewLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblNewLabel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -126,12 +127,12 @@ public class ForgotPassword {
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(335, 500, 120, 16);
+		lblNewLabel_2.setBounds(330, 507, 126, 24);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		txtUsername = new JTextField("Username");
 		txtUsername.setForeground(new Color(159, 159, 159));
-		txtUsername.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		txtUsername.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtUsername.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent event) {
@@ -149,9 +150,9 @@ public class ForgotPassword {
 				}			
 			}
 		});
-		txtUsername.setText("Username");
+		txtUsername.setText("Email");
 		txtUsername.setColumns(10);
-		txtUsername.setBounds(235, 195, 300, 25);
+		txtUsername.setBounds(243, 195, 300, 24);
 		txtUsername.setFont(new Font("Calibri Light", Font.PLAIN, 16));
 		frame.getContentPane().add(txtUsername);
 		
@@ -193,27 +194,27 @@ public class ForgotPassword {
 		});
 		btnProceed.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnProceed.setForeground(Color.BLACK);
-		btnProceed.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnProceed.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnProceed.setBorderPainted(false);
 		btnProceed.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnProceed.setBackground(new Color(225, 167, 48));
 		btnProceed.setAlignmentY(0.0f);
-		btnProceed.setBounds(295, 231, 170, 30);
+		btnProceed.setBounds(308, 231, 170, 48);
 		frame.getContentPane().add(btnProceed);
 		
 		txtSecurityQuestion = new JTextField();
 		txtSecurityQuestion.setText("Security Question");
 		txtSecurityQuestion.setForeground(Color.GRAY);
-		txtSecurityQuestion.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		txtSecurityQuestion.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtSecurityQuestion.setColumns(10);
 		txtSecurityQuestion.setEditable(false);
-		txtSecurityQuestion.setBounds(235, 305, 300, 25);
+		txtSecurityQuestion.setBounds(243, 305, 300, 24);
 		frame.getContentPane().add(txtSecurityQuestion);
 		
 		txtAnswer = new JTextField();
 		txtAnswer.setText("Answer");
 		txtAnswer.setForeground(new Color(159, 159, 159));
-		txtAnswer.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		txtAnswer.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtAnswer.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent event) {
@@ -232,13 +233,13 @@ public class ForgotPassword {
 			}
 		});
 		txtAnswer.setColumns(10);
-		txtAnswer.setBounds(235, 348, 300, 25);
+		txtAnswer.setBounds(243, 348, 300, 24);
 		frame.getContentPane().add(txtAnswer);
 		
 		txtPass = new JPasswordField("Enter New Password");
-		txtPass.setBounds(235, 391, 300, 25);
+		txtPass.setBounds(243, 391, 300, 24);
 		txtPass.setEchoChar((char)0);
-		txtPass.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		txtPass.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtPass.setForeground(new Color(159, 159, 159));
 		txtPass.addFocusListener(new FocusAdapter() {
 			@Override
@@ -315,12 +316,12 @@ public class ForgotPassword {
 		});
 		btnSubmit.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSubmit.setForeground(Color.BLACK);
-		btnSubmit.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnSubmit.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnSubmit.setBorderPainted(false);
 		btnSubmit.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnSubmit.setBackground(new Color(225, 167, 48));
 		btnSubmit.setAlignmentY(0.0f);
-		btnSubmit.setBounds(295, 454, 170, 30);
+		btnSubmit.setBounds(308, 450, 170, 48);
 		frame.getContentPane().add(btnSubmit);
 		frame.setBounds(new Rectangle(0, 0, 800, 600));
 		frame.setBounds(100, 100, 800, 600);
