@@ -274,7 +274,7 @@ public class HomePage extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 		txtContactNo = new JTextField();
-		txtContactNo.setColumns(10);
+		txtContactNo.setColumns(11);
 		txtContactNo.setBounds(287, 126, 271, 20);
 		txtContactNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -492,7 +492,7 @@ public class HomePage extends JFrame {
 		});
 		btnAdd.setBounds(666, 347, 271, 23);
 		contentPane.add(btnAdd);
-		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out","room_description","balance","amount_paid"};
+		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		comboBox.setBounds(666, 378, 271, 22);
@@ -767,12 +767,24 @@ public class HomePage extends JFrame {
 						additionals = "";
 						accomodation_type="";
 					}
-					rs.close();
-					pst.close();
-					conn.close();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null, "An Error was encountered while Updating");
+
+				} catch(NumberFormatException nfe) {
+					JOptionPane.showMessageDialog(null, "Please enter balance and amount paid.");
+				}
+				
+				catch (Exception e1) {
+					//JOptionPane.showMessageDialog(null, "An Error was encountered while Updating");
 					e1.printStackTrace();
+				}finally {
+					try {
+						rs.close();
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
 				}
 				
 			}

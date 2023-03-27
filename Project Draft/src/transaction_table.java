@@ -75,6 +75,7 @@ public class transaction_table extends JFrame {
 	String check_out;
 	String room_type;
 	String trans_id;
+	String additionals;
 	int amount_paid;
 	int balance;
 	/**
@@ -219,26 +220,325 @@ public class transaction_table extends JFrame {
 					check_out = rs.getString("check_out");
 					room_type = rs.getString("room_description");
 					amount_paid = rs.getInt("amount_paid");
+					additionals = rs.getString("room_additionals");
 					balance = rs.getInt("balance");
 					
-					int new_balance = balance-amount_paid;
 					
-					txtReceipt.append("\t\t       Villa Rose Resorts \n\n" +
+					int new_balance = balance-amount_paid;
+					String[] arr2 = additionals.split(",");
+					String[] arr = room_type.split(",");
+					if(arr.length == 1) {
+						if(arr2.length == 1) {
+					txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+							"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+							"\t\t Contact No. 0926 610 7400\n\n"+
 							"\n=======================================================================\n" +
 							"\t Transaction No: \t\t " + trans_id +"\n\n" +
 							"\t First Name: \t\t\t" +first_name+ "\n\n" +
 							"\t Last Name: \t\t\t" + last_name+ "\n\n" +
 							"\t Check In: \t\t\t" + check_in + "\n\n" +
 							"\t Check Out: \t\t\t" + check_out+ "\n\n" +
-							"\t Accomodation: \t\t" + room_type+ "\n\n" +
+							"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+							"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
 							"\n=======================================================================\n" +
 							"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
 							"\t Balance: \t\t\t" + new_balance + "\n\n" +
 							"\n=======================================================================\n");
+						} else if (arr2.length == 2) {
+			txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+					"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+					"\t\t Contact No. 0926 610 7400\n\n"+
+					"\n=======================================================================\n" +
+					"\t Transaction No: \t\t " + trans_id +"\n\n" +
+					"\t First Name: \t\t\t" +first_name+ "\n\n" +
+					"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+					"\t Check In: \t\t\t" + check_in + "\n\n" +
+					"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+					"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+					"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+					"\t\t\t\t" + arr2[1] + " \n\n " +
+					"\n=======================================================================\n" +
+					"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+					"\t Balance: \t\t\t" + new_balance + "\n\n" +
+					"\n=======================================================================\n");
+				} else if(arr2.length == 3) {
+			txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+					"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+					"\t\t Contact No. 0926 610 7400\n\n"+
+					"\n=======================================================================\n" +
+					"\t Transaction No: \t\t " + trans_id +"\n\n" +
+					"\t First Name: \t\t\t" +first_name+ "\n\n" +
+					"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+					"\t Check In: \t\t\t" + check_in + "\n\n" +
+					"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+					"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+					"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+					"\t\t\t\t" + arr2[1] + " \n\n " +
+					"\t\t\t\t" + arr2[2] + " \n\n " +
+					"\n=======================================================================\n" +
+					"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+					"\t Balance: \t\t\t" + new_balance + "\n\n" +
+					"\n=======================================================================\n");
+				}
+					} else if (arr.length == 2) {
+						if(arr2.length == 1) {
+						txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+								"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+								"\t\t Contact No. 0926 610 7400\n\n"+
+								"\n=======================================================================\n" +
+								"\t Transaction No: \t\t " + trans_id +"\n\n" +
+								"\t First Name: \t\t\t" +first_name+ "\n\n" +
+								"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+								"\t Check In: \t\t\t" + check_in + "\n\n" +
+								"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+								"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+								"\t\t\t\t" + arr[1] + " \n\n " +
+								"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+								"\n=======================================================================\n" +
+								"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+								"\t Balance: \t\t\t" + new_balance + "\n\n" +
+								"\n=======================================================================\n");
+						} else if (arr2.length == 2) {
+							txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+									"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+									"\t\t Contact No. 0926 610 7400\n\n"+
+									"\n=======================================================================\n" +
+									"\t Transaction No: \t\t " + trans_id +"\n\n" +
+									"\t First Name: \t\t\t" +first_name+ "\n\n" +
+									"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+									"\t Check In: \t\t\t" + check_in + "\n\n" +
+									"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+									"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+									"\t\t\t\t" + arr[1] + " \n\n " +
+									"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+									"\t\t\t\t" + arr2[1] + " \n\n " +
+									"\n=======================================================================\n" +
+									"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+									"\t Balance: \t\t\t" + new_balance + "\n\n" +
+									"\n=======================================================================\n");
+							} else if (arr2.length == 3) {
+								txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+										"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+										"\t\t Contact No. 0926 610 7400\n\n"+
+										"\n=======================================================================\n" +
+										"\t Transaction No: \t\t " + trans_id +"\n\n" +
+										"\t First Name: \t\t\t" +first_name+ "\n\n" +
+										"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+										"\t Check In: \t\t\t" + check_in + "\n\n" +
+										"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+										"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+										"\t\t\t\t" + arr[1] + " \n\n " +
+										"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+										"\t\t\t\t" + arr2[1] + " \n\n " +
+										"\t\t\t\t" + arr2[2] + " \n\n " +
+										"\n=======================================================================\n" +
+										"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+										"\t Balance: \t\t\t" + new_balance + "\n\n" +
+										"\n=======================================================================\n");
+								} 
+						} else if (arr.length == 3) {
+							if(arr2.length == 1) {
+								txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+										"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+										"\t\t Contact No. 0926 610 7400\n\n"+
+										"\n=======================================================================\n" +
+										"\t Transaction No: \t\t " + trans_id +"\n\n" +
+										"\t First Name: \t\t\t" +first_name+ "\n\n" +
+										"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+										"\t Check In: \t\t\t" + check_in + "\n\n" +
+										"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+										"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+										"\t\t\t\t" + arr[1] + " \n\n " +
+										"\t\t\t\t" + arr[2] + " \n\n " +
+										"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+										"\n=======================================================================\n" +
+										"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+										"\t Balance: \t\t\t" + new_balance + "\n\n" +
+										"\n=======================================================================\n");
+								} else if (arr2.length == 2) {
+									txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+											"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+											"\t\t Contact No. 0926 610 7400\n\n"+
+											"\n=======================================================================\n" +
+											"\t Transaction No: \t\t " + trans_id +"\n\n" +
+											"\t First Name: \t\t\t" +first_name+ "\n\n" +
+											"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+											"\t Check In: \t\t\t" + check_in + "\n\n" +
+											"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+											"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+											"\t\t\t\t" + arr[1] + " \n\n " +
+											"\t\t\t\t" + arr[2] + " \n\n " +
+											"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+											"\t\t\t\t" + arr2[1] + " \n\n " +
+											"\n=======================================================================\n" +
+											"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+											"\t Balance: \t\t\t" + new_balance + "\n\n" +
+											"\n=======================================================================\n");
+									} else if (arr2.length == 3) {
+										txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+												"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+												"\t\t Contact No. 0926 610 7400\n\n"+
+												"\n=======================================================================\n" +
+												"\t Transaction No: \t\t " + trans_id +"\n\n" +
+												"\t First Name: \t\t\t" +first_name+ "\n\n" +
+												"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+												"\t Check In: \t\t\t" + check_in + "\n\n" +
+												"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+												"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+												"\t\t\t\t" + arr[1] + " \n\n " +
+												"\t\t\t\t" + arr[2] + " \n\n " +
+												"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+												"\t\t\t\t" + arr2[1] + " \n\n " +
+												"\t\t\t\t" + arr2[2] + " \n\n " +
+												"\n=======================================================================\n" +
+												"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+												"\t Balance: \t\t\t" + new_balance + "\n\n" +
+												"\n=======================================================================\n");
+										} 
+							} else if (arr.length == 4) {
+								if(arr2.length == 1) {
+									txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+											"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+											"\t\t Contact No. 0926 610 7400\n\n"+
+											"\n=======================================================================\n" +
+											"\t Transaction No: \t\t " + trans_id +"\n\n" +
+											"\t First Name: \t\t\t" +first_name+ "\n\n" +
+											"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+											"\t Check In: \t\t\t" + check_in + "\n\n" +
+											"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+											"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+											"\t\t\t\t" + arr[1] + " \n\n " +
+											"\t\t\t\t" + arr[2] + " \n\n " +
+											"\t\t\t\t" + arr[3] + " \n\n " +
+											"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+											"\n=======================================================================\n" +
+											"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+											"\t Balance: \t\t\t" + new_balance + "\n\n" +
+											"\n=======================================================================\n");
+									} else if (arr2.length == 2) {
+										txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+												"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+												"\t\t Contact No. 0926 610 7400\n\n"+
+												"\n=======================================================================\n" +
+												"\t Transaction No: \t\t " + trans_id +"\n\n" +
+												"\t First Name: \t\t\t" +first_name+ "\n\n" +
+												"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+												"\t Check In: \t\t\t" + check_in + "\n\n" +
+												"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+												"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+												"\t\t\t\t" + arr[1] + " \n\n " +
+												"\t\t\t\t" + arr[2] + " \n\n " +
+												"\t\t\t\t" + arr[3] + " \n\n " +
+												"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+												"\t\t\t\t" + arr2[1] + " \n\n " +
+												"\n=======================================================================\n" +
+												"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+												"\t Balance: \t\t\t" + new_balance + "\n\n" +
+												"\n=======================================================================\n");
+										} else if (arr2.length == 3) {
+											txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+													"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+													"\t\t Contact No. 0926 610 7400\n\n"+
+													"\n=======================================================================\n" +
+													"\t Transaction No: \t\t " + trans_id +"\n\n" +
+													"\t First Name: \t\t\t" +first_name+ "\n\n" +
+													"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+													"\t Check In: \t\t\t" + check_in + "\n\n" +
+													"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+													"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+													"\t\t\t\t" + arr[1] + " \n\n " +
+													"\t\t\t\t" + arr[2] + " \n\n " +
+													"\t\t\t\t" + arr[3] + " \n\n " +
+													"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+													"\t\t\t\t" + arr2[1] + " \n\n " +
+													"\t\t\t\t" + arr2[2] + " \n\n " +
+													"\n=======================================================================\n" +
+													"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+													"\t Balance: \t\t\t" + new_balance + "\n\n" +
+													"\n=======================================================================\n");
+											} 
+								} else if (arr.length == 5) {
+									if(arr2.length == 1) {
+										txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+												"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+												"\t\t Contact No. 0926 610 7400\n\n"+
+												"\n=======================================================================\n" +
+												"\t Transaction No: \t\t " + trans_id +"\n\n" +
+												"\t First Name: \t\t\t" +first_name+ "\n\n" +
+												"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+												"\t Check In: \t\t\t" + check_in + "\n\n" +
+												"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+												"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+												"\t\t\t\t" + arr[1] + " \n\n " +
+												"\t\t\t\t" + arr[2] + " \n\n " +
+												"\t\t\t\t" + arr[3] + " \n\n " +
+												"\t\t\t\t" + arr[4] + " \n\n " +
+												"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+												"\n=======================================================================\n" +
+												"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+												"\t Balance: \t\t\t" + new_balance + "\n\n" +
+												"\n=======================================================================\n");
+										} else if (arr2.length == 2) {
+											txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+													"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+													"\t\t Contact No. 0926 610 7400\n\n"+
+													"\n=======================================================================\n" +
+													"\t Transaction No: \t\t " + trans_id +"\n\n" +
+													"\t First Name: \t\t\t" +first_name+ "\n\n" +
+													"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+													"\t Check In: \t\t\t" + check_in + "\n\n" +
+													"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+													"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+													"\t\t\t\t" + arr[1] + " \n\n " +
+													"\t\t\t\t" + arr[2] + " \n\n " +
+													"\t\t\t\t" + arr[3] + " \n\n " +
+													"\t\t\t\t" + arr[4] + " \n\n " +
+													"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+													"\t\t\t\t" + arr2[1] + " \n\n " +
+													"\n=======================================================================\n" +
+													"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+													"\t Balance: \t\t\t" + new_balance + "\n\n" +
+													"\n=======================================================================\n");
+											} else if (arr2.length == 3) {
+												txtReceipt.append("\t\t       Villa Rose Resorts \n" +
+														"\t         Dinadiawan, 3P6M+QWW, Dipaculao, Aurora \n"+
+														"\t\t Contact No. 0926 610 7400\n\n"+
+														"\n=======================================================================\n" +
+														"\t Transaction No: \t\t " + trans_id +"\n\n" +
+														"\t First Name: \t\t\t" +first_name+ "\n\n" +
+														"\t Last Name: \t\t\t" + last_name+ "\n\n" +
+														"\t Check In: \t\t\t" + check_in + "\n\n" +
+														"\t Check Out: \t\t\t" + check_out+ "\n\n" +
+														"\t Accomodation: \t\t" + arr[0]+ "\n\n" +
+														"\t\t\t\t" + arr[1] + " \n\n " +
+														"\t\t\t\t" + arr[2] + " \n\n " +
+														"\t\t\t\t" + arr[3] + " \n\n " +
+														"\t\t\t\t" + arr[4] + " \n\n " +
+														"\t Additionals: \t\t\t" + arr2[0]+ "\n\n" +
+														"\t\t\t\t" + arr2[1] + " \n\n " +
+														"\t\t\t\t" + arr2[2] + " \n\n " +
+														"\n=======================================================================\n" +
+														"\t Amount Paid: \t\t\t"+ amount_paid + "\n\n" +
+														"\t Balance: \t\t\t" + new_balance + "\n\n" +
+														"\n=======================================================================\n");
+												} 
+									} else {
+										System.out.print("asd");
+									}
 				}
 				}
 				catch(Exception e1) {
 					System.out.println(e1);
+				}
+				finally {
+					try {
+						rs.close();
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 				
 				

@@ -120,7 +120,7 @@ public class EditEmployees extends JFrame {
 		comboBox_1.setBounds(20, 412, 315, 22);
 		contentPane.add(comboBox_1);
 		
-		String[] colum = {"Select Field","employee_id","fname","lname","uname","pword","sQuestion","sq_ans","role"};
+		String[] colum = {"Select Field","employee_id","fname","lname","uname"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setBounds(72, 170, 263, 22);
 		contentPane.add(comboBox);

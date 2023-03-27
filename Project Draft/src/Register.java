@@ -2,6 +2,7 @@ import java.awt.EventQueue;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
@@ -44,7 +45,6 @@ public class Register extends JFrame {
 
 	private JPanel contentPane;
 
-	Connection conn = null;
 	private JTextField txtfname;
 	private JTextField txtlname;
 	private JTextField txtuname;
@@ -57,6 +57,10 @@ public class Register extends JFrame {
 	private String gender;
     private Pattern pattern;
     private Matcher matcher;
+	Connection conn = null;
+	PreparedStatement pst = null;
+	ResultSet rs = null;
+	Statement stm = null;
 
     private static final String PASSWORD_PATTERN =
             "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$";
@@ -264,15 +268,12 @@ public class Register extends JFrame {
 					
 					else {
 					
-					Statement stm = conn.createStatement();
+					stm = conn.createStatement();
 					String sql1 = "SELECT pword FROM Employee where employee_id = 1";
-					ResultSet rs = stm.executeQuery(sql1);
+					rs = stm.executeQuery(sql1);
 					while(rs.next()) {
 						adminpass = rs.getString("pword");
 					}
-					rs.close();
-					stm.close();
-					conn.close();
 				    if (isValidEmail(email)) {
 						if(validator.validate(pword)) {
 							if (adminpass.equals(adpass)) {
@@ -317,17 +318,37 @@ public class Register extends JFrame {
 					System.out.println(e);
 				}
 				finally {
-					txtfname.setText("");
-					txtlname.setText("");
-					txtuname.setText("");
-					txtpword.setText("");
-					txtSqans.setText("");
-					shpword.setSelected(false);
-					bday.setDate(null);
-					bg.clearSelection();
-					txtAdminPass.setText("");
-					txtEmail.setText("");
-					comboBox.setSelectedIndex(0);
+					JFrame frame;
+					frame = new JFrame();
+					if (JOptionPane.showConfirmDialog(frame, "Do you want to create another account?")==JOptionPane.YES_NO_OPTION) {
+						txtfname.setText("");
+						txtlname.setText("");
+						txtuname.setText("");
+						txtpword.setText("");
+						txtSqans.setText("");
+						shpword.setSelected(false);
+						bday.setDate(null);
+						bg.clearSelection();
+						txtAdminPass.setText("");
+						txtEmail.setText("");
+						comboBox.setSelectedIndex(0);
+					}else {
+						dispose();
+						Login lpage = new Login();
+						lpage.setLocationRelativeTo(null);
+						lpage.show();
+					}
+					
+					try {
+						rs.close();
+						stm.close();
+						conn.close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+
 					
 				}
 			}
@@ -392,7 +413,7 @@ public class Register extends JFrame {
 		contentPane.add(txtAdminPass);
 
 		
-		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Birth Day:");
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Birthday:");
 		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		lblNewLabel_1_1_1_1_1_1.setBounds(129, 288, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1_1);

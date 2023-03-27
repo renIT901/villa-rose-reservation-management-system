@@ -141,7 +141,7 @@ public class ManageContent extends JFrame {
 				}
 				else {
 					System.out.println(emp_role);
-					JOptionPane.showMessageDialog(null, "Current Account does not have administritive rights to edit Employee Accounts.");
+					JOptionPane.showMessageDialog(null, "Current account does not have administritive rights to access Employee Accounts.");
 				}
 			}
 		});

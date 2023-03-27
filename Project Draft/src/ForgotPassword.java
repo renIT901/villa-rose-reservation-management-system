@@ -274,12 +274,13 @@ public class ForgotPassword {
 					
 					pst = conn.prepareStatement("UPDATE Employee SET pword=? WHERE employee_id=? and sq_ans=?");
 					pst.setString(1, pass);
+					PasswordValidator validator = new PasswordValidator();
 					pst.setString(2, employee_id);
 					pst.setString(3, ans);
 					
 					int k = pst.executeUpdate();
 					if(k==1) {
-						
+						if(validator.validate(pass)) {
 						JOptionPane.showMessageDialog(null, "Password has been succesfully changed!");
 						frame.dispose();
 						Login lpage = new Login();
@@ -290,8 +291,10 @@ public class ForgotPassword {
 						txtSecurityQuestion.setText("Security Question");
 						txtAnswer.setText("Answer");
 						txtPass.setText("Enter New Password");
-						pst.close();
-						conn.close();
+						}
+						else
+							JOptionPane.showMessageDialog(null, "Password must be 8 characters long, and must contain a digit, a lowercase letter, an uppercase letter, and a special character.");
+							txtPass.setText("");
 					}
 					else
 						JOptionPane.showMessageDialog(null, "Incorrect answer. Please try again.");
@@ -299,6 +302,14 @@ public class ForgotPassword {
 				catch(Exception e1) {
 					JOptionPane.showMessageDialog(null, "An error was encountered while changing password.");
 					e1.printStackTrace();
+				} finally {
+					try {
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
