@@ -33,6 +33,8 @@ import java.text.SimpleDateFormat;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 public class EditEmployees extends JFrame {
 
@@ -73,10 +75,12 @@ public class EditEmployees extends JFrame {
 	private JTextField txtSched;
 	
 	public EditEmployees(int emp_id) {
+		setResizable(false);
+		setBounds(new Rectangle(0, 0, 960, 720));
 		setTitle("Villa Rose System");
 		//conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 540);
+		setBounds(100, 100, 960, 720);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -85,52 +89,53 @@ public class EditEmployees extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("Edit Employees");
-		lblNewJgoodiesLabel.setBounds(10, 11, 188, 38);
-		lblNewJgoodiesLabel.setFont(new Font("Calibri Light", Font.PLAIN, 30));
+		lblNewJgoodiesLabel.setBounds(220, 20, 211, 38);
+		lblNewJgoodiesLabel.setFont(new Font("SansSerif", Font.PLAIN, 30));
 		contentPane.add(lblNewJgoodiesLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		scrollPane.setBounds(10, 50, 604, 92);
+		scrollPane.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		scrollPane.setBounds(220, 68, 716, 127);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		table.setDefaultEditor(Object.class, null);
-		table.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		table.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		scrollPane.setViewportView(table);
 		updateTable();
 		
 		JRadioButton rdbtnAdmin = new JRadioButton("Admin");
 		rdbtnAdmin.setBackground(new Color(250, 245, 232));
-		rdbtnAdmin.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		rdbtnAdmin.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		buttonGroup.add(rdbtnAdmin);
-		rdbtnAdmin.setBounds(356, 318, 109, 23);
+		rdbtnAdmin.setBounds(669, 352, 109, 23);
 		contentPane.add(rdbtnAdmin);
 		
 		JRadioButton rdbtnEmployee = new JRadioButton("Employee");
 		rdbtnEmployee.setBackground(new Color(250, 245, 232));
-		rdbtnEmployee.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		rdbtnEmployee.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		buttonGroup.add(rdbtnEmployee);
-		rdbtnEmployee.setBounds(467, 318, 109, 23);
+		rdbtnEmployee.setBounds(780, 352, 109, 23);
 		contentPane.add(rdbtnEmployee);
 		
 		String[] sq = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		JComboBox comboBox_1 = new JComboBox(sq);
-		comboBox_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox_1.setBounds(20, 412, 315, 22);
+		comboBox_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox_1.setBounds(247, 575, 315, 24);
 		contentPane.add(comboBox_1);
 		
 		String[] colum = {"Select Field","employee_id","fname","lname","uname"};
 		JComboBox comboBox = new JComboBox(colum);
-		comboBox.setBounds(72, 170, 263, 22);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox.setBounds(220, 218, 263, 22);
 		contentPane.add(comboBox);
 		
 		JDateChooser dateStarted = new JDateChooser();
-		dateStarted.setBounds(356, 348, 160, 20);
+		dateStarted.setBounds(669, 381, 200, 24);
 		contentPane.add(dateStarted);
 		
 		JDateChooser dateBday = new JDateChooser();
-		dateBday.setBounds(356, 380, 160, 20);
+		dateBday.setBounds(669, 415, 200, 24);
 		contentPane.add(dateBday);
 		
 		textField = new JTextField();
@@ -153,8 +158,8 @@ public class EditEmployees extends JFrame {
 			
 		}
 		});
-		textField.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		textField.setBounds(72, 203, 263, 20);
+		textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		textField.setBounds(220, 249, 263, 20);
 		
 		contentPane.add(textField);
 		textField.setColumns(10);
@@ -228,37 +233,37 @@ public class EditEmployees extends JFrame {
 		});
 		btnNewButton.setBorder(null);
 		btnNewButton.setBackground(new Color(225, 167, 48));
-		btnNewButton.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btnNewButton.setBounds(345, 185, 89, 30);
+		btnNewButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btnNewButton.setBounds(493, 218, 89, 48);
 		contentPane.add(btnNewButton);
 		
 		fname = new JTextField();
-		fname.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		fname.setBounds(72, 257, 160, 20);
+		fname.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		fname.setBounds(320, 291, 200, 24);
 		contentPane.add(fname);
 		fname.setColumns(10);
 		
 		lname = new JTextField();
-		lname.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lname.setBounds(72, 288, 160, 20);
+		lname.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lname.setBounds(320, 322, 200, 24);
 		contentPane.add(lname);
 		lname.setColumns(10);
 		
 		email = new JTextField();
-		email.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		email.setBounds(72, 319, 160, 20);
+		email.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		email.setBounds(320, 353, 200, 24);
 		contentPane.add(email);
 		email.setColumns(10);
 		
 		uname = new JTextField();
-		uname.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		uname.setBounds(356, 257, 160, 20);
+		uname.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		uname.setBounds(669, 291, 200, 24);
 		contentPane.add(uname);
 		uname.setColumns(10);
 		
 		pword = new JTextField();
-		pword.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		pword.setBounds(356, 288, 160, 20);
+		pword.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		pword.setBounds(669, 322, 200, 24);
 		contentPane.add(pword);
 		pword.setColumns(10);
 	
@@ -275,50 +280,62 @@ public class EditEmployees extends JFrame {
 			}
 		});
 		lblNewJgoodiesLabel123.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewJgoodiesLabel123.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		lblNewJgoodiesLabel123.setBounds(537, 20, 77, 22);
+		lblNewJgoodiesLabel123.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel123.setBounds(848, 20, 77, 22);
 		contentPane.add(lblNewJgoodiesLabel123);
 		
 		JLabel lblNewJgoodiesLabel_1 = DefaultComponentFactory.getInstance().createLabel("First Name:");
-		lblNewJgoodiesLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_1.setBounds(20, 260, 50, 14);
+		lblNewJgoodiesLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_1.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_1.setBounds(228, 296, 82, 24);
 		contentPane.add(lblNewJgoodiesLabel_1);
 		
 		JLabel lblNewJgoodiesLabel_2 = DefaultComponentFactory.getInstance().createLabel("Last Name:");
-		lblNewJgoodiesLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_2.setBounds(20, 291, 50, 14);
+		lblNewJgoodiesLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_2.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_2.setBounds(220, 327, 90, 24);
 		contentPane.add(lblNewJgoodiesLabel_2);
 		
 		JLabel lblNewJgoodiesLabel_3 = DefaultComponentFactory.getInstance().createLabel("Email:");
-		lblNewJgoodiesLabel_3.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_3.setBounds(44, 322, 26, 14);
+		lblNewJgoodiesLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_3.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_3.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_3.setBounds(244, 356, 66, 24);
 		contentPane.add(lblNewJgoodiesLabel_3);
 		
 		JLabel lblNewJgoodiesLabel_4 = DefaultComponentFactory.getInstance().createLabel("Username:");
-		lblNewJgoodiesLabel_4.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_4.setBounds(306, 260, 50, 14);
+		lblNewJgoodiesLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_4.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_4.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_4.setBounds(578, 291, 81, 24);
 		contentPane.add(lblNewJgoodiesLabel_4);
 		
 		JLabel lblNewJgoodiesLabel_5 = DefaultComponentFactory.getInstance().createLabel("Password:");
-		lblNewJgoodiesLabel_5.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_5.setBounds(306, 291, 46, 14);
+		lblNewJgoodiesLabel_5.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_5.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_5.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_5.setBounds(582, 322, 77, 24);
 		contentPane.add(lblNewJgoodiesLabel_5);
 		
 		JLabel lblNewJgoodiesLabel_6 = DefaultComponentFactory.getInstance().createLabel("Role:");
-		lblNewJgoodiesLabel_6.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewJgoodiesLabel_6.setBounds(330, 322, 26, 14);
+		lblNewJgoodiesLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_6.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewJgoodiesLabel_6.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewJgoodiesLabel_6.setBounds(578, 351, 81, 24);
 		contentPane.add(lblNewJgoodiesLabel_6);
 		
 		sq_ans = new JTextField();
-		sq_ans.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		sq_ans.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		sq_ans.setColumns(10);
-		sq_ans.setBounds(20, 445, 315, 20);
+		sq_ans.setBounds(247, 608, 315, 24);
 		contentPane.add(sq_ans);
 		
 		JButton btnNewButton_1 = new JButton("Update Account");
 		btnNewButton_1.setBorder(null);
 		btnNewButton_1.setBackground(new Color(225, 167, 48));
-		btnNewButton_1.setFont(new Font("Calibri Light", Font.PLAIN, 14));
+		btnNewButton_1.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -401,7 +418,7 @@ public class EditEmployees extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(366, 412, 135, 23);
+		btnNewButton_1.setBounds(766, 537, 170, 48);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Delete Account");
@@ -447,48 +464,92 @@ public class EditEmployees extends JFrame {
 		});
 		btnNewButton_1_1.setBorder(null);
 		btnNewButton_1_1.setBackground(new Color(225, 167, 48));
-		btnNewButton_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 14));
-		btnNewButton_1_1.setBounds(366, 442, 135, 23);
+		btnNewButton_1_1.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btnNewButton_1_1.setBounds(766, 595, 170, 48);
 		contentPane.add(btnNewButton_1_1);
 		
 		salary = new JTextField();
-		salary.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		salary.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		salary.setColumns(10);
-		salary.setBounds(72, 350, 160, 20);
+		salary.setBounds(320, 384, 200, 24);
 		contentPane.add(salary);
 		
 		JLabel lblNewLabel = new JLabel("Salary:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewLabel.setBounds(24, 355, 46, 14);
+		lblNewLabel.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel.setBounds(224, 389, 86, 24);
 		contentPane.add(lblNewLabel);
 		
 		txtSched = new JTextField();
-		txtSched.setFont(new Font("Calibri Light", Font.PLAIN, 11));
+		txtSched.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtSched.setColumns(10);
-		txtSched.setBounds(72, 381, 160, 20);
+		txtSched.setBounds(320, 415, 200, 24);
 		contentPane.add(txtSched);
 		
 		JLabel lblSchedule = new JLabel("Schedule:");
-		lblSchedule.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblSchedule.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblSchedule.setBounds(24, 386, 46, 14);
+		lblSchedule.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblSchedule.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblSchedule.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblSchedule.setBounds(224, 420, 86, 24);
 		contentPane.add(lblSchedule);
 	
 		
 		JLabel lblNewLabel_1 = new JLabel("Date Started:");
-		lblNewLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_1.setHorizontalTextPosition(SwingConstants.RIGHT);
+		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1.setBounds(275, 351, 77, 14);
+		lblNewLabel_1.setBounds(540, 382, 119, 24);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Birthday:");
+		lblNewLabel_1_1.setHorizontalTextPosition(SwingConstants.RIGHT);
 		lblNewLabel_1_1.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		lblNewLabel_1_1.setBounds(275, 386, 77, 14);
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1.setBounds(582, 414, 77, 24);
 		contentPane.add(lblNewLabel_1_1);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 200, 683);
+		contentPane.add(panel);
+		
+		JLabel icon = new JLabel("");
+		icon.setIcon(new ImageIcon(EditEmployees.class.getResource("/img/villarose.png")));
+		icon.setBounds(37, 29, 125, 125);
+		panel.add(icon);
+		
+		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transaction.setBorder(null);
+		btn_transaction.setBackground(new Color(225, 167, 48));
+		btn_transaction.setBounds(18, 191, 163, 40);
+		panel.add(btn_transaction);
+		
+		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.setSelected(true);
+		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_managecontent.setBorder(null);
+		btn_managecontent.setBackground(new Color(225, 167, 48));
+		btn_managecontent.setBounds(18, 293, 163, 40);
+		panel.add(btn_managecontent);
+		
+		JButton btn_logout = new JButton("Logout");
+		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_logout.setBorder(null);
+		btn_logout.setBackground(new Color(225, 167, 48));
+		btn_logout.setBounds(18, 594, 163, 40);
+		panel.add(btn_logout);
+		
+		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transactiontables.setBorder(null);
+		btn_transactiontables.setBackground(new Color(225, 167, 48));
+		btn_transactiontables.setBounds(18, 242, 163, 40);
+		panel.add(btn_transactiontables);
 	}
 	private void updateTable() {
 		conn = sqliteConnection.dbConnector();
