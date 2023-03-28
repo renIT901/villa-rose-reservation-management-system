@@ -109,29 +109,35 @@ public class HomePage extends JFrame {
 		chkcabana.setBounds(661, 126, 97, 23);
 		contentPane.add(chkcabana);
 		
-		chkpool = new JCheckBox("Swimming Pool");
+		chkpool = new JCheckBox("Tent");
 		chkpool.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		chkpool.setBackground(new Color(250, 245, 232));
 		chkpool.setBounds(661, 154, 170, 23);
 		contentPane.add(chkpool);
 		
 		chkgasul = new JCheckBox("Gasul");
-		chkgasul.setBounds(661, 198, 97, 23);
+		chkgasul.setBounds(661, 184, 97, 23);
 		chkgasul.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		chkgasul.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(661, 228, 97, 23);
+		chkcookware.setBounds(661, 214, 97, 23);
 		chkcookware.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(661, 258, 97, 23);
+		chkmatress.setBounds(661, 244, 97, 23);
 		chkmatress.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
+		
+		JCheckBox chkextraperson = new JCheckBox("Extra Person");
+		chkextraperson.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkextraperson.setBackground(new Color(250, 245, 232));
+		chkextraperson.setBounds(661, 270, 97, 23);
+		contentPane.add(chkextraperson);
 		
 		
 		JPanel panel = new JPanel();
@@ -309,13 +315,13 @@ public class HomePage extends JFrame {
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblBalance.setBounds(588, 291, 66, 14);
+		lblBalance.setBounds(589, 303, 66, 14);
 		lblBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
 		txtBalance.setColumns(10);
-		txtBalance.setBounds(666, 288, 271, 20);
+		txtBalance.setBounds(667, 300, 271, 20);
 		txtBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -329,15 +335,15 @@ public class HomePage extends JFrame {
         });
 		contentPane.add(txtBalance);
 		
-		JLabel lblAmountPaid = new JLabel("Amount Paid:");
+		JLabel lblAmountPaid = new JLabel("Deposit:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAmountPaid.setBounds(588, 322, 66, 14);
+		lblAmountPaid.setBounds(589, 334, 66, 14);
 		lblAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
 		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(666, 319, 271, 20);
+		txtAmountPaid.setBounds(667, 331, 271, 20);
 		txtAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtAmountPaid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -395,7 +401,7 @@ public class HomePage extends JFrame {
 					}else
 						accomodation_type = accomodation_type + "";
 					if(chkpool.isSelected()) {
-						accomodation_type = accomodation_type + " Swimming Pool,";
+						accomodation_type = accomodation_type + " Tent,";
 					}else
 						accomodation_type = accomodation_type + "";
 					
@@ -409,6 +415,10 @@ public class HomePage extends JFrame {
 						additionals = additionals + "";
 					if(chkmatress.isSelected()) {
 						additionals = additionals + " Extra Matress,";
+					}else
+						additionals = additionals + "";
+					if(chkextraperson.isSelected()) {
+						additionals = additionals + " Extra Person,";
 					}else
 						additionals = additionals + "";
 					
@@ -490,16 +500,16 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(666, 347, 271, 23);
+		btnAdd.setBounds(667, 359, 271, 23);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(666, 378, 271, 22);
+		comboBox.setBounds(667, 390, 271, 22);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(666, 409, 271, 20);
+		txtField.setBounds(667, 421, 271, 20);
 		txtField.setText("Search for?");
 		txtField.setFont(new Font("Calibri Light", Font.PLAIN, 12));
 		txtField.setForeground(new Color(159, 159, 159));
@@ -569,7 +579,7 @@ public class HomePage extends JFrame {
 							chkcabana.setSelected(true);
 						}else
 							chkcabana.setSelected(false);
-						if(at.contains("Swimming")) {
+						if(at.contains("Tent")) {
 							chkpool.setSelected(true);
 						}else
 							chkpool.setSelected(false);
@@ -587,6 +597,10 @@ public class HomePage extends JFrame {
 							chkmatress.setSelected(true);
 						}else
 							chkmatress.setSelected(false);
+						if(adts.contains("Extra Person")) {
+							chkextraperson.setSelected(true);
+						}else
+							chkextraperson.setSelected(false);
 						
 						txtBalance.setText(rs.getString(10));
 						txtAmountPaid.setText(rs.getString(11));
@@ -630,13 +644,13 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(666, 441, 271, 23);
+		btnSearch.setBounds(667, 453, 271, 23);
 		contentPane.add(btnSearch);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblNewLabel_6.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_6.setBounds(588, 382, 66, 14);
+		lblNewLabel_6.setBounds(589, 394, 66, 14);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -678,7 +692,7 @@ public class HomePage extends JFrame {
 					}else
 						accomodation_type = accomodation_type + "";
 					if(chkpool.isSelected()) {
-						accomodation_type = accomodation_type + " Swimming Pool,";
+						accomodation_type = accomodation_type + " Tent,";
 					}else
 						accomodation_type = accomodation_type + "";
 					
@@ -692,6 +706,10 @@ public class HomePage extends JFrame {
 						additionals = additionals + "";
 					if(chkmatress.isSelected()) {
 						additionals = additionals + " Extra Matress,";
+					}else
+						additionals = additionals + "";
+					if(chkextraperson.isSelected()) {
+						additionals = additionals + " Extra Person,";
 					}else
 						additionals = additionals + "";
 					
@@ -789,7 +807,7 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(666, 475, 271, 25);
+		btnUpdate.setBounds(667, 487, 271, 25);
 		contentPane.add(btnUpdate);
 		
 		JButton attach_img = new JButton("Attach Image");
@@ -834,8 +852,10 @@ public class HomePage extends JFrame {
 		JLabel lblAdditionals = new JLabel("Additionals:");
 		lblAdditionals.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAdditionals.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblAdditionals.setBounds(589, 202, 66, 14);
+		lblAdditionals.setBounds(589, 188, 66, 14);
 		contentPane.add(lblAdditionals);
+		
+
 		
 		
 		updateTable();
