@@ -358,7 +358,7 @@ public class Register extends JFrame {
 				}
 			}
 		});
-		btnRegister.setBounds(397, 551, 152, 48);
+		btnRegister.setBounds(397, 551, 152, 40);
 		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");

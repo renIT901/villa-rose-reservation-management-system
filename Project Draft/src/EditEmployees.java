@@ -234,7 +234,7 @@ public class EditEmployees extends JFrame {
 		btnNewButton.setBorder(null);
 		btnNewButton.setBackground(new Color(225, 167, 48));
 		btnNewButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
-		btnNewButton.setBounds(493, 218, 89, 48);
+		btnNewButton.setBounds(493, 224, 89, 40);
 		contentPane.add(btnNewButton);
 		
 		fname = new JTextField();
@@ -418,7 +418,7 @@ public class EditEmployees extends JFrame {
 				}
 			}
 		});
-		btnNewButton_1.setBounds(766, 537, 170, 48);
+		btnNewButton_1.setBounds(669, 545, 170, 40);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnNewButton_1_1 = new JButton("Delete Account");
@@ -465,7 +465,7 @@ public class EditEmployees extends JFrame {
 		btnNewButton_1_1.setBorder(null);
 		btnNewButton_1_1.setBackground(new Color(225, 167, 48));
 		btnNewButton_1_1.setFont(new Font("SansSerif", Font.PLAIN, 20));
-		btnNewButton_1_1.setBounds(766, 595, 170, 48);
+		btnNewButton_1_1.setBounds(669, 599, 170, 40);
 		contentPane.add(btnNewButton_1_1);
 		
 		salary = new JTextField();

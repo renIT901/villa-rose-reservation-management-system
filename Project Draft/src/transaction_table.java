@@ -79,97 +79,29 @@ public class transaction_table extends JFrame {
 	int amount_paid;
 	int balance;
 	/**
-	 * @wbp.nonvisual location=1072,229
+	 * @wbp.nonvisual location=452,769
 	 */
 	private final JTextArea txtReceipt = new JTextArea();
 	/**
 	 * Create the frame.
 	 */
 	public transaction_table(int emp_id) {
+		setResizable(false);
 		setTitle("Villa Rose System");
 		conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1026, 576);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 160, 537);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JLabel icon = new JLabel("");
-		icon.setBounds(60, 45, 39, 46);
-		panel.add(icon);
-		icon.setIcon(new ImageIcon(img1));
-		
-		JButton btn_transaction = new JButton("Transactions");
-		btn_transaction.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				HomePage hpage = new HomePage(emp_id);
-				hpage.setLocationRelativeTo(null);
-				hpage.show();
-			}
-		});
-		btn_transaction.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_transaction.setBackground(new Color(225, 167, 48));
-		btn_transaction.setBorder(null);
-		btn_transaction.setBounds(18, 140, 125, 30);
-		panel.add(btn_transaction);
-		
-		JButton btn_managecontent = new JButton("Manage Content");
-		btn_managecontent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				ManageContent mpage = new ManageContent(emp_id);
-				mpage.setLocationRelativeTo(null);
-				mpage.show();
-			}
-		});
-		btn_managecontent.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_managecontent.setBorder(null);
-		btn_managecontent.setBackground(new Color(225, 167, 48));
-		btn_managecontent.setBounds(18, 232, 125, 30);
-		panel.add(btn_managecontent);
-		
-		JButton btn_logout = new JButton("Logout");
-		btn_logout.addActionListener(new ActionListener() {
-			private JFrame frame;
-			public void actionPerformed(ActionEvent e) {
-				frame = new JFrame();
-
-				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?")==JOptionPane.YES_NO_OPTION) {
-					dispose();
-					Login lpage = new Login();
-					lpage.setLocationRelativeTo(null);
-					lpage.show();
-				}
-				
-			}
-		});
-		btn_logout.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_logout.setBorder(null);
-		btn_logout.setBackground(new Color(225, 167, 48));
-		btn_logout.setBounds(18, 428, 125, 30);
-		panel.add(btn_logout);
-		
-		JButton btn_transactiontables = new JButton("Transaction Table");
-		btn_transactiontables.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_transactiontables.setBorder(null);
-		btn_transactiontables.setBackground(new Color(225, 167, 48));
-		btn_transactiontables.setBounds(18, 186, 125, 30);
-		panel.add(btn_transactiontables);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out","room_description","balance","amount_paid"};
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(170, 11, 830, 441);
+		scrollPane.setBounds(210, 80, 1046, 482);
 		contentPane.add(scrollPane);
 		
 		table_1 = new JTable();
@@ -179,8 +111,8 @@ public class transaction_table extends JFrame {
 		updateTable();
 		
 		comboBox_1 = new JComboBox();
-		comboBox_1.setFont(new Font("Calibri Light", Font.PLAIN, 11));
-		comboBox_1.setBounds(170, 463, 311, 22);
+		comboBox_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox_1.setBounds(232, 572, 311, 24);
 		contentPane.add(comboBox_1);
 		
 		JButton btnprint = new JButton("Print Receipt");
@@ -197,11 +129,56 @@ public class transaction_table extends JFrame {
 				}
 			}
 		});
-		btnprint.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnprint.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnprint.setBorder(null);
 		btnprint.setBackground(new Color(225, 167, 48));
-		btnprint.setBounds(170, 496, 125, 30);
+		btnprint.setBounds(232, 604, 147, 40);
 		contentPane.add(btnprint);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 200, 683);
+		contentPane.add(panel);
+		
+		JLabel icon = new JLabel("");
+		icon.setIcon(new ImageIcon(transaction_table.class.getResource("/img/villarose.png")));
+		icon.setBounds(37, 29, 125, 125);
+		panel.add(icon);
+		
+		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transaction.setBorder(null);
+		btn_transaction.setBackground(new Color(225, 167, 48));
+		btn_transaction.setBounds(18, 191, 163, 40);
+		panel.add(btn_transaction);
+		
+		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.setSelected(true);
+		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_managecontent.setBorder(null);
+		btn_managecontent.setBackground(new Color(225, 167, 48));
+		btn_managecontent.setBounds(18, 293, 163, 40);
+		panel.add(btn_managecontent);
+		
+		JButton btn_logout = new JButton("Logout");
+		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_logout.setBorder(null);
+		btn_logout.setBackground(new Color(225, 167, 48));
+		btn_logout.setBounds(18, 594, 163, 40);
+		panel.add(btn_logout);
+		
+		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transactiontables.setBorder(null);
+		btn_transactiontables.setBackground(new Color(225, 167, 48));
+		btn_transactiontables.setBounds(18, 242, 163, 40);
+		panel.add(btn_transactiontables);
+		
+		JLabel lblNewLabel = new JLabel("Transaction Table");
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 30));
+		lblNewLabel.setBounds(232, 10, 319, 60);
+		contentPane.add(lblNewLabel);
 		loadUserName();
 		comboBox_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

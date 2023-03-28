@@ -199,7 +199,7 @@ public class ForgotPassword {
 		btnProceed.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnProceed.setBackground(new Color(225, 167, 48));
 		btnProceed.setAlignmentY(0.0f);
-		btnProceed.setBounds(308, 231, 170, 48);
+		btnProceed.setBounds(308, 231, 170, 40);
 		frame.getContentPane().add(btnProceed);
 		
 		txtSecurityQuestion = new JTextField();
@@ -321,7 +321,7 @@ public class ForgotPassword {
 		btnSubmit.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnSubmit.setBackground(new Color(225, 167, 48));
 		btnSubmit.setAlignmentY(0.0f);
-		btnSubmit.setBounds(308, 450, 170, 48);
+		btnSubmit.setBounds(308, 454, 170, 40);
 		frame.getContentPane().add(btnSubmit);
 		frame.setBounds(new Rectangle(0, 0, 800, 600));
 		frame.setBounds(100, 100, 800, 600);

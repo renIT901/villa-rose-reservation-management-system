@@ -77,7 +77,7 @@ public class SecurityQuestion {
 		btnProceed.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		btnProceed.setBackground(new Color(225, 167, 48));
 		btnProceed.setAlignmentY(0.0f);
-		btnProceed.setBounds(299, 367, 187, 48);
+		btnProceed.setBounds(299, 367, 187, 40);
 		frame.getContentPane().add(btnProceed);
 	}
 }

@@ -142,7 +142,7 @@ public class Login extends JFrame {
 				}
 			}
 		});
-		btnLogin.setBounds(330, 449, 125, 48);
+		btnLogin.setBounds(330, 449, 125, 40);
 		contentPane.add(btnLogin);
 		
 		JLabel password_icon = new JLabel("");
