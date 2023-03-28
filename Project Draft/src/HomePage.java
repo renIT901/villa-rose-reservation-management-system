@@ -74,10 +74,11 @@ public class HomePage extends JFrame {
 
 	
 	public HomePage(int emp_id) {
+		setResizable(false);
 		setTitle("Villa Rose System");
 		conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1026, 576);
+		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
 		contentPane.setFont(new Font("Calibri Light", Font.PLAIN, 11));
 		contentPane.setBackground(new Color(250, 245, 232));
@@ -86,150 +87,80 @@ public class HomePage extends JFrame {
 		contentPane.setLayout(null);
 		
 		chkfamily = new JCheckBox("Family Room");
-		chkfamily.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkfamily.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkfamily.setBackground(new Color(250, 245, 232));
-		chkfamily.setBounds(661, 35, 97, 23);
+		chkfamily.setBounds(901, 41, 97, 23);
 		contentPane.add(chkfamily);
 		
 		chkkubo = new JCheckBox("Kubo Room");
-		chkkubo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkkubo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkkubo.setBackground(new Color(250, 245, 232));
-		chkkubo.setBounds(661, 63, 97, 23);
+		chkkubo.setBounds(901, 69, 97, 23);
 		contentPane.add(chkkubo);
 		
 		chkteepee = new JCheckBox("Teepee Hut");
-		chkteepee.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkteepee.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkteepee.setBackground(new Color(250, 245, 232));
-		chkteepee.setBounds(661, 94, 97, 23);
+		chkteepee.setBounds(901, 100, 97, 23);
 		contentPane.add(chkteepee);
 		
 		chkcabana = new JCheckBox("Open Cabana");
-		chkcabana.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkcabana.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcabana.setBackground(new Color(250, 245, 232));
-		chkcabana.setBounds(661, 126, 97, 23);
+		chkcabana.setBounds(901, 132, 97, 23);
 		contentPane.add(chkcabana);
 		
 		chkpool = new JCheckBox("Tent");
-		chkpool.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkpool.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkpool.setBackground(new Color(250, 245, 232));
-		chkpool.setBounds(661, 154, 170, 23);
+		chkpool.setBounds(901, 160, 170, 23);
 		contentPane.add(chkpool);
 		
 		chkgasul = new JCheckBox("Gasul");
-		chkgasul.setBounds(661, 184, 97, 23);
-		chkgasul.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkgasul.setBounds(901, 222, 97, 23);
+		chkgasul.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkgasul.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(661, 214, 97, 23);
-		chkcookware.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkcookware.setBounds(901, 252, 97, 23);
+		chkcookware.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(661, 244, 97, 23);
-		chkmatress.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkmatress.setBounds(901, 282, 97, 23);
+		chkmatress.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
 		
 		JCheckBox chkextraperson = new JCheckBox("Extra Person");
-		chkextraperson.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		chkextraperson.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkextraperson.setBackground(new Color(250, 245, 232));
-		chkextraperson.setBounds(661, 270, 97, 23);
+		chkextraperson.setBounds(901, 308, 97, 23);
 		contentPane.add(chkextraperson);
 		
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 160, 537);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
 		JDateChooser checkin = new JDateChooser();
-		checkin.setBounds(287, 154, 271, 20);
+		checkin.setBounds(347, 163, 271, 20);
 		contentPane.add(checkin);
 		
 		JDateChooser checkout = new JDateChooser();
-		checkout.setBounds(287, 184, 271, 20);
+		checkout.setBounds(347, 191, 271, 20);
 		contentPane.add(checkout);
 		
-		JLabel icon = new JLabel("");
-		icon.setBounds(60, 45, 39, 46);
-		panel.add(icon);
-		icon.setIcon(new ImageIcon(img1));
-		
 		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(225, 214, 333, 208);
+		desktopPane.setBounds(265, 268, 410, 289);
 		contentPane.add(desktopPane);
 		
-		JButton btn_transaction = new JButton("Transactions");
-		btn_transaction.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_transaction.setBackground(new Color(225, 167, 48));
-		btn_transaction.setBorder(null);
-		btn_transaction.setBounds(18, 140, 125, 30);
-		panel.add(btn_transaction);
-		
-		JButton btn_managecontent = new JButton("Manage Content");
-		btn_managecontent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				ManageContent mpage = new ManageContent(emp_id);
-				mpage.setLocationRelativeTo(null);
-				mpage.show();
-			}
-		});
-		btn_managecontent.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_managecontent.setBorder(null);
-		btn_managecontent.setBackground(new Color(225, 167, 48));
-		btn_managecontent.setBounds(18, 232, 125, 30);
-		panel.add(btn_managecontent);
-		
-		JButton btn_logout = new JButton("Logout");
-		btn_logout.addActionListener(new ActionListener() {
-			private JFrame frame;
-			public void actionPerformed(ActionEvent e) {
-				frame = new JFrame();
-
-				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?")==JOptionPane.YES_NO_OPTION) {
-					dispose();
-					Login lpage = new Login();
-					lpage.setLocationRelativeTo(null);
-					lpage.show();
-				}
-				
-			}
-		});
-		btn_logout.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_logout.setBorder(null);
-		btn_logout.setBackground(new Color(225, 167, 48));
-		btn_logout.setBounds(18, 428, 125, 30);
-		panel.add(btn_logout);
-		
-		JButton btn_transactiontables = new JButton("Transaction Table");
-		btn_transactiontables.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				dispose();
-				transaction_table trtpage = new transaction_table(emp_id);
-				trtpage.setLocationRelativeTo(null);
-				trtpage.show();
-			}
-		});
-		btn_transactiontables.setFont(new Font("Calibri Light", Font.PLAIN, 16));
-		btn_transactiontables.setBorder(null);
-		btn_transactiontables.setBackground(new Color(225, 167, 48));
-		btn_transactiontables.setBounds(18, 186, 125, 30);
-		panel.add(btn_transactiontables);
-		
 		JLabel lblNewLabel = new JLabel("First Name:");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel.setBounds(195, 38, 84, 14);
-		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel.setBounds(253, 40, 84, 24);
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel);
 		
 		txtFname = new JTextField();
-		txtFname.setBounds(287, 35, 271, 20);
-		txtFname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtFname.setBounds(347, 44, 271, 20);
+		txtFname.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtFname.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -242,15 +173,15 @@ public class HomePage extends JFrame {
 		txtFname.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Last Name:");
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_1.setBounds(195, 66, 84, 14);
-		lblNewLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1.setBounds(253, 68, 84, 24);
+		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_1);
 		
 		txtLname = new JTextField();
 		txtLname.setColumns(10);
-		txtLname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtLname.setBounds(287, 63, 271, 20);
+		txtLname.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		txtLname.setBounds(347, 72, 271, 20);
 		txtLname.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -262,27 +193,27 @@ public class HomePage extends JFrame {
 		contentPane.add(txtLname);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email:");
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_2.setBounds(195, 97, 84, 14);
-		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_2.setBounds(253, 96, 84, 24);
+		lblNewLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_2);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(287, 94, 271, 20);
-		txtEmail.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtEmail.setBounds(347, 98, 271, 20);
+		txtEmail.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(txtEmail);
 		
 		JLabel lblNewLabel_3 = new JLabel("Contact No.:");
-		lblNewLabel_3.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_3.setBounds(195, 129, 84, 14);
-		lblNewLabel_3.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_3.setBounds(240, 127, 97, 24);
+		lblNewLabel_3.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_3);
 		
 		txtContactNo = new JTextField();
 		txtContactNo.setColumns(11);
-		txtContactNo.setBounds(287, 126, 271, 20);
-		txtContactNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtContactNo.setBounds(347, 129, 271, 20);
+		txtContactNo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -296,33 +227,33 @@ public class HomePage extends JFrame {
 		contentPane.add(txtContactNo);
 		
 		JLabel lblNewLabel_4 = new JLabel("Check-In:");
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_4.setBounds(195, 157, 84, 14);
-		lblNewLabel_4.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_4.setBounds(240, 159, 97, 24);
+		lblNewLabel_4.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Check-Out:");
-		lblNewLabel_5.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_5.setBounds(195, 187, 84, 14);
-		lblNewLabel_5.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_5.setBounds(240, 187, 97, 24);
+		lblNewLabel_5.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_5);
 		
 		JLabel lblRoomNo = new JLabel("Room:");
-		lblRoomNo.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblRoomNo.setBounds(589, 39, 66, 14);
-		lblRoomNo.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblRoomNo.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRoomNo.setBounds(798, 40, 66, 24);
+		lblRoomNo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblRoomNo);
 		
 		JLabel lblBalance = new JLabel("Balance:");
-		lblBalance.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblBalance.setBounds(589, 303, 66, 14);
-		lblBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblBalance.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblBalance.setBounds(798, 354, 66, 24);
+		lblBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
 		txtBalance.setColumns(10);
-		txtBalance.setBounds(667, 300, 271, 20);
-		txtBalance.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtBalance.setBounds(901, 354, 271, 24);
+		txtBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -336,15 +267,15 @@ public class HomePage extends JFrame {
 		contentPane.add(txtBalance);
 		
 		JLabel lblAmountPaid = new JLabel("Deposit:");
-		lblAmountPaid.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAmountPaid.setBounds(589, 334, 66, 14);
-		lblAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblAmountPaid.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblAmountPaid.setBounds(798, 385, 66, 24);
+		lblAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
 		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(667, 331, 271, 20);
-		txtAmountPaid.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtAmountPaid.setBounds(901, 385, 271, 24);
+		txtAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtAmountPaid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -363,7 +294,7 @@ public class HomePage extends JFrame {
 		
 		
 		JButton btnAdd = new JButton("Add Reservation");
-		btnAdd.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnAdd.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnAdd.setBorder(null);
 		btnAdd.setBackground(new Color(225, 167, 48));
 		btnAdd.addActionListener(new ActionListener() {
@@ -500,18 +431,18 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(667, 359, 271, 23);
+		btnAdd.setBounds(901, 419, 271, 40);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out"};
 		JComboBox comboBox = new JComboBox(colum);
-		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(667, 390, 271, 22);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox.setBounds(901, 494, 271, 24);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(667, 421, 271, 20);
+		txtField.setBounds(901, 528, 271, 24);
 		txtField.setText("Search for?");
-		txtField.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtField.setForeground(new Color(159, 159, 159));
 		contentPane.add(txtField);
 		txtField.setColumns(10);
@@ -534,7 +465,7 @@ public class HomePage extends JFrame {
 		});
 		
 		JButton btnSearch = new JButton("Search");
-		btnSearch.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnSearch.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnSearch.setBorder(null);
 		btnSearch.setBackground(new Color(225, 167, 48));
 		btnSearch.addActionListener(new ActionListener() {
@@ -644,17 +575,17 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(667, 453, 271, 23);
+		btnSearch.setBounds(901, 567, 271, 40);
 		contentPane.add(btnSearch);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblNewLabel_6.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_6.setBounds(589, 394, 66, 14);
+		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(767, 494, 97, 24);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
-		btnUpdate.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnUpdate.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnUpdate.setBorder(null);
 		btnUpdate.setBackground(new Color(225, 167, 48));
 		btnUpdate.addActionListener(new ActionListener() {
@@ -807,7 +738,7 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(667, 487, 271, 25);
+		btnUpdate.setBounds(901, 617, 271, 40);
 		contentPane.add(btnUpdate);
 		
 		JButton attach_img = new JButton("Attach Image");
@@ -835,25 +766,65 @@ public class HomePage extends JFrame {
 				}
 			}
 		});
-		attach_img.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		attach_img.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		attach_img.setBorder(null);
 		attach_img.setBackground(new Color(225, 167, 48));
-		attach_img.setBounds(259, 477, 271, 23);
+		attach_img.setBounds(336, 601, 271, 40);
 		contentPane.add(attach_img);
 		
 		path = new JTextField();
-		path.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		path.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		path.setColumns(10);
-		path.setBounds(259, 446, 271, 20);
+		path.setBounds(336, 567, 271, 24);
 		path.setEditable(false);
 		path.setText("Path");
 		contentPane.add(path);
 		
 		JLabel lblAdditionals = new JLabel("Additionals:");
 		lblAdditionals.setHorizontalAlignment(SwingConstants.TRAILING);
-		lblAdditionals.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblAdditionals.setBounds(589, 188, 66, 14);
+		lblAdditionals.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblAdditionals.setBounds(767, 222, 97, 24);
 		contentPane.add(lblAdditionals);
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 200, 683);
+		contentPane.add(panel);
+		
+		JLabel icon = new JLabel("");
+		icon.setIcon(new ImageIcon(HomePage.class.getResource("/img/villarose.png")));
+		icon.setBounds(37, 29, 125, 125);
+		panel.add(icon);
+		
+		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transaction.setBorder(null);
+		btn_transaction.setBackground(new Color(225, 167, 48));
+		btn_transaction.setBounds(18, 191, 163, 40);
+		panel.add(btn_transaction);
+		
+		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.setSelected(true);
+		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_managecontent.setBorder(null);
+		btn_managecontent.setBackground(new Color(225, 167, 48));
+		btn_managecontent.setBounds(18, 293, 163, 40);
+		panel.add(btn_managecontent);
+		
+		JButton btn_logout = new JButton("Logout");
+		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_logout.setBorder(null);
+		btn_logout.setBackground(new Color(225, 167, 48));
+		btn_logout.setBounds(18, 594, 163, 40);
+		panel.add(btn_logout);
+		
+		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
+		btn_transactiontables.setBorder(null);
+		btn_transactiontables.setBackground(new Color(225, 167, 48));
+		btn_transactiontables.setBounds(18, 242, 163, 40);
+		panel.add(btn_transactiontables);
 		
 
 		
