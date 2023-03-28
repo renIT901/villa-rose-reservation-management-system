@@ -89,25 +89,25 @@ public class HomePage extends JFrame {
 		chkfamily = new JCheckBox("Family Room");
 		chkfamily.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkfamily.setBackground(new Color(250, 245, 232));
-		chkfamily.setBounds(901, 41, 97, 23);
+		chkfamily.setBounds(901, 41, 117, 23);
 		contentPane.add(chkfamily);
 		
 		chkkubo = new JCheckBox("Kubo Room");
 		chkkubo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkkubo.setBackground(new Color(250, 245, 232));
-		chkkubo.setBounds(901, 69, 97, 23);
+		chkkubo.setBounds(901, 69, 117, 23);
 		contentPane.add(chkkubo);
 		
 		chkteepee = new JCheckBox("Teepee Hut");
 		chkteepee.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkteepee.setBackground(new Color(250, 245, 232));
-		chkteepee.setBounds(901, 100, 97, 23);
+		chkteepee.setBounds(901, 100, 117, 23);
 		contentPane.add(chkteepee);
 		
 		chkcabana = new JCheckBox("Open Cabana");
 		chkcabana.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcabana.setBackground(new Color(250, 245, 232));
-		chkcabana.setBounds(901, 132, 97, 23);
+		chkcabana.setBounds(901, 132, 117, 23);
 		contentPane.add(chkcabana);
 		
 		chkpool = new JCheckBox("Tent");
@@ -123,13 +123,13 @@ public class HomePage extends JFrame {
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(901, 252, 97, 23);
+		chkcookware.setBounds(901, 252, 133, 23);
 		chkcookware.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(901, 282, 97, 23);
+		chkmatress.setBounds(901, 282, 133, 23);
 		chkmatress.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
@@ -137,7 +137,7 @@ public class HomePage extends JFrame {
 		JCheckBox chkextraperson = new JCheckBox("Extra Person");
 		chkextraperson.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkextraperson.setBackground(new Color(250, 245, 232));
-		chkextraperson.setBounds(901, 308, 97, 23);
+		chkextraperson.setBounds(901, 308, 133, 23);
 		contentPane.add(chkextraperson);
 		
 		JDateChooser checkin = new JDateChooser();
