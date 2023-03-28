@@ -95,25 +95,25 @@ public class HomePage extends JFrame {
 		chkkubo = new JCheckBox("Kubo Room");
 		chkkubo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkkubo.setBackground(new Color(250, 245, 232));
-		chkkubo.setBounds(901, 69, 117, 23);
+		chkkubo.setBounds(901, 66, 117, 23);
 		contentPane.add(chkkubo);
 		
 		chkteepee = new JCheckBox("Teepee Hut");
 		chkteepee.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkteepee.setBackground(new Color(250, 245, 232));
-		chkteepee.setBounds(901, 100, 117, 23);
+		chkteepee.setBounds(901, 91, 117, 23);
 		contentPane.add(chkteepee);
 		
 		chkcabana = new JCheckBox("Open Cabana");
 		chkcabana.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcabana.setBackground(new Color(250, 245, 232));
-		chkcabana.setBounds(901, 132, 117, 23);
+		chkcabana.setBounds(901, 116, 133, 23);
 		contentPane.add(chkcabana);
 		
 		chkpool = new JCheckBox("Tent");
 		chkpool.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkpool.setBackground(new Color(250, 245, 232));
-		chkpool.setBounds(901, 160, 170, 23);
+		chkpool.setBounds(901, 141, 170, 23);
 		contentPane.add(chkpool);
 		
 		chkgasul = new JCheckBox("Gasul");
@@ -123,13 +123,13 @@ public class HomePage extends JFrame {
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(901, 252, 133, 23);
+		chkcookware.setBounds(901, 247, 133, 23);
 		chkcookware.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(901, 282, 133, 23);
+		chkmatress.setBounds(901, 272, 133, 23);
 		chkmatress.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
@@ -137,7 +137,7 @@ public class HomePage extends JFrame {
 		JCheckBox chkextraperson = new JCheckBox("Extra Person");
 		chkextraperson.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkextraperson.setBackground(new Color(250, 245, 232));
-		chkextraperson.setBounds(901, 308, 133, 23);
+		chkextraperson.setBounds(901, 297, 133, 23);
 		contentPane.add(chkextraperson);
 		
 		JDateChooser checkin = new JDateChooser();
@@ -775,7 +775,7 @@ public class HomePage extends JFrame {
 		path = new JTextField();
 		path.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		path.setColumns(10);
-		path.setBounds(336, 567, 271, 24);
+		path.setBounds(265, 567, 410, 24);
 		path.setEditable(false);
 		path.setText("Path");
 		contentPane.add(path);
