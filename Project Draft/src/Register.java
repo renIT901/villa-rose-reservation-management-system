@@ -39,6 +39,7 @@ import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.SwingConstants;
 
 
 public class Register extends JFrame {
@@ -72,13 +73,14 @@ public class Register extends JFrame {
 	
 	
 	public Register() {
+		setResizable(false);
 		//pattern = Pattern.compile(PASSWORD_PATTERN);
 		//addPlaceholderStyle(txtSqans);
 		//addPlaceholderStyle(txtAdminPass);
 		setTitle("Villa Rose System");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 640, 630);
+		setBounds(100, 100, 960, 720);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(250, 245, 232));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,21 +89,21 @@ public class Register extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Register Employee");
-		lblNewLabel.setFont(new Font("Calibri Light", Font.PLAIN, 30));
-		lblNewLabel.setBounds(200, 32, 242, 42);
+		lblNewLabel.setFont(new Font("SansSerif", Font.PLAIN, 40));
+		lblNewLabel.setBounds(303, 46, 339, 52);
 		contentPane.add(lblNewLabel);
 		
         JLabel regIcon = new JLabel();
         regIcon.setIcon(new ImageIcon("1.png"));
 		
 		JLabel lblNewLabel_1 = new JLabel("First Name:");
-		lblNewLabel_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1.setBounds(129, 89, 66, 14);
+		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1.setBounds(268, 129, 82, 14);
 		contentPane.add(lblNewLabel_1);
 		
 		txtfname = new JTextField();
-		txtfname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtfname.setBounds(205, 86, 282, 20);
+		txtfname.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		txtfname.setBounds(360, 124, 282, 24);
 		txtfname.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -114,24 +116,27 @@ public class Register extends JFrame {
 		txtfname.setColumns(10);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Last Name:");
-		lblNewLabel_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1.setBounds(129, 123, 66, 14);
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1.setBounds(268, 163, 82, 14);
 		contentPane.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Username:");
-		lblNewLabel_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1.setBounds(129, 159, 66, 14);
+		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1_1.setBounds(268, 199, 82, 14);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Password:");
-		lblNewLabel_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1.setBounds(129, 192, 66, 14);
+		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1_1_1.setBounds(268, 234, 82, 14);
 		contentPane.add(lblNewLabel_1_1_1_1);
 		
 		txtlname = new JTextField();
-		txtlname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtlname.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtlname.setColumns(10);
-		txtlname.setBounds(205, 120, 282, 20);
+		txtlname.setBounds(360, 158, 282, 24);
 		txtlname.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -143,25 +148,25 @@ public class Register extends JFrame {
 		contentPane.add(txtlname);
 		
 		txtuname = new JTextField();
-		txtuname.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtuname.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtuname.setColumns(10);
-		txtuname.setBounds(205, 156, 282, 20);
+		txtuname.setBounds(360, 194, 282, 24);
 		contentPane.add(txtuname);
 		
 		JDateChooser bday = new JDateChooser();
-		bday.setBounds(205, 282, 282, 20);
+		bday.setBounds(360, 322, 282, 24);
 		contentPane.add(bday);
 		
 		JRadioButton rMale = new JRadioButton("Male");
-		rMale.setBounds(200, 318, 109, 23);
+		rMale.setBounds(355, 356, 109, 23);
 		rMale.setBackground(new Color(250, 245, 232));
-		rMale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		rMale.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(rMale);
 		
 		JRadioButton rFemale = new JRadioButton("Female");
-		rFemale.setBounds(200, 344, 109, 23);
+		rFemale.setBounds(355, 382, 109, 23);
 		rFemale.setBackground(new Color(250, 245, 232));
-		rFemale.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		rFemale.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(rFemale);
 		
 		bg.add(rMale);
@@ -170,8 +175,8 @@ public class Register extends JFrame {
 		
 		String[] colum = {"Select Security Question","In what city were you born?","What is the name of your favorite pet?","What was your favorite food as a child?","What high school did you attend?"};
 		comboBox = new JComboBox(colum);
-		comboBox.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		comboBox.setBounds(129, 390, 358, 22);
+		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBox.setBounds(284, 428, 358, 24);
 		contentPane.add(comboBox); 
 		
 		JCheckBox shpword = new JCheckBox("Show Password");
@@ -185,14 +190,14 @@ public class Register extends JFrame {
 			}
 		});
 		shpword.setBackground(new Color(250, 245, 232));
-		shpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		shpword.setBounds(204, 218, 113, 23);
+		shpword.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		shpword.setBounds(359, 256, 139, 23);
 		contentPane.add(shpword);
 		
 		
 		txtSqans = new JTextField();
 		txtSqans.setForeground(new Color(159, 159, 159));
-		txtSqans.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtSqans.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtSqans.setText("Provide Answer");
 		txtSqans.addFocusListener(new FocusListener() {
 			@Override
@@ -213,14 +218,14 @@ public class Register extends JFrame {
 			
 		});
 		txtSqans.setToolTipText("");
-		txtSqans.setBounds(129, 426, 358, 20);
+		txtSqans.setBounds(284, 464, 358, 24);
 		contentPane.add(txtSqans);
 		txtSqans.setColumns(10);
 		
 		JButton btnRegister = new JButton("Register");
 		btnRegister.setBorder(null);
 		btnRegister.setBackground(new Color(225, 167, 48));
-		btnRegister.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		btnRegister.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				try {
@@ -353,11 +358,11 @@ public class Register extends JFrame {
 				}
 			}
 		});
-		btnRegister.setBounds(228, 498, 152, 30);
+		btnRegister.setBounds(397, 551, 152, 48);
 		contentPane.add(btnRegister);
 		
 		JLabel lblNewLabel_2 = new JLabel("Go back to Login");
-		lblNewLabel_2.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		lblNewLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		lblNewLabel_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -367,23 +372,24 @@ public class Register extends JFrame {
 				lpage.show();
 			}
 		});
-		lblNewLabel_2.setBounds(260, 534, 120, 14);
+		lblNewLabel_2.setBounds(412, 605, 121, 24);
 		contentPane.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Email:");
-		lblNewLabel_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1_1.setBounds(129, 249, 66, 14);
+		lblNewLabel_1_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1_1_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1_1_1_1.setBounds(284, 287, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 		
 		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Calibri Light", Font.PLAIN, 12));
+		txtEmail.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(205, 246, 282, 20);
+		txtEmail.setBounds(360, 284, 282, 24);
 		contentPane.add(txtEmail);
 		
 		txtpword = new JPasswordField();
-		txtpword.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtpword.setBounds(205, 191, 282, 20);
+		txtpword.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		txtpword.setBounds(360, 229, 282, 24);
 		contentPane.add(txtpword);
 		
 		txtAdminPass = new JPasswordField("Enter Admin Password");
@@ -408,21 +414,23 @@ public class Register extends JFrame {
 				}			
 			}
 		});
-		txtAdminPass.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		txtAdminPass.setBounds(129, 462, 358, 20);
+		txtAdminPass.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		txtAdminPass.setBounds(284, 500, 358, 24);
 		contentPane.add(txtAdminPass);
 
 		
 		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Birthday:");
-		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1_1_1.setBounds(129, 288, 66, 14);
+		lblNewLabel_1_1_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1_1_1_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1_1_1_1_1.setBounds(284, 324, 66, 20);
 		contentPane.add(lblNewLabel_1_1_1_1_1_1);
 		
 
 		
 		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("Gender:");
-		lblNewLabel_1_1_1_1_1_1_1.setFont(new Font("Calibri Light", Font.PLAIN, 12));
-		lblNewLabel_1_1_1_1_1_1_1.setBounds(129, 324, 66, 14);
+		lblNewLabel_1_1_1_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1_1_1_1_1_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(284, 362, 66, 14);
 		contentPane.add(lblNewLabel_1_1_1_1_1_1_1);
 	}
 	
