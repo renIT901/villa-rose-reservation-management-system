@@ -117,19 +117,19 @@ public class HomePage extends JFrame {
 		contentPane.add(chkpool);
 		
 		chkgasul = new JCheckBox("Gasul");
-		chkgasul.setBounds(901, 222, 97, 23);
+		chkgasul.setBounds(901, 206, 97, 23);
 		chkgasul.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkgasul.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(901, 247, 133, 23);
+		chkcookware.setBounds(901, 231, 133, 23);
 		chkcookware.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(901, 272, 133, 23);
+		chkmatress.setBounds(901, 256, 133, 23);
 		chkmatress.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
@@ -137,7 +137,7 @@ public class HomePage extends JFrame {
 		JCheckBox chkextraperson = new JCheckBox("Extra Person");
 		chkextraperson.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkextraperson.setBackground(new Color(250, 245, 232));
-		chkextraperson.setBounds(901, 297, 133, 23);
+		chkextraperson.setBounds(901, 281, 133, 23);
 		contentPane.add(chkextraperson);
 		
 		JDateChooser checkin = new JDateChooser();
@@ -246,13 +246,13 @@ public class HomePage extends JFrame {
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblBalance.setBounds(798, 354, 66, 24);
+		lblBalance.setBounds(798, 338, 66, 24);
 		lblBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
 		txtBalance.setColumns(10);
-		txtBalance.setBounds(901, 354, 271, 24);
+		txtBalance.setBounds(901, 338, 271, 24);
 		txtBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -268,13 +268,13 @@ public class HomePage extends JFrame {
 		
 		JLabel lblAmountPaid = new JLabel("Deposit:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAmountPaid.setBounds(798, 385, 66, 24);
+		lblAmountPaid.setBounds(798, 369, 66, 24);
 		lblAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
 		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(901, 385, 271, 24);
+		txtAmountPaid.setBounds(901, 369, 271, 24);
 		txtAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtAmountPaid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -431,16 +431,16 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(901, 419, 271, 40);
+		btnAdd.setBounds(901, 403, 271, 40);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		comboBox.setBounds(901, 494, 271, 24);
+		comboBox.setBounds(901, 478, 271, 24);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(901, 528, 271, 24);
+		txtField.setBounds(901, 512, 271, 24);
 		txtField.setText("Search for?");
 		txtField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtField.setForeground(new Color(159, 159, 159));
@@ -575,13 +575,13 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(901, 567, 271, 40);
+		btnSearch.setBounds(901, 551, 271, 40);
 		contentPane.add(btnSearch);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_6.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(767, 494, 97, 24);
+		lblNewLabel_6.setBounds(767, 478, 97, 24);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -738,7 +738,7 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(901, 617, 271, 40);
+		btnUpdate.setBounds(901, 601, 271, 40);
 		contentPane.add(btnUpdate);
 		
 		JButton attach_img = new JButton("Attach Image");
@@ -783,7 +783,7 @@ public class HomePage extends JFrame {
 		JLabel lblAdditionals = new JLabel("Additionals:");
 		lblAdditionals.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAdditionals.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblAdditionals.setBounds(767, 222, 97, 24);
+		lblAdditionals.setBounds(767, 206, 97, 24);
 		contentPane.add(lblAdditionals);
 		
 		JPanel panel = new JPanel();
