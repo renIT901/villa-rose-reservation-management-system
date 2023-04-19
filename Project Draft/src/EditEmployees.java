@@ -73,6 +73,7 @@ public class EditEmployees extends JFrame {
 	ResultSet rs = null;
 	private JTextField salary;
 	private JTextField txtSched;
+	String emp_role;
 	
 	public EditEmployees(int emp_id) {
 		setResizable(false);
@@ -192,29 +193,40 @@ public class EditEmployees extends JFrame {
 							comboBox_1.setSelectedIndex(4);
 						}
 						sq_ans.setText(rs.getString(5));
-						role = rs.getString(5);
+						role = rs.getString("role");
 						if(role.equals("Admin")) {
 							rdbtnAdmin.setSelected(true);
 							rdbtnEmployee.setSelected(false);
 						}
-						else {rdbtnEmployee.setSelected(true); 
-						rdbtnAdmin.setSelected(false);
+						else if (role.equals("Employee")) {
+							rdbtnEmployee.setSelected(true); 
+							rdbtnAdmin.setSelected(false);
 						}
 						fname.setText(rs.getString(7));
 						lname.setText(rs.getString(8));
 						email.setText(rs.getString(9));
-						String checkin1 = rs.getString("date_started");
-						java.util.Date checkin2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkin1);
 						String checkout1 = rs.getString("birthday");
+						
+						if(checkout1 != null) {
 						java.util.Date checkout2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkout1);
-						dateStarted.setDate(checkin2);
 						dateBday.setDate(checkout2);
+						}
+						else {
+							dateBday.setDate(null);
+						}
+						String checkin1 = rs.getString("date_started");
+
+						if(checkin1 != null) {
+							java.util.Date checkin2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkin1);
+							dateStarted.setDate(checkin2);
+						} 
+						else {
+							dateStarted.setDate(null);
+						}
 						salary.setText(rs.getString("salary"));
 						txtSched.setText(rs.getString("schedule_of_duties"));
 						
 						
-						pst.close();
-						rs.close();
 					}else {
 						JOptionPane.showMessageDialog(null, "No Record Found!");
 					}
@@ -224,6 +236,8 @@ public class EditEmployees extends JFrame {
 				finally {
 					try {
 						conn.close();
+						pst.close();
+						rs.close();
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -423,10 +437,39 @@ public class EditEmployees extends JFrame {
 		
 		JButton btnNewButton_1_1 = new JButton("Delete Account");
 		btnNewButton_1_1.addActionListener(new ActionListener() {
+			private JFrame frame;
 			public void actionPerformed(ActionEvent e) {
+				frame = new JFrame();
+
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete employee record?")==JOptionPane.YES_NO_OPTION) {
+					
+				
+				try {
+				conn = sqliteConnection.dbConnector();
+				pst = conn.prepareStatement("SELECT role FROM Employee WHERE employee_id =" + "'"+employee_id+"'");
+				rs = pst.executeQuery();
+				if(rs.next()==true) {
+					emp_role=rs.getString("role");
+				}
+				
+				}
+				catch (Exception e1) {
+					System.out.println(e1);
+				}finally {
+					try {
+						rs.close();
+						pst.close();
+						conn.close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+				}
 				String sql = "DELETE FROM Employee where employee_id = " + employee_id;
 				try {
 					conn = sqliteConnection.dbConnector();
+					if(!emp_role.equals("Admin")) {
 					pst = conn.prepareStatement(sql);
 					pst.execute();
 					fname.setText("");
@@ -444,7 +487,9 @@ public class EditEmployees extends JFrame {
 					
 					updateTable();
 					JOptionPane.showMessageDialog(null, "Employee record deleted successfully");
-					updateTable();
+					} else {
+						JOptionPane.showMessageDialog(null, "Admin accounts can't be deleted.");
+					}
 				}catch(Exception e1) {
 					System.out.println(e1);
 					JOptionPane.showMessageDialog(null, "An error has been encountered.");
@@ -458,6 +503,10 @@ public class EditEmployees extends JFrame {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
+					
+				}
+				}
+				else {
 					
 				}
 			}
@@ -518,11 +567,19 @@ public class EditEmployees extends JFrame {
 		contentPane.add(panel);
 		
 		JLabel icon = new JLabel("");
-		icon.setIcon(new ImageIcon(EditEmployees.class.getResource("/img/villarose.png")));
+		icon.setIcon(new ImageIcon(EditEmployees.class.getResource("/villarose.png")));
 		icon.setBounds(37, 29, 125, 125);
 		panel.add(icon);
 		
 		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				HomePage hpage = new HomePage(emp_id);
+				hpage.setLocationRelativeTo(null);
+				hpage.show();
+			}
+		});
 		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transaction.setBorder(null);
 		btn_transaction.setBackground(new Color(225, 167, 48));
@@ -530,6 +587,14 @@ public class EditEmployees extends JFrame {
 		panel.add(btn_transaction);
 		
 		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ManageContent mpage = new ManageContent(emp_id);
+				mpage.setLocationRelativeTo(null);
+				mpage.show();
+			}
+		});
 		btn_managecontent.setSelected(true);
 		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_managecontent.setBorder(null);
@@ -538,6 +603,18 @@ public class EditEmployees extends JFrame {
 		panel.add(btn_managecontent);
 		
 		JButton btn_logout = new JButton("Logout");
+		btn_logout.addActionListener(new ActionListener() {
+			private JFrame frame;
+			public void actionPerformed(ActionEvent e) {
+				frame = new JFrame();
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?")==JOptionPane.YES_NO_OPTION) {
+					dispose();
+					Login lpage = new Login();
+					lpage.setLocationRelativeTo(null);
+					lpage.show();
+				}
+			}
+		});
 		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_logout.setBorder(null);
 		btn_logout.setBackground(new Color(225, 167, 48));
@@ -545,6 +622,14 @@ public class EditEmployees extends JFrame {
 		panel.add(btn_logout);
 		
 		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				transaction_table trtpage = new transaction_table(emp_id);
+				trtpage.setLocationRelativeTo(null);
+				trtpage.show();
+			}
+		});
 		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transactiontables.setBorder(null);
 		btn_transactiontables.setBackground(new Color(225, 167, 48));

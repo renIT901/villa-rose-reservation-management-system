@@ -62,6 +62,9 @@ public class HomePage extends JFrame {
 	String additionals = "";
 	String at;
 	String adts;
+	String status;
+	String st;
+	String trans_type;
 	private JCheckBox chkfamily;
 	private JCheckBox chkkubo;
 	private JCheckBox chkteepee;
@@ -70,11 +73,15 @@ public class HomePage extends JFrame {
 	private JCheckBox chkgasul;
 	private JCheckBox chkcookware;
 	private JCheckBox chkmatress;
+	private JCheckBox chkextraperson;
 	
 
 	
 	public HomePage(int emp_id) {
 		setResizable(false);
+		createMainDir();
+		createRepDir();
+		createBackUpDir();
 		setTitle("Villa Rose System");
 		conn = sqliteConnection.dbConnector();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -117,40 +124,56 @@ public class HomePage extends JFrame {
 		contentPane.add(chkpool);
 		
 		chkgasul = new JCheckBox("Gasul");
-		chkgasul.setBounds(901, 206, 97, 23);
+		chkgasul.setBounds(901, 179, 97, 23);
 		chkgasul.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkgasul.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkgasul);
 		
 		chkcookware = new JCheckBox("Cookware Set");
-		chkcookware.setBounds(901, 231, 133, 23);
+		chkcookware.setBounds(901, 204, 133, 23);
 		chkcookware.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkcookware.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkcookware);
 		
 		chkmatress = new JCheckBox("Extra Matress");
-		chkmatress.setBounds(901, 256, 133, 23);
+		chkmatress.setBounds(901, 229, 133, 23);
 		chkmatress.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkmatress.setBackground(new Color(250, 245, 232));
 		contentPane.add(chkmatress);
 		
-		JCheckBox chkextraperson = new JCheckBox("Extra Person");
+		chkextraperson = new JCheckBox("Extra Person");
 		chkextraperson.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		chkextraperson.setBackground(new Color(250, 245, 232));
-		chkextraperson.setBounds(901, 281, 133, 23);
+		chkextraperson.setBounds(901, 254, 133, 23);
 		contentPane.add(chkextraperson);
 		
+		String[] colum2 = {"Select Status","Pending","Fully paid","Cancelled"};
+		
+		JComboBox comboBoxStatus = new JComboBox(colum2);
+		comboBoxStatus.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBoxStatus.setBounds(901, 295, 282, 24);
+		contentPane.add(comboBoxStatus);
+		
 		JDateChooser checkin = new JDateChooser();
-		checkin.setBounds(347, 163, 271, 20);
+		checkin.setBounds(355, 168, 290, 20);
+		checkin.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(checkin);
 		
 		JDateChooser checkout = new JDateChooser();
-		checkout.setBounds(347, 191, 271, 20);
+		checkout.setBounds(355, 199, 290, 20);
+		checkout.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(checkout);
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBounds(265, 268, 410, 289);
 		contentPane.add(desktopPane);
+		
+		String[] colum1 = {"Select Transaction Type","Appointment","Walk-in"};
+		
+		JComboBox comboBoxType = new JComboBox(colum1);
+		comboBoxType.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		comboBoxType.setBounds(355, 230, 290, 24);
+		contentPane.add(comboBoxType);
 		
 		JLabel lblNewLabel = new JLabel("First Name:");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -159,7 +182,8 @@ public class HomePage extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		txtFname = new JTextField();
-		txtFname.setBounds(347, 44, 271, 20);
+		txtFname.setColumns(20);
+		txtFname.setBounds(355, 44, 290, 20);
 		txtFname.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtFname.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -170,18 +194,18 @@ public class HomePage extends JFrame {
 			}
 		});
 		contentPane.add(txtFname);
-		txtFname.setColumns(10);
+		
 		
 		JLabel lblNewLabel_1 = new JLabel("Last Name:");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(253, 68, 84, 24);
+		lblNewLabel_1.setBounds(253, 75, 84, 24);
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_1);
 		
 		txtLname = new JTextField();
-		txtLname.setColumns(10);
+		txtLname.setColumns(20);
 		txtLname.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		txtLname.setBounds(347, 72, 271, 20);
+		txtLname.setBounds(355, 75, 290, 20);
 		txtLname.addKeyListener(new java.awt.event.KeyAdapter() {
 			public void keyTyped(java.awt.event.KeyEvent evt) {
                 char c = evt.getKeyChar();
@@ -194,25 +218,25 @@ public class HomePage extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Email:");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2.setBounds(253, 96, 84, 24);
+		lblNewLabel_2.setBounds(253, 106, 84, 24);
 		lblNewLabel_2.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_2);
 		
 		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
-		txtEmail.setBounds(347, 98, 271, 20);
+		txtEmail.setColumns(30);
+		txtEmail.setBounds(355, 106, 290, 20);
 		txtEmail.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(txtEmail);
 		
 		JLabel lblNewLabel_3 = new JLabel("Contact No.:");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_3.setBounds(240, 127, 97, 24);
+		lblNewLabel_3.setBounds(240, 137, 97, 24);
 		lblNewLabel_3.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_3);
 		
 		txtContactNo = new JTextField();
-		txtContactNo.setColumns(11);
-		txtContactNo.setBounds(347, 129, 271, 20);
+		//txtContactNo.setColumns(11);
+		txtContactNo.setBounds(355, 137, 290, 20);
 		txtContactNo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtContactNo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -228,31 +252,31 @@ public class HomePage extends JFrame {
 		
 		JLabel lblNewLabel_4 = new JLabel("Check-In:");
 		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4.setBounds(240, 159, 97, 24);
+		lblNewLabel_4.setBounds(240, 168, 97, 24);
 		lblNewLabel_4.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Check-Out:");
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_5.setBounds(240, 187, 97, 24);
+		lblNewLabel_5.setBounds(240, 199, 97, 24);
 		lblNewLabel_5.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblNewLabel_5);
 		
 		JLabel lblRoomNo = new JLabel("Room:");
 		lblRoomNo.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblRoomNo.setBounds(798, 40, 66, 24);
+		lblRoomNo.setBounds(817, 40, 66, 24);
 		lblRoomNo.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblRoomNo);
 		
 		JLabel lblBalance = new JLabel("Balance:");
 		lblBalance.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblBalance.setBounds(798, 338, 66, 24);
+		lblBalance.setBounds(817, 343, 66, 24);
 		lblBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblBalance);
 		
 		txtBalance = new JTextField();
-		txtBalance.setColumns(10);
-		txtBalance.setBounds(901, 338, 271, 24);
+		txtBalance.setColumns(20);
+		txtBalance.setBounds(901, 343, 282, 24);
 		txtBalance.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtBalance.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -268,13 +292,13 @@ public class HomePage extends JFrame {
 		
 		JLabel lblAmountPaid = new JLabel("Deposit:");
 		lblAmountPaid.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblAmountPaid.setBounds(798, 369, 66, 24);
+		lblAmountPaid.setBounds(817, 374, 66, 24);
 		lblAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		contentPane.add(lblAmountPaid);
 		
 		txtAmountPaid = new JTextField();
-		txtAmountPaid.setColumns(10);
-		txtAmountPaid.setBounds(901, 369, 271, 24);
+		txtAmountPaid.setColumns(20);
+		txtAmountPaid.setBounds(901, 374, 282, 24);
 		txtAmountPaid.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtAmountPaid.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -289,7 +313,7 @@ public class HomePage extends JFrame {
 		contentPane.add(txtAmountPaid);
 		
 		JLabel image = new JLabel("");
-		image.setBounds(0, 0, 336, 206);
+		image.setBounds(0, 0, 410, 289);
 		desktopPane.add(image);
 		
 		
@@ -305,7 +329,7 @@ public class HomePage extends JFrame {
 					String lname = txtLname.getText();
 					String email = txtEmail.getText();
 					String contactNo = txtContactNo.getText();
-					int contact = Integer.parseInt(contactNo);
+					//int contact = Integer.parseInt(contactNo);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date1 = sdf.format(checkin.getDate());
 					String date2 = sdf.format(checkout.getDate());
@@ -314,7 +338,11 @@ public class HomePage extends JFrame {
 					int bal = Integer.parseInt(balance);
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
-
+					String reservation_type = comboBoxType.getSelectedItem().toString();
+				
+					String status = comboBoxStatus.getSelectedItem().toString();
+					
+					
 					if(chkfamily.isSelected()) {
 						accomodation_type = accomodation_type + " Family Room,";
 					}else
@@ -372,13 +400,21 @@ public class HomePage extends JFrame {
 					}else if(!chkfamily.isSelected() && !chkkubo.isSelected() && !chkteepee.isSelected() && !chkcabana.isSelected() && !chkpool.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Room type can't be unselected. Please select atleast one room.");
 					}else
-					
+						
+					if(status.equals("Select Status")) {
+						JOptionPane.showMessageDialog(null, "Please select status.");
+					}
+					else
+					if(reservation_type.equals("Select Transaction Type")) {
+						JOptionPane.showMessageDialog(null, "Please select transaction type.");
+					}
+					else
 					if(isValidEmail(email)) {
-						pst = conn.prepareStatement("INSERT INTO Testing (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof, room_additionals) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+						pst = conn.prepareStatement("INSERT INTO Transaction_Records (first_name, last_name, email, contact_no, check_in, check_out, room_description, balance, amount_paid, payment_proof, room_additionals, employee_id, status, reservation_type) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 						pst.setString(1,fname);
 						pst.setString(2,lname);
 						pst.setString(3,email);
-						pst.setInt(4,contact);
+						pst.setString(4,contactNo);
 						pst.setString(5,date1);
 						pst.setString(6,date2);
 						pst.setString(7,accomodation_type);
@@ -386,6 +422,9 @@ public class HomePage extends JFrame {
 						pst.setInt(9,amnt);
 						pst.setBytes(10, person_image);
 						pst.setString(11, additionals);
+						pst.setInt(12, emp_id);
+						pst.setString(13, status);
+						pst.setString(14, reservation_type);
 					} else {
 						JOptionPane.showMessageDialog(null, "Please enter a valid email address");
 					}
@@ -407,6 +446,8 @@ public class HomePage extends JFrame {
 						clearOption();
 						accomodation_type = "";
 						additionals = "";
+						comboBoxType.setSelectedIndex(0);
+						comboBoxStatus.setSelectedIndex(0);
 						rs.close();
 						pst.close();
 						conn.close();
@@ -431,21 +472,21 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnAdd.setBounds(901, 403, 271, 40);
+		btnAdd.setBounds(901, 408, 282, 40);
 		contentPane.add(btnAdd);
 		String[] colum = {"Select Field","transaction_id","first_name","last_name","email","contact_no","check_in","check_out"};
 		JComboBox comboBox = new JComboBox(colum);
 		comboBox.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		comboBox.setBounds(901, 478, 271, 24);
+		comboBox.setBounds(901, 478, 282, 24);
 		contentPane.add(comboBox);
 		
 		txtField = new JTextField();
-		txtField.setBounds(901, 512, 271, 24);
+		txtField.setBounds(901, 512, 282, 24);
 		txtField.setText("Search for?");
 		txtField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		txtField.setForeground(new Color(159, 159, 159));
 		contentPane.add(txtField);
-		txtField.setColumns(10);
+		txtField.setColumns(20);
 		txtField.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
@@ -477,10 +518,26 @@ public class HomePage extends JFrame {
 					//System.out.println(adts);
 					String field = comboBox.getSelectedItem().toString();
 					String txtfield = txtField.getText();
-					pst = conn.prepareStatement("SELECT * FROM Testing WHERE "+field+"='"+txtfield+"'");
+					pst = conn.prepareStatement("SELECT * FROM Transaction_Records WHERE "+field+"='"+txtfield+"'");
 					rs = pst.executeQuery();
 					
 					if(rs.next()==true) {
+						trans_type = rs.getString("reservation_type");
+						if(trans_type.equals("Appointment")) {
+							comboBoxType.setSelectedIndex(1);
+						} else if(trans_type.equals("Walk-in")) {
+							comboBoxType.setSelectedIndex(2);
+						}
+						st = rs.getString("status");
+						if(st.equals("Pending")) {
+							comboBoxStatus.setSelectedIndex(1);
+						}else if(st.equals("Fully paid")) {
+							comboBoxStatus.setSelectedIndex(2);
+						}else if(st.equals("Cancelled")) {
+							comboBoxStatus.setSelectedIndex(3);
+						}
+								
+						
 						transaction_id = rs.getString(1);
 						txtFname.setText(rs.getString(2));
 						txtLname.setText(rs.getString(3));
@@ -492,6 +549,10 @@ public class HomePage extends JFrame {
 						java.util.Date checkout2 = new SimpleDateFormat("yyyy-MM-dd").parse(checkout1);
 						checkin.setDate(checkin2);
 						checkout.setDate(checkout2);
+
+			
+						
+
 						
 						at = rs.getString(8);
 						if(at.contains("Family")) {
@@ -541,7 +602,7 @@ public class HomePage extends JFrame {
 						Image imgScale = img.getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
 						ImageIcon scaledIcon = new ImageIcon(imgScale);
 						image.setIcon(scaledIcon);
-
+						
 
 					}else {
 						JOptionPane.showMessageDialog(null, "No Record Found!");
@@ -558,6 +619,7 @@ public class HomePage extends JFrame {
 				}
 				catch (Exception e1) {
 					System.out.print(e1);
+					e1.printStackTrace();
 				}
 				finally {
 					try {
@@ -575,13 +637,13 @@ public class HomePage extends JFrame {
 				JOptionPane.showMessageDialog(null, "","Payment Proof",JOptionPane.INFORMATION_MESSAGE,format);
 			}
 		});
-		btnSearch.setBounds(901, 551, 271, 40);
+		btnSearch.setBounds(901, 551, 282, 40);
 		contentPane.add(btnSearch);
 		
 		JLabel lblNewLabel_6 = new JLabel("Select Field:");
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_6.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblNewLabel_6.setBounds(767, 478, 97, 24);
+		lblNewLabel_6.setBounds(786, 478, 97, 24);
 		contentPane.add(lblNewLabel_6);
 		
 		JButton btnUpdate = new JButton("Update");
@@ -596,7 +658,7 @@ public class HomePage extends JFrame {
 					String lname = txtLname.getText();
 					String email = txtEmail.getText();
 					String contactNo = txtContactNo.getText();
-					int contact = Integer.parseInt(contactNo);
+					//int contact = Integer.parseInt(contactNo);
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 					String date1 = sdf.format(checkin.getDate());
 					String date2 = sdf.format(checkout.getDate());
@@ -605,6 +667,9 @@ public class HomePage extends JFrame {
 					int bal = Integer.parseInt(balance);
 					String amount = txtAmountPaid.getText();
 					int amnt = Integer.parseInt(amount);
+					String reservation_type = comboBoxType.getSelectedItem().toString();
+					
+					String status = comboBoxStatus.getSelectedItem().toString();
 					
 					if(chkfamily.isSelected()) {
 						accomodation_type = accomodation_type + " Family Room,";
@@ -663,14 +728,23 @@ public class HomePage extends JFrame {
 					}else if(!chkfamily.isSelected() && !chkkubo.isSelected() && !chkteepee.isSelected() && !chkcabana.isSelected() && !chkpool.isSelected()) {
 						JOptionPane.showMessageDialog(null, "Room type can't be unselected. Please select atleast one room.");
 					}else
+						
+						if(status.equals("Select Status")) {
+							JOptionPane.showMessageDialog(null, "Please select status.");
+						}
+						else
+						if(reservation_type.equals("Select Transaction Type")) {
+							JOptionPane.showMessageDialog(null, "Please select transaction type.");
+						}
+						else
 					
 					if(isValidEmail(email)) {
 						if (person_image != null  && person_image.length > 0) {
-						pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,payment_proof=? WHERE transaction_id=?");
+						pst = conn.prepareStatement("UPDATE Transaction_Records SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,payment_proof=?,status=?,reservation_type=? WHERE transaction_id=?");
 						pst.setString(1,fname);
 						pst.setString(2,lname);
 						pst.setString(3,email);
-						pst.setInt(4,contact);
+						pst.setString(4,contactNo);
 						pst.setString(5,date1);
 						pst.setString(6,date2);
 						pst.setString(7,accomodation_type);
@@ -678,21 +752,25 @@ public class HomePage extends JFrame {
 						pst.setInt(9,bal);
 						pst.setInt(10,amnt);
 						pst.setBytes(11, person_image);
-						pst.setString(12, transaction_id);
+						pst.setString(12, status);
+						pst.setString(13, reservation_type);
+						pst.setString(14, transaction_id);
 						}
 						else {
-							pst = conn.prepareStatement("UPDATE Testing SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?WHERE transaction_id=?");
+							pst = conn.prepareStatement("UPDATE Transaction_Records SET first_name=?,last_name=?,email=?,contact_no=?,check_in=?,check_out=?,room_description=?,room_additionals=?,balance=?,amount_paid=?,status=?,reservation_type=? WHERE transaction_id=?");
 							pst.setString(1,fname);
 							pst.setString(2,lname);
 							pst.setString(3,email);
-							pst.setInt(4,contact);
+							pst.setString(4,contactNo);
 							pst.setString(5,date1);
 							pst.setString(6,date2);
 							pst.setString(7,accomodation_type);
 							pst.setString(8, additionals);
 							pst.setInt(9,bal);
 							pst.setInt(10,amnt);
-							pst.setString(11, transaction_id);
+							pst.setString(11, status);
+							pst.setString(12, reservation_type);
+							pst.setString(13, transaction_id);
 						}
 					}else {
 						JOptionPane.showMessageDialog(null, "Please enter a valid email address");
@@ -711,14 +789,18 @@ public class HomePage extends JFrame {
 						checkout.setDate(null);
 						image.setIcon(null);
 						path.setText("Path");
+						comboBoxType.setSelectedIndex(0);
 						clearOption();
 						updateTable();
 						additionals = "";
 						accomodation_type="";
+						comboBoxStatus.setSelectedIndex(0);
 					}
 
 				} catch(NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(null, "Please enter balance and amount paid.");
+					nfe.printStackTrace();
+					
 				}
 				
 				catch (Exception e1) {
@@ -738,7 +820,7 @@ public class HomePage extends JFrame {
 				
 			}
 		});
-		btnUpdate.setBounds(901, 601, 271, 40);
+		btnUpdate.setBounds(901, 601, 282, 40);
 		contentPane.add(btnUpdate);
 		
 		JButton attach_img = new JButton("Attach Image");
@@ -783,7 +865,7 @@ public class HomePage extends JFrame {
 		JLabel lblAdditionals = new JLabel("Additionals:");
 		lblAdditionals.setHorizontalAlignment(SwingConstants.TRAILING);
 		lblAdditionals.setFont(new Font("SansSerif", Font.PLAIN, 16));
-		lblAdditionals.setBounds(767, 206, 97, 24);
+		lblAdditionals.setBounds(786, 179, 97, 24);
 		contentPane.add(lblAdditionals);
 		
 		JPanel panel = new JPanel();
@@ -793,11 +875,15 @@ public class HomePage extends JFrame {
 		contentPane.add(panel);
 		
 		JLabel icon = new JLabel("");
-		icon.setIcon(new ImageIcon(HomePage.class.getResource("/img/villarose.png")));
+		icon.setIcon(new ImageIcon(HomePage.class.getResource("/villarose.png")));
 		icon.setBounds(37, 29, 125, 125);
 		panel.add(icon);
 		
 		JButton btn_transaction = new JButton("Transactions");
+		btn_transaction.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btn_transaction.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transaction.setBorder(null);
 		btn_transaction.setBackground(new Color(225, 167, 48));
@@ -805,6 +891,14 @@ public class HomePage extends JFrame {
 		panel.add(btn_transaction);
 		
 		JButton btn_managecontent = new JButton("Manage Content");
+		btn_managecontent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ManageContent mpage = new ManageContent(emp_id);
+				mpage.setLocationRelativeTo(null);
+				mpage.show();
+			}
+		});
 		btn_managecontent.setSelected(true);
 		btn_managecontent.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_managecontent.setBorder(null);
@@ -813,6 +907,20 @@ public class HomePage extends JFrame {
 		panel.add(btn_managecontent);
 		
 		JButton btn_logout = new JButton("Logout");
+		btn_logout.addActionListener(new ActionListener() {
+			private JFrame frame;
+			public void actionPerformed(ActionEvent e) {
+				frame = new JFrame();
+
+				if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to Logout?")==JOptionPane.YES_NO_OPTION) {
+					dispose();
+					Login lpage = new Login();
+					lpage.setLocationRelativeTo(null);
+					lpage.show();
+				}
+				
+			}
+		});
 		btn_logout.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_logout.setBorder(null);
 		btn_logout.setBackground(new Color(225, 167, 48));
@@ -820,13 +928,34 @@ public class HomePage extends JFrame {
 		panel.add(btn_logout);
 		
 		JButton btn_transactiontables = new JButton("Transaction Table");
+		btn_transactiontables.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				transaction_table trtpage = new transaction_table(emp_id);
+				trtpage.setLocationRelativeTo(null);
+				trtpage.show();
+			}
+		});
 		btn_transactiontables.setFont(new Font("SansSerif", Font.PLAIN, 20));
 		btn_transactiontables.setBorder(null);
 		btn_transactiontables.setBackground(new Color(225, 167, 48));
 		btn_transactiontables.setBounds(18, 242, 163, 40);
 		panel.add(btn_transactiontables);
 		
-
+		JLabel lblStatus = new JLabel("Status:");
+		lblStatus.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblStatus.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblStatus.setBounds(786, 295, 97, 24);
+		contentPane.add(lblStatus);
+		
+		
+		JLabel lblNewLabel_6_1 = new JLabel("Type:");
+		lblNewLabel_6_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_6_1.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		lblNewLabel_6_1.setBounds(240, 230, 97, 24);
+		contentPane.add(lblNewLabel_6_1);
+		
+		
 		
 		
 		updateTable();
@@ -835,7 +964,7 @@ public class HomePage extends JFrame {
 	}
 	private void updateTable() {
 		conn = sqliteConnection.dbConnector();
-		String sql = "SELECT * FROM Testing";
+		String sql = "SELECT * FROM Transaction_Records";
 		try {
 			pst = conn.prepareStatement(sql);
 			rs = pst.executeQuery();
@@ -873,6 +1002,37 @@ public class HomePage extends JFrame {
 		chkgasul.setSelected(false);
 		chkcookware.setSelected(false);
 		chkmatress.setSelected(false);
+		chkextraperson.setSelected(false);
+
 		
+	}
+	
+	private void createMainDir() {
+		File directory = new File("C:\\Villa Rose Resort");
+	    boolean success = directory.mkdir();
+	    if (success) {
+	      System.out.println("Directory created successfully.");
+	    } else {
+	      System.out.println("Error creating directory.");
+	    }
+	}
+	private void createRepDir() {
+		File directory = new File("C:\\Villa Rose Resort\\Centralized Folder");
+	    boolean success = directory.mkdir();
+	    if (success) {
+	      System.out.println("Directory created successfully.");
+	    } else {
+	      System.out.println("Error creating directory.");
+	    }
+	}
+	
+	private static void createBackUpDir() {
+		File directory = new File("C:\\Villa Rose Resort\\Back Up");
+	    boolean success = directory.mkdir();
+	    if (success) {
+	      System.out.println("Directory created successfully.");
+	    } else {
+	      System.out.println("Error creating directory.");
+	    }
 	}
 }

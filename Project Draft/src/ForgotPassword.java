@@ -150,10 +150,9 @@ public class ForgotPassword {
 				}			
 			}
 		});
-		txtUsername.setText("Email");
 		txtUsername.setColumns(10);
 		txtUsername.setBounds(243, 195, 300, 24);
-		txtUsername.setFont(new Font("Calibri Light", Font.PLAIN, 16));
+		
 		frame.getContentPane().add(txtUsername);
 		
 		JButton btnProceed = new JButton("Search");

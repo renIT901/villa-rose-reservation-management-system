@@ -298,9 +298,29 @@ public class Register extends JFrame {
 								pst.execute();
 								JOptionPane.showMessageDialog(null, "You have successfully registered.");
 								
-								pst.close();
-								conn.close();
+								rs.close();
+								JFrame frame;
+								frame = new JFrame();
+								if (JOptionPane.showConfirmDialog(frame, "Do you want to create another account?")==JOptionPane.YES_NO_OPTION) {
+									txtfname.setText("");
+									txtlname.setText("");
+									txtuname.setText("");
+									txtpword.setText("");
+									txtSqans.setText("");
+									shpword.setSelected(false);
+									bday.setDate(null);
+									bg.clearSelection();
+									txtAdminPass.setText("");
+									txtEmail.setText("");
+									comboBox.setSelectedIndex(0);
+								}else {
+									dispose();
+									Login lpage = new Login();
+									lpage.setLocationRelativeTo(null);
+									lpage.show();
+								}
 							}
+							
 							else {
 								JOptionPane.showMessageDialog(null, "Wrong admin password. Please try again.");
 							}
@@ -323,29 +343,9 @@ public class Register extends JFrame {
 					System.out.println(e);
 				}
 				finally {
-					JFrame frame;
-					frame = new JFrame();
-					if (JOptionPane.showConfirmDialog(frame, "Do you want to create another account?")==JOptionPane.YES_NO_OPTION) {
-						txtfname.setText("");
-						txtlname.setText("");
-						txtuname.setText("");
-						txtpword.setText("");
-						txtSqans.setText("");
-						shpword.setSelected(false);
-						bday.setDate(null);
-						bg.clearSelection();
-						txtAdminPass.setText("");
-						txtEmail.setText("");
-						comboBox.setSelectedIndex(0);
-					}else {
-						dispose();
-						Login lpage = new Login();
-						lpage.setLocationRelativeTo(null);
-						lpage.show();
-					}
 					
 					try {
-						rs.close();
+						
 						stm.close();
 						conn.close();
 					} catch (SQLException e) {

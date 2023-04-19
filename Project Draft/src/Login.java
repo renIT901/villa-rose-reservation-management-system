@@ -68,6 +68,7 @@ public class Login extends JFrame {
 	Image img1 = new ImageIcon(this.getClass().getResource("/1.png")).getImage();
 	Image img2 = new ImageIcon(this.getClass().getResource("/2.png")).getImage();
 	Image img3 = new ImageIcon(this.getClass().getResource("/3.png")).getImage();
+	Image img4 = new ImageIcon(this.getClass().getResource("/villarose.png")).getImage();
 	
 	public Login() {
 		setResizable(false);
@@ -114,7 +115,7 @@ public class Login extends JFrame {
 					String ans = captcha_ans.getText();
 					
 					Statement stm = conn.createStatement();
-					String sql = "select * from Employee where uname='"+uname+"' and pword='"+pword+"'";
+					String sql = "SELECT * from Employee where uname='"+uname+"' and pword='"+pword+"'";
 					ResultSet rs = stm.executeQuery(sql);
 					if(rs.next()) {
 						int userid = rs.getInt("employee_id");
@@ -133,8 +134,6 @@ public class Login extends JFrame {
 						txtuname.setText("");
 						txtpword.setText("");
 					}
-
-				
 					conn.close();
 					
 				}catch(Exception e) {
@@ -147,7 +146,7 @@ public class Login extends JFrame {
 		
 		JLabel password_icon = new JLabel("");
 		password_icon.setBounds(235, 265, 20, 20);
-		password_icon.setIcon(new ImageIcon(Login.class.getResource("/img/2.png")));
+		password_icon.setIcon(new ImageIcon(img2));
 		contentPane.add(password_icon);
 		
 		txtpword = new JPasswordField();
@@ -223,12 +222,12 @@ public class Login extends JFrame {
 		
 		JLabel name_icon = new JLabel();
 		name_icon.setBounds(330, 28, 125, 125);
-		name_icon.setIcon(new ImageIcon(Login.class.getResource("/img/villarose.png")));
+		name_icon.setIcon(new ImageIcon(img4));
 		contentPane.add(name_icon);
 		
 		JLabel uname_icon = new JLabel();
 		uname_icon.setBounds(235, 235, 20, 20);
-		uname_icon.setIcon(new ImageIcon(Login.class.getResource("/img/3.png")));
+		uname_icon.setIcon(new ImageIcon(img3));
 		contentPane.add(uname_icon);
 		
 		

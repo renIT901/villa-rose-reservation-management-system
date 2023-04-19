@@ -6,7 +6,7 @@ public class sqliteConnection {
 		Connection conn = null;
 		try {
 			Class.forName("org.sqlite.JDBC");
-			conn = DriverManager.getConnection("jdbc:sqlite:project_db.db");
+			conn = DriverManager.getConnection("jdbc:sqlite:VillaRoseDB.db");
 			//JOptionPane.showMessageDialog(null, "Connection Successful");
 			return conn;
 		} catch(Exception e) {
