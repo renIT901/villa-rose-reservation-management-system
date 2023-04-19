@@ -314,7 +314,7 @@ public class ManageContent extends JFrame {
 				//chooser.showOpenDialog(null);
 				//File f = chooser.getSelectedFile();
 				//filename = f.getAbsolutePath();
-				if(result == JFileChooser.APPROVE_OPTION) {
+				if(result == JFileChooser.APPROVE_OPTION){
 					if (directory.isDirectory()) {
 					 File selectedFolder = chooser.getSelectedFile();
 					 exportfolder = selectedFolder.getAbsolutePath();
@@ -379,34 +379,12 @@ public class ManageContent extends JFrame {
 			            JOptionPane.showMessageDialog(null, "File IO error:");
 			        }
 				} 
-				}else if (gen_table.equals("Employee")) {
-					try {
-						conn = sqliteConnection.dbConnector();
-						pst = conn.prepareStatement("SELECT role FROM Employee WHERE employee_id =" + "'"+emp_id+"'");
-						rs = pst.executeQuery();
-						if(rs.next()==true) {
-							emp_role=rs.getString("role");
-						}
-						
-						}
-						catch (Exception e1) {
-							System.out.println(e1);
-						}finally {
-							try {
-								rs.close();
-								pst.close();
-								conn.close();
-							} catch (SQLException e1) {
-								// TODO Auto-generated catch block
-								e1.printStackTrace();
-							}
-							
-						}
-						if(emp_role.equals("Admin")) {
+				else if (gen_table.equals("Employee") && emp_role.equals("Admin")) {
+					System.out.print(emp_role);
 							try {
 								conn = sqliteConnection.dbConnector();
 					        	String csvFilePath = filename + ".csv";
-								String sql= "Select * from " + gen_table;
+								String sql= "Select * from Employee";
 								pst= conn.prepareStatement(sql);
 								rs = pst.executeQuery();
 					             
@@ -447,11 +425,10 @@ public class ManageContent extends JFrame {
 					            System.out.println("File IO error:");
 					            JOptionPane.showMessageDialog(null, "File IO error:");
 					        }
-						}
-						else {
-							JOptionPane.showMessageDialog(null, "Current account does not have administritive rights to access Employee Accounts.");
-						}
 					
+				}else {
+					JOptionPane.showMessageDialog(null, "Current account does not have administritive rights to access Employee Accounts.");
+				}
 				}
 			}
 		});
