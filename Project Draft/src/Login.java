@@ -223,7 +223,7 @@ public class Login extends JFrame {
 		
 		JLabel name_icon = new JLabel();
 		name_icon.setBounds(303, 28, 150, 150);
-		name_icon.setIcon(new ImageIcon(Login.class.getResource("/img/vrrlogo.png")));
+		name_icon.setIcon(new ImageIcon(Login.class.getResource("/img/villarose.png")));
 		contentPane.add(name_icon);
 		
 		JLabel uname_icon = new JLabel();
