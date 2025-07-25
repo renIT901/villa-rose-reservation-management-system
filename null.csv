@@ -1,0 +1,4 @@
+employee_id,uname,sQuestion,sq_ans,role,fname,lname,email,birthday,date_started,salary,schedule of duties
+"1",Admin,In what city were you born?,Admin,Admin,Admin,Admin,admin@gmail.com,null,null,null,null
+"4",qwe,In what city were you born?,Antipolo,Employee,qwe,qwe,qwe@gmail.com,2023-03-01,2023-03-03,,
+"5",jrmg,What is the name of your favorite pet?,Yejin,Employee,Ren,Garcia,garciajohnreinier@gmail.com,2001-03-30,null,null,null
